@@ -1,11 +1,4 @@
-# Toapi
-
-Toapi is a tool for making api from a web site.
-
-## Usage
-
-```python
-from toapi import Css, XPath, Regex, Item, Api
+from .toapi import Css, XPath, Regex, Item, Api
 
 api = Api('https://news.ycombinator.com/')
 
@@ -42,5 +35,3 @@ api.route('/user?id=/\.+/', User)
 
 print(api.parse('/'))
 print(api.parse('/user?id=gaojiuli'))
-
-```
