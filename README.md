@@ -1,46 +1,40 @@
 # Toapi
 
-Toapi is a tool for making api from a web site.
+Make existing web sites available with APIs.
+
+## Feature
+
+- Convert static html to api.
+- Easy to use.
 
 ## Usage
 
 ```python
-from toapi import Css, XPath, Regex, Item, Api
+from pprint import pprint
+
+from toapi import XPath, Item, Api
 
 api = Api('https://news.ycombinator.com/')
 
-
 class Post(Item):
-    title = Css()
-    url = XPath()
-    author = Regex()
+    url = XPath('//a[@class="storylink"][1]/@href')
+    title = XPath('//a[@class="storylink"][1]/text()')
 
     class Meta:
-        source = Css()
-        list = True
+        source = XPath('//tr[@class="athing"]')
+        route = '/'
 
+api.register(Post)
 
-class Comment(Item):
-    title = Css()
-
-    class Meta:
-        source = Css()
-        list = True
-
-
-class User(Item):
-    username = Css()
-    karma = XPath()
-
-    class Meta:
-        source = XPath()
-        list = True
-
-
-api.route('/', [Post, Comment])
-api.route('/user?id=/\.+/', User)
-
-print(api.parse('/'))
-print(api.parse('/user?id=gaojiuli'))
+pprint(api.parse('/'))
 
 ```
+
+## Contribute
+
+Open issue.
+Pull Request.
+
+## License
+
+Apache-2.0
