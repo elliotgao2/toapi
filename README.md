@@ -5,7 +5,8 @@
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-Make existing web sites available with APIs.
+Make existing web sites available with APIs. You can have your own APIs of your web.
+You can create your owen APIs from other's web. And Then, you can do something interesting with those APIs.
 
 ## Feature
 
