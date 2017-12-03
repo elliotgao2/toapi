@@ -15,9 +15,9 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
-        'selenium',
         'lxml',
-        'requests'
+        'requests',
+        'flask'
     ],
     license='Apache',
     packages=find_packages(),

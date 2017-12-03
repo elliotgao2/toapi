@@ -1,2 +1,2 @@
-selenium
 lxml
+flask
