@@ -14,7 +14,8 @@ Make existing web sites available with APIs.
 
 ## Installaton
 
-`pip install toapi
+- `pip install toapi`
+- `pip install git+https://github.com/gaojiuli/toapi/`
 
 ## Usage
 
