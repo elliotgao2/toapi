@@ -42,7 +42,7 @@ pprint(api.parse('/'))
 api.serve()
 ```
 
-Then, Your get your api server. Powered by flask.
+Then, You get your api server. Powered by flask.
 
 ## Contribute
 
