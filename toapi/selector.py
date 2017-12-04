@@ -32,8 +32,7 @@ class Css(Selector):
         value = d.cssselect(self.rule)
         if self.attr:
             # TODO
-            if self.attr:
-                value = value[0].get(self.attr).strip() if len(value) == 1 else value
+            value = value[0].get(self.attr).strip() if len(value) == 1 else value
         else:
             if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
                 text = ''
