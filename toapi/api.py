@@ -12,7 +12,9 @@ class Api:
         self.with_ajax = with_ajax
         self.items = []
         if with_ajax:
-            self._browser = webdriver.PhantomJS()
+            options = []
+            options.append('--load-images=false')
+            self._browser = webdriver.PhantomJS(service_args=options)
 
     def parse(self, url, params=None, **kwargs):
         """Parse items from a url"""
