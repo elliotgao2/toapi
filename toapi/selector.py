@@ -21,7 +21,7 @@ class Selector:
 class Css(Selector):
     """Css selector"""
 
-    def __init__(self, rule, attr):
+    def __init__(self, rule, attr=None):
         super().__init__(rule)
         self.attr = attr
 
@@ -29,7 +29,19 @@ class Css(Selector):
         if isinstance(html, etree._Element):
             html = etree.tostring(html)
         d = etree.HTML(html)
-        return d.cssselect(self.rule)
+        value = d.cssselect(self.rule)
+        if self.attr:
+            # TODO
+            value = value[0].get(self.attr).strip() if len(value) == 1 else value
+        else:
+            if len(value) == 1:
+                text = ''
+                for node in value[0].itertext():
+                    text += node.strip()
+                value = text
+            else:
+                value = ''.join([i.text.strip() for i in value])
+        return value
 
 
 class XPath(Selector):

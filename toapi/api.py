@@ -14,14 +14,15 @@ class Api:
         if with_ajax:
             self._browser = webdriver.PhantomJS()
 
-    def parse(self, url):
+    def parse(self, url, params=None, **kwargs):
         """Parse items from a url"""
         items = []
         for index, item in enumerate(self.items):
+            print(url)
             if re.match(item['regex'], url):
                 items.append(item['item'])
         if len(items) > 0:
-            html = self._fetch_page_source(self.base_url + url)
+            html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
             return self._parse_items(html, *items)
         else:
             return None
@@ -33,8 +34,8 @@ class Api:
             'item': item
         })
 
-    def serve(self, ip='0.0.0.0', post='5000'):
-        """Serve as an api server powered by flask"""
+    def serve(self, ip='0.0.0.0', post='5000', debug=None, **options):
+        """Todo: Serve as an api server powered by flask"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
 
@@ -45,14 +46,15 @@ class Api:
             except Exception as e:
                 return str(e)
 
-        app.run(ip, post)
+        app.run(ip, post, debug=debug, **options)
 
-    def _fetch_page_source(self, url):
+    def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
+
         if self.with_ajax:
             self._browser.get(url)
             return self._browser.page_source
-        return requests.get(url).text
+        return requests.get(url, params=params, **kwargs).text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
