@@ -28,7 +28,7 @@ class Item(metaclass=ItemType):
                 try:
                     item[name] = cls.selectors[name].parse(section)[0]
                 except IndexError:
-                    item[name] = None
+                    item[name] = ''
             results.append(item)
         return results
 
