@@ -35,7 +35,7 @@ class Api:
             'item': item
         })
 
-    def serve(self, ip='0.0.0.0', post='5000', debug=None, **options):
+    def serve(self, ip='0.0.0.0', port='5000', debug=None, **options):
         """Todo: Serve as an api server powered by flask"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
@@ -47,7 +47,7 @@ class Api:
             except Exception as e:
                 return str(e)
 
-        app.run(ip, post, debug=debug, **options)
+        app.run(ip, port, debug=debug, **options)
 
     def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""

@@ -66,9 +66,10 @@ api.register(Post)
 
 print(api.parse('/'))
 
-api.serve()
+api.serve(ip='0.0.0.0',port='5000')
 ```
 
+Visit: http://127.0.0.1:5000/
 
 Then, You get your api server. Powered by flask.
 
