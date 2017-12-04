@@ -34,12 +34,12 @@ class Api:
         })
 
     def serve(self, ip='0.0.0.0', post='5000'):
-        """Todo: Serve as an api server powered by flask"""
+        """Serve as an api server powered by flask"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
 
-        @app.route('/*')
-        def index():
+        @app.errorhandler(404)
+        def page_not_found(error):
             try:
                 return jsonify(self.parse(request.path))
             except Exception as e:
