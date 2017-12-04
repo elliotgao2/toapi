@@ -21,7 +21,7 @@ A library letting any web site provide APIs.
 
 ## Usage
 
-### Static Site:
+### Static site:
 
 ```python
 from toapi import XPath, Item, Api
@@ -43,7 +43,7 @@ print(api.parse('/'))
 api.serve()
 ```
 
-### Site with Ajax:
+### Site with ajax:
 
 - `Phantomjs` is required. Run `phantomjs -v` to check.
 - If you use Ubuntu. Run `sudo apt install phantomjs` to install.
