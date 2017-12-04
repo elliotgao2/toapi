@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="toapi",
-    version="0.1.2",
+    version="0.1.3",
     description="Make existing web sites available with APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
@@ -16,6 +16,7 @@ setup(
     ],
     install_requires=[
         'lxml',
+        'selenium',
         'requests',
         'flask'
     ],

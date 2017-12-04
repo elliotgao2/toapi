@@ -1,14 +1,18 @@
 import re
 
 import requests
+from selenium import webdriver
 
 
 class Api:
     """Api handle the routes dispatch"""
 
-    def __init__(self, base_url, *args, **kwargs):
+    def __init__(self, base_url, with_ajax=False, *args, **kwargs):
         self.base_url = base_url
+        self.with_ajax = with_ajax
         self.items = []
+        if with_ajax:
+            self._browser = webdriver.PhantomJS()
 
     def parse(self, url):
         """Parse items from a url"""
@@ -45,6 +49,9 @@ class Api:
 
     def _fetch_page_source(self, url):
         """Fetch the html of given url"""
+        if self.with_ajax:
+            self._browser.get(url)
+            return self._browser.page_source
         return requests.get(url).text
 
     def _parse_item(self, html, item):
