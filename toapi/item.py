@@ -26,8 +26,11 @@ class Item(metaclass=ItemType):
             item = {}
             for name in cls.selectors:
                 try:
-                    item[name] = cls.selectors[name].parse(section)[0]
+                    item[name] = cls.selectors[name].parse(section)
                 except IndexError:
+                    item[name] = ''
+                except Exception:
+                    # TODO
                     item[name] = ''
             results.append(item)
         return results
