@@ -18,7 +18,6 @@ class Api:
         """Parse items from a url"""
         items = []
         for index, item in enumerate(self.items):
-            print(url)
             if re.match(item['regex'], url):
                 items.append(item['item'])
         if len(items) > 0:
