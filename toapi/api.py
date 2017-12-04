@@ -38,7 +38,7 @@ class Api:
         from flask import Flask, jsonify, request
         app = Flask(__name__)
 
-        @app.route("/*")
+        @app.route('/*')
         def index():
             try:
                 return jsonify(self.parse(request.path))
