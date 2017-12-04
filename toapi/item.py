@@ -32,6 +32,7 @@ class Item(metaclass=ItemType):
                 except Exception:
                     # TODO
                     item[name] = ''
+
             results.append(item)
         return results
 
