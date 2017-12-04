@@ -5,13 +5,14 @@
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-Make existing web sites available with APIs. You can have your own APIs of your web.
-You can create your owen APIs from other's web. And Then, you can do something interesting with those APIs.
+A library letting any web site provide APIs.
 
 ## Feature
 
-- Convert static html to api.
-- Easy to use.
+- Converting static html to api.
+- Serving as an api server.
+- Supporting both XPath selector and Regex.
+- Supporting custom request header.
 
 ## Installaton
 
