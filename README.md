@@ -6,13 +6,9 @@
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
 A library letting any web site provide APIs.
-
-## Feature
-
-- Converting static html to api.
-- Serving as an api server.
-- Supporting both XPath selector and Regex.
-- Supporting custom request header.
+In the past, we crawl data and storage them and create api service to share them maybe we should also update them regularly.
+This library make things easy.
+The only thing you should do is defining your data, they would be shared as api service automatically.
 
 ## Installaton
 
@@ -43,6 +39,13 @@ print(api.parse('/'))
 api.serve()
 ```
 
+> Visit http://127.0.0.1:5000/, you will see a list of post.
+
+- Item.Meta.route: A regex statement. Define the path of your api service. Which means when the request path match the route regex statement, the Item would be parsed. Most of the time, the route is the same as ths path of source site.
+- Item.Meta.source: The section part of html that contains a single item.
+- api.serve(): Run a server, provide api service.
+- api.parse(): Parse a path. If the path is not defined in Item.Meta.route, this method returns nothing.
+
 ### Site with ajax:
 
 - `Phantomjs` is required. Run `phantomjs -v` to check.
@@ -52,7 +55,7 @@ api.serve()
 ```python
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/', with_ajax=True) # This meas use selenium to load the page source.
+api = Api('https://news.ycombinator.com/', with_ajax=True) # This means use selenium to load the page source.
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
