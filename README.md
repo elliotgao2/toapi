@@ -55,7 +55,8 @@ api.serve()
 ```python
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/', with_ajax=True) # Use selenium to load the page source.
+api = Api('https://news.ycombinator.com/', with_ajax=True)
+
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
@@ -63,18 +64,46 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = '/news\?p=\d+'
+
+
+class Page(Item):
+    next_page = XPath('//a[@class="morelink"]/@href')
+
+    class Meta:
+        source = None
+        route = '/news\?p=\d+'
+
 
 api.register(Post)
+api.register(Page)
 
-print(api.parse('/'))
+api.serve()
 
-api.serve(ip='0.0.0.0',port='5000')
+# Visit http://127.0.0.1:5000/news?p=1
+
+"""
+{
+  "page": {
+    "next_page": "news?p=2"
+  },
+  "post": [
+    {
+      "title": "IPvlan overlay-free Kubernetes Networking in AWS", 
+      "url": "https://eng.lyft.com/announcing-cni-ipvlan-vpc-k8s-ipvlan-overlay-free-kubernetes-networking-in-aws-95191201476e"
+    }, 
+    {
+      "title": "Apple is sharing your facial wireframe with apps", 
+      "url": "https://www.washingtonpost.com/news/the-switch/wp/2017/11/30/apple-is-sharing-your-face-with-apps-thats-a-new-privacy-worry/"
+    }, 
+    {
+      "title": "Motel Living and Slowly Dying", 
+      "url": "https://lareviewofbooks.org/article/motel-living-and-slowly-dying/#!"
+    }
+  ]
+}
+"""
 ```
-
-Visit: http://127.0.0.1:5000/
-
-Then, You get your api server. Powered by flask.
 
 ## Contribute
 

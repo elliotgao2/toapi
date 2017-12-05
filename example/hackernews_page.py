@@ -1,6 +1,6 @@
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/')
+api = Api('https://news.ycombinator.com/', with_ajax=True)
 
 
 class Post(Item):
@@ -29,6 +29,9 @@ api.serve()
 
 """
 {
+  "page": {
+    "next_page": "news?p=2"
+  },
   "post": [
     {
       "title": "IPvlan overlay-free Kubernetes Networking in AWS", 
