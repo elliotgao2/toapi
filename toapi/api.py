@@ -9,6 +9,9 @@ except ImportError:
     from urlparse import urlparse
 
 
+session = requests.session()
+
+
 class Api:
     """Api handle the routes dispatch"""
 
@@ -40,6 +43,13 @@ class Api:
             'item': item
         })
 
+    def login(self, login_url, data=None):
+        """For login situation"""
+        if self.with_ajax:
+            self._browser.get(login_url)
+            return self._browser
+        session.post(login_url, data=data)
+
     def serve(self, ip='0.0.0.0', port='5000', debug=None, **options):
         """Todo: Serve as an api server powered by flask"""
         from flask import Flask, jsonify, request
@@ -68,7 +78,7 @@ class Api:
         if self.with_ajax:
             self._browser.get(url)
             return self._browser.page_source
-        return requests.get(url, params=params, **kwargs).text
+        return session.get(url, params=params, **kwargs).text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
