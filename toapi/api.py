@@ -43,7 +43,8 @@ class Api:
         @app.errorhandler(404)
         def page_not_found(error):
             try:
-                return jsonify(self.parse(request.path))
+                params_data = request.args.to_dict()
+                return jsonify(self.parse(request.path, params=params_data))
             except Exception as e:
                 return str(e)
 
