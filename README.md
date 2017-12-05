@@ -104,7 +104,7 @@ api.serve()
 """
 {
   "page": {
-    "next_page": "news?p=2"
+    "next_page": "http://127.0.0.1:5000/news?p=2"
   },
   "post": [
     {
