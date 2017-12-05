@@ -2,4 +2,5 @@ lxml
 flask
 selenium
 requests
+cchardet
 cssselect

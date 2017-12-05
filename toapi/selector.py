@@ -2,6 +2,11 @@ import re
 
 from lxml import etree
 
+try:
+    bool(type(str))
+except NameError:
+    str = unicode
+
 
 class Selector(object):
     def __init__(self, rule):
@@ -39,8 +44,6 @@ class Css(Selector):
                 for node in value[0].itertext():
                     text += node.strip()
                 value = text
-            else:
-                value = ''.join([i.text.strip() for i in value])
         return value
 
 
@@ -52,13 +55,14 @@ class XPath(Selector):
             html = etree.tostring(html)
         d = etree.HTML(html)
         value = d.xpath(self.rule)
-        if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
-            text = ''
-            for node in value[0].itertext():
-                text += node.strip()
-            value = text
-        elif isinstance(value, list) and len(value) == 1 and isinstance(value[0], str):
-            value = ''.join(value)
+        if isinstance(value, list) and len(value) == 1:
+            if isinstance(value[0], etree._Element):
+                text = ''
+                for node in value[0].itertext():
+                    text += node.strip()
+                value = text
+            if isinstance(value[0], str) or isinstance(value[0], etree._ElementUnicodeResult):
+                value = ''.join(value)
         return value
 
 
