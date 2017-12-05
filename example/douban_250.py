@@ -37,3 +37,21 @@ if __name__ == '__main__':
     # http://127.0.0.1:5000/?start=25
     # http://127.0.0.1:5000/?start=50
     # ...
+"""
+{
+    "post": [
+        {
+            "title": "肖申克的救赎/The Shawshank Redemption",
+            "url": "https://movie.douban.com/subject/1292052/"
+        },
+        {
+            "title": "霸王别姬",
+            "url": "https://movie.douban.com/subject/1291546/"
+        },
+        {
+            "title": "这个杀手不太冷/Léon",
+            "url": "https://movie.douban.com/subject/1295644/"
+        }
+    ]
+}
+"""
