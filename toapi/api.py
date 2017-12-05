@@ -2,6 +2,7 @@ import re
 
 import requests
 from selenium import webdriver
+from urllib.parse import urlencode
 
 
 class Api:
@@ -43,7 +44,8 @@ class Api:
         @app.errorhandler(404)
         def page_not_found(error):
             try:
-                return jsonify(self.parse(request.path))
+                params_data = request.args.to_dict()
+                return jsonify(self.parse(request.path, params=params_data))
             except Exception as e:
                 return str(e)
 
@@ -53,6 +55,8 @@ class Api:
         """Fetch the html of given url"""
 
         if self.with_ajax:
+            params = urlencode(params)
+            url = "{}?{}".format(url, params)
             self._browser.get(url)
             return self._browser.page_source
         return requests.get(url, params=params, **kwargs).text
