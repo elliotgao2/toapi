@@ -5,13 +5,10 @@
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-Make existing web sites available with APIs. You can have your own APIs of your web.
-You can create your owen APIs from other's web. And Then, you can do something interesting with those APIs.
-
-## Feature
-
-- Convert static html to api.
-- Easy to use.
+A library letting any web site provide APIs.
+In the past, we crawl data and storage them and create api service to share them maybe we should also update them regularly.
+This library make things easy.
+The only thing you should do is defining your data, they would be shared as api service automatically.
 
 ## Installaton
 
@@ -20,12 +17,13 @@ You can create your owen APIs from other's web. And Then, you can do something i
 
 ## Usage
 
-### Static Site:
+### Static site:
 
 ```python
 from toapi import XPath, Item, Api
 
 api = Api('https://news.ycombinator.com/')
+
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
@@ -35,14 +33,39 @@ class Post(Item):
         source = XPath('//tr[@class="athing"]')
         route = '/'
 
+
 api.register(Post)
 
-print(api.parse('/'))
-
 api.serve()
+
+# Visit http://127.0.0.1:5000/
+
+"""
+{
+  "post": [
+    {
+      "title": "IPvlan overlay-free Kubernetes Networking in AWS", 
+      "url": "https://eng.lyft.com/announcing-cni-ipvlan-vpc-k8s-ipvlan-overlay-free-kubernetes-networking-in-aws-95191201476e"
+    }, 
+    {
+      "title": "Apple is sharing your facial wireframe with apps", 
+      "url": "https://www.washingtonpost.com/news/the-switch/wp/2017/11/30/apple-is-sharing-your-face-with-apps-thats-a-new-privacy-worry/"
+    }, 
+    {
+      "title": "Motel Living and Slowly Dying", 
+      "url": "https://lareviewofbooks.org/article/motel-living-and-slowly-dying/#!"
+    }
+  ]
+}
+"""
 ```
 
-### Site with Ajax:
+- Item.Meta.route: A regex statement. Define the path of your api service. Which means when the request path match the route regex statement, the Item would be parsed. Most of the time, the route is the same as ths path of source site.
+- Item.Meta.source: The section part of html that contains a single item.
+- api.serve(): Run a server, provide api service.
+- api.parse(): Parse a path. If the path is not defined in Item.Meta.route, this method returns nothing.
+
+### Site with ajax:
 
 - `Phantomjs` is required. Run `phantomjs -v` to check.
 - If you use Ubuntu. Run `sudo apt install phantomjs` to install.
@@ -51,7 +74,8 @@ api.serve()
 ```python
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/', with_ajax=True) # This meas use selenium to load the page source.
+api = Api('https://news.ycombinator.com/', with_ajax=True)
+
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
@@ -59,17 +83,46 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = '/news\?p=\d+'
+
+
+class Page(Item):
+    next_page = XPath('//a[@class="morelink"]/@href')
+
+    class Meta:
+        source = None
+        route = '/news\?p=\d+'
+
 
 api.register(Post)
-
-print(api.parse('/'))
+api.register(Page)
 
 api.serve()
+
+# Visit http://127.0.0.1:5000/news?p=1
+
+"""
+{
+  "page": {
+    "next_page": "news?p=2"
+  },
+  "post": [
+    {
+      "title": "IPvlan overlay-free Kubernetes Networking in AWS", 
+      "url": "https://eng.lyft.com/announcing-cni-ipvlan-vpc-k8s-ipvlan-overlay-free-kubernetes-networking-in-aws-95191201476e"
+    }, 
+    {
+      "title": "Apple is sharing your facial wireframe with apps", 
+      "url": "https://www.washingtonpost.com/news/the-switch/wp/2017/11/30/apple-is-sharing-your-face-with-apps-thats-a-new-privacy-worry/"
+    }, 
+    {
+      "title": "Motel Living and Slowly Dying", 
+      "url": "https://lareviewofbooks.org/article/motel-living-and-slowly-dying/#!"
+    }
+  ]
+}
+"""
 ```
-
-
-Then, You get your api server. Powered by flask.
 
 ## Contribute
 

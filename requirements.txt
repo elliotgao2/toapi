@@ -1,2 +1,5 @@
 lxml
 flask
+selenium
+requests
+cssselect

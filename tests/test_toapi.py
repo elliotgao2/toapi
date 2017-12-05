@@ -27,8 +27,13 @@ def test_api_with_ajax():
 
         class Meta:
             source = XPath('//tr[@class="athing"]')
-            route = '/'
+            route = '/news\?p=\d+'
 
-    api.register(Post)
+    class Page(Item):
+        next_page = XPath('//a[@class="morelink"]/@href')
 
-    print(api.parse('/'))
+        class Meta:
+            source = None
+            route = '/news\?p=\d+'
+
+    api.parse('/news?p=1')

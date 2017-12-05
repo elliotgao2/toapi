@@ -3,7 +3,7 @@ import re
 from lxml import etree
 
 
-class Selector:
+class Selector(object):
     def __init__(self, rule):
         self.rule = rule
 
@@ -21,15 +21,27 @@ class Selector:
 class Css(Selector):
     """Css selector"""
 
-    def __init__(self, rule, attr):
-        super().__init__(rule)
+    def __init__(self, rule, attr=None):
+        super(Css, self).__init__(rule)
         self.attr = attr
 
     def parse(self, html):
         if isinstance(html, etree._Element):
             html = etree.tostring(html)
         d = etree.HTML(html)
-        return d.cssselect(self.rule)
+        value = d.cssselect(self.rule)
+        if self.attr:
+            # TODO
+            value = value[0].get(self.attr).strip() if len(value) == 1 else value
+        else:
+            if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
+                text = ''
+                for node in value[0].itertext():
+                    text += node.strip()
+                value = text
+            else:
+                value = ''.join([i.text.strip() for i in value])
+        return value
 
 
 class XPath(Selector):
@@ -39,7 +51,15 @@ class XPath(Selector):
         if isinstance(html, etree._Element):
             html = etree.tostring(html)
         d = etree.HTML(html)
-        return d.xpath(self.rule)
+        value = d.xpath(self.rule)
+        if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
+            text = ''
+            for node in value[0].itertext():
+                text += node.strip()
+            value = text
+        elif isinstance(value, list) and len(value) == 1 and isinstance(value[0], str):
+            value = ''.join(value)
+        return value
 
 
 class Regex(Selector):
