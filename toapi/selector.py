@@ -3,7 +3,7 @@ import re
 from lxml import etree
 
 
-class Selector:
+class Selector(object):
     def __init__(self, rule):
         self.rule = rule
 
@@ -22,7 +22,7 @@ class Css(Selector):
     """Css selector"""
 
     def __init__(self, rule, attr=None):
-        super().__init__(rule)
+        super(Css, self).__init__(rule)
         self.attr = attr
 
     def parse(self, html):
@@ -59,7 +59,6 @@ class XPath(Selector):
             value = text
         elif isinstance(value, list) and len(value) == 1 and isinstance(value[0], str):
             value = ''.join(value)
-
         return value
 
 

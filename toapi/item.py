@@ -1,6 +1,10 @@
 from toapi.selector import Selector, XPath
 
 
+def with_metaclass(meta):
+    return meta("toapi", (object,), {})
+
+
 class ItemType(type):
     def __new__(cls, what, bases=None, dict=None):
         selectors = {}
@@ -14,7 +18,7 @@ class ItemType(type):
         return type.__new__(cls, what, bases, dict)
 
 
-class Item(metaclass=ItemType):
+class Item(with_metaclass(ItemType)):
     """Parse item from html"""
 
     @classmethod
