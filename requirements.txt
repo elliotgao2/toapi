@@ -4,3 +4,4 @@ selenium
 requests
 cchardet
 cssselect
+pytest
