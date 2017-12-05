@@ -7,13 +7,6 @@
 
 A library letting any web site provide APIs.
 
-## Feature
-
-- Converting static html to api.
-- Serving as an api server.
-- Supporting both XPath selector and Regex.
-- Supporting custom request header.
-
 ## Installaton
 
 - `pip install toapi`
@@ -42,6 +35,10 @@ print(api.parse('/'))
 
 api.serve()
 ```
+
+> Visit http://127.0.0.1:5000/, you will see a list of post.
+Just like you crawl data and storage them and create  api service to share them.
+This library make things easier, define your data, they would be shared automatically.
 
 ### Site with ajax:
 
