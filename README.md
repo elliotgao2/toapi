@@ -93,6 +93,9 @@ class Page(Item):
         source = None
         route = '/news\?p=\d+'
 
+     def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + next_page
+
 
 api.register(Post)
 api.register(Page)
