@@ -40,6 +40,11 @@ api.serve()
 Just like you crawl data and storage them and create  api service to share them.
 This library make things easier, define your data, they would be shared automatically.
 
+- Item.Meta.route: A regex statement. Define the path of your api service. Which means when the request path match the route regex statement, the Item would be parsed.
+- Item.Meta.source: The section part of html that contains a single item.
+- api.serve(): Run a server, provide api service.
+- api.parse(): Parse a path. If the path is not defined in Item.Meta.route, this method returns nothing.
+
 ### Site with ajax:
 
 - `Phantomjs` is required. Run `phantomjs -v` to check.
@@ -49,7 +54,7 @@ This library make things easier, define your data, they would be shared automati
 ```python
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/', with_ajax=True) # This meas use selenium to load the page source.
+api = Api('https://news.ycombinator.com/', with_ajax=True) # This means use selenium to load the page source.
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
