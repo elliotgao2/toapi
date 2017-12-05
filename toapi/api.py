@@ -2,7 +2,11 @@ import re
 
 import requests
 from selenium import webdriver
-from urllib.parse import urlencode
+
+try:
+    from urllib.parse import urlencode
+except:
+    from urllib import urlencode
 
 
 class Api:
