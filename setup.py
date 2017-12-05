@@ -19,6 +19,7 @@ setup(
         'lxml',
         'cssselect',
         'selenium',
+        'cchardet',
         'requests',
         'flask'
     ],
