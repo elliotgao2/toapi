@@ -6,6 +6,9 @@
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
 A library letting any web site provide APIs.
+In the past, we crawl data and storage them and create api service to share them maybe we should also update them regularly.
+This library make things easy.
+The only thing you should do is defining your data, they would be shared as api service automatically.
 
 ## Installaton
 
@@ -37,8 +40,6 @@ api.serve()
 ```
 
 > Visit http://127.0.0.1:5000/, you will see a list of post.
-Just like you crawl data and storage them and create  api service to share them.
-This library make things easier, define your data, they would be shared automatically.
 
 - Item.Meta.route: A regex statement. Define the path of your api service. Which means when the request path match the route regex statement, the Item would be parsed. Most of the time, the route is the same as ths path of source site.
 - Item.Meta.source: The section part of html that contains a single item.
