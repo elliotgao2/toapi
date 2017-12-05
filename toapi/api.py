@@ -1,6 +1,7 @@
 import re
 
 import requests
+import cchardet
 from selenium import webdriver
 
 try:
@@ -68,7 +69,11 @@ class Api:
         if self.with_ajax:
             self._browser.get(url)
             return self._browser.page_source
-        return requests.get(url, params=params, **kwargs).text
+        response = requests.get(url, params=params, **kwargs)
+        content = response.content
+        charset = cchardet.detect(content)
+        text = content.decode(charset['encoding'])
+        return text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""

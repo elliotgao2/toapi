@@ -21,6 +21,14 @@ class ItemType(type):
 class Item(with_metaclass(ItemType)):
     """Parse item from html"""
 
+    def __init__(self, html):
+        for field_name, field_value in self.selectors.items():
+            get_field = getattr(self, 'clean_%s' % field_name, None)
+            value = field_value.parse(html) if isinstance(field_value, Selector) else field_value
+            if get_field:
+                value = get_field(value)
+            setattr(self, field_name, value)
+
     @classmethod
     def parse(cls, html):
         """Parse html to json"""
@@ -36,9 +44,10 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def _parse_item(cls, html):
         item = {}
+        ins_item = cls(html=html)
         for name in cls.selectors:
             try:
-                item[name] = cls.selectors[name].parse(html)
+                item[name] = getattr(ins_item, name)
             except IndexError:
                 item[name] = ''
             except Exception:
