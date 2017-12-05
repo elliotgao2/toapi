@@ -1,4 +1,5 @@
 import re
+from urllib.parse import urlparse
 
 import requests
 from selenium import webdriver
@@ -20,7 +21,7 @@ class Api:
         """Parse items from a url"""
         items = []
         for index, item in enumerate(self.items):
-            if re.match(item['regex'], url):
+            if re.compile(item['regex']).match(url):
                 items.append(item['item'])
         if len(items) > 0:
             html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
@@ -42,8 +43,16 @@ class Api:
 
         @app.errorhandler(404)
         def page_not_found(error):
+            parse_result = urlparse(request.url)
+            if parse_result.query != '':
+                url = '{}?{}'.format(
+                    parse_result.path,
+                    parse_result.query
+                )
+            else:
+                url = request.path
             try:
-                return jsonify(self.parse(request.path))
+                return jsonify(self.parse(url))
             except Exception as e:
                 return str(e)
 

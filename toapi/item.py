@@ -1,4 +1,4 @@
-from toapi.selector import Selector, XPath
+from toapi.selector import Selector
 
 
 def with_metaclass(meta):
@@ -24,22 +24,27 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def parse(cls, html):
         """Parse html to json"""
-        sections = cls.Meta.source.parse(html)
-        results = []
-        for section in sections:
-            item = {}
-            for name in cls.selectors:
-                try:
-                    item[name] = cls.selectors[name].parse(section)
-                except IndexError:
-                    item[name] = ''
-                except Exception:
-                    # TODO
-                    item[name] = ''
+        if cls.Meta.source is None:
+            return cls._parse_item(html)
+        else:
+            sections = cls.Meta.source.parse(html)
+            results = []
+            for section in sections:
+                results.append(cls._parse_item(section))
+            return results
 
-            results.append(item)
-        return results
+    @classmethod
+    def _parse_item(cls, html):
+        item = {}
+        for name in cls.selectors:
+            try:
+                item[name] = cls.selectors[name].parse(html)
+            except IndexError:
+                item[name] = ''
+            except Exception:
+                item[name] = ''
+        return item
 
     class Meta:
-        source = XPath('//*')
+        source = None
         route = '\.+'

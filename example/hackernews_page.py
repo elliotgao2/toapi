@@ -9,14 +9,23 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = '/news\?p=\d+'
+
+
+class Page(Item):
+    next_page = XPath('//a[@class="morelink"]/@href')
+
+    class Meta:
+        source = None
+        route = '/news\?p=\d+'
 
 
 api.register(Post)
+api.register(Page)
 
 api.serve()
 
-# Visit http://127.0.0.1:5000/
+# Visit http://127.0.0.1:5000/news?p=1
 
 """
 {

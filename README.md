@@ -55,7 +55,7 @@ api.serve()
 ```python
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/', with_ajax=True) # This means use selenium to load the page source.
+api = Api('https://news.ycombinator.com/', with_ajax=True) # Use selenium to load the page source.
 
 class Post(Item):
     url = XPath('//a[@class="storylink"][1]/@href')
