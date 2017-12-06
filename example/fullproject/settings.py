@@ -7,7 +7,7 @@ class MySettings(Settings):
         'url': '127.0.0.0.1:6789/0'
     }
     storage = {
-        'dir': './html/',
-        'refresh': '10/min'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
     with_ajax = None
