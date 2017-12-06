@@ -21,7 +21,9 @@ setup(
         'selenium',
         'cchardet',
         'requests',
-        'flask'
+        'flask',
+        'ujson',
+        'redis'
     ],
     license='Apache',
     packages=find_packages(),
