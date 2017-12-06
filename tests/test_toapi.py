@@ -25,3 +25,6 @@ def test_api_with_ajax():
     api.register(Page)
 
     print(api.parse('/news?p=1'))
+
+
+test_api_with_ajax()
