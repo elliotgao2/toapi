@@ -1,7 +1,7 @@
 def test_api_with_ajax():
     from toapi import XPath, Item, Api
 
-    api = Api('https://news.ycombinator.com/', with_ajax=True)
+    api = Api('https://news.ycombinator.com/')
 
     class Post(Item):
         url = XPath('//a[@class="storylink"][1]/@href')
