@@ -23,7 +23,8 @@ setup(
         'requests',
         'flask',
         'ujson',
-        'redis'
+        'redis',
+        'pymemcache'
     ],
     license='Apache',
     packages=find_packages(),
