@@ -19,6 +19,9 @@ class Page(Item):
         source = None
         route = '/news\?p=\d+'
 
+    def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + next_page
+
 
 api.register(Post)
 api.register(Page)
@@ -30,7 +33,7 @@ api.serve()
 """
 {
   "page": {
-    "next_page": "news?p=2"
+    "next_page": "http://127.0.0.1:5000/news?p=2"
   },
   "post": [
     {

@@ -1,5 +1,6 @@
 import re
 
+import cchardet
 import requests
 from selenium import webdriver
 
@@ -26,6 +27,7 @@ class Api:
         items = []
         for index, item in enumerate(self.items):
             if re.compile(item['regex']).match(url):
+                print(re.compile(item['regex']), url)
                 items.append(item['item'])
         if len(items) > 0:
             html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
@@ -68,7 +70,11 @@ class Api:
         if self.with_ajax:
             self._browser.get(url)
             return self._browser.page_source
-        return requests.get(url, params=params, **kwargs).text
+        response = requests.get(url, params=params, **kwargs)
+        content = response.content
+        charset = cchardet.detect(content)
+        text = content.decode(charset['encoding'])
+        return text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
