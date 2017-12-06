@@ -10,7 +10,11 @@ In the past, we crawl data and storage them and create api service to share them
 This library make things easy.
 The only thing you should do is defining your data, they would be shared as api service automatically.
 
-## Installaton
+## Diagram
+
+![Toapi](diagram.png)
+
+## Installation
 
 - `pip install toapi`
 - `pip install git+https://github.com/gaojiuli/toapi/`
