@@ -1,7 +1,7 @@
 import re
 
-import requests
 import cchardet
+import requests
 from selenium import webdriver
 
 try:
@@ -27,6 +27,7 @@ class Api:
         items = []
         for index, item in enumerate(self.items):
             if re.compile(item['regex']).match(url):
+                print(re.compile(item['regex']), url)
                 items.append(item['item'])
         if len(items) > 0:
             html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
