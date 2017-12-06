@@ -10,7 +10,11 @@ In the past, we crawl data and storage them and create api service to share them
 This library make things easy.
 The only thing you should do is defining your data, they would be shared as api service automatically.
 
-## Installaton
+## Diagram
+
+![Toapi](diagram.png)
+
+## Installation
 
 - `pip install toapi`
 - `pip install git+https://github.com/gaojiuli/toapi/`
@@ -93,6 +97,9 @@ class Page(Item):
         source = None
         route = '/news\?p=\d+'
 
+     def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + next_page
+
 
 api.register(Post)
 api.register(Page)
@@ -104,7 +111,7 @@ api.serve()
 """
 {
   "page": {
-    "next_page": "news?p=2"
+    "next_page": "http://127.0.0.1:5000/news?p=2"
   },
   "post": [
     {

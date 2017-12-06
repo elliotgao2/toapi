@@ -2,5 +2,10 @@ lxml
 flask
 selenium
 requests
-cssselect
 records
+cchardet
+cssselect
+pytest
+ujson
+redis
+pymemcache

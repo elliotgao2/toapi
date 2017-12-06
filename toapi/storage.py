@@ -65,15 +65,22 @@ class DBStore:
 
     def save(self, url, html):
         file_name = hashlib.md5(url.encode()).hexdigest()
-        self.db.query("INSERT INTO ToApi (url, html) VALUES ('{}', '{}') ".format(file_name, html))
-        return True
+        html_store = html.replace("'", "toapi%%%###$$$***toapi")
+        row = self.db.query("SELECT html FROM ToApi where url='{}'".format(file_name)).first()
+        if row:
+            self.db.query("UPDATE ToApi SET html='{}' WHERE url='{}'".format(html_store, url))
+            return True
+        else:
+            self.db.query("INSERT INTO ToApi (url, html) VALUES ('{}', '{}') ".format(file_name, html_store))
+            return True
 
     def get(self, url):
         file_name = hashlib.md5(url.encode()).hexdigest()
 
         row = self.db.query("SELECT html FROM ToApi where url='{}'".format(file_name)).first()
         try:
-            data = dict(row).get("html")
+            origin_data = dict(row).get("html")
+            data = origin_data.replace("toapi%%%###$$$***toapi", "'")
         except TypeError as e:
             return None
         return data

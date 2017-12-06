@@ -36,14 +36,24 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def _parse_item(cls, html):
         item = {}
+        cls._clean_item(html=html)
         for name in cls.selectors:
             try:
-                item[name] = cls.selectors[name].parse(html)
+                item[name] = getattr(cls, name)
             except IndexError:
                 item[name] = ''
             except Exception:
                 item[name] = ''
         return item
+
+    @classmethod
+    def _clean_item(cls, html):
+        for field_name, field_value in cls.selectors.items():
+            get_field = getattr(cls, 'clean_%s' % field_name, None)
+            value = field_value.parse(html) if isinstance(field_value, Selector) else field_value
+            if get_field:
+                value = get_field(cls(), value)
+            setattr(cls, field_name, value)
 
     class Meta:
         source = None

@@ -30,13 +30,13 @@ def io_test():
 
 def db_store():
     url = "https://www.google.com123"
-    html = "''''''<p> Hello, World!</p>\n<h1>this is a big problem</h1>'''''''"
+    html = "<p> Hello, 'World!</p>\n<h1>this is a b'ig problem</h1'>"
     storage = {
         "DB_URL": "mysql://thys:123456@localhost/order_system"
     }
     store = DBStore(storage)
-    store.save(url, html)
-    # print(store.get(url))
+    # store.save(url, html)
+    print(store.get(url))
 
 
 if __name__ == "__main__":
