@@ -5,3 +5,5 @@ requests
 cchardet
 cssselect
 pytest
+ujson
+redis
