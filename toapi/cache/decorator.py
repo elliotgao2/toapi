@@ -43,7 +43,6 @@ def cached(cache_class=None, key=None, ttl=None, serializer=None, cache_config=N
             except Exception:
                 logger.exception('Cache', 'Get<%s>' % cache_key)
             result = func(*args, **kwargs)
-
             if result and cache_key:
                 try:
                     if cache_ins.set(cache_key, result, ttl=ttl):
