@@ -25,7 +25,7 @@ class RedisCache(BaseCache):
         return result
 
     @dec_connector
-    def get(self, key, default=None, call_loads=None):
+    def get(self, key, default=None):
         result = self._cache_conn.get(key)
         return self.serializer.loads(result) or default
 

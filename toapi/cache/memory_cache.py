@@ -10,15 +10,15 @@ class MemoryCache(BaseCache):
         super().__init__(serializer=serializer, **kwargs)
 
     def set(self, key, value, ttl=None):
-        self._cache[key] = value
+        self._cache[key] = self.serializer.dumps(value)
         if ttl:
             # TODO
             pass
         return True
 
     def get(self, key, default=None):
-        result = self._cache.get(key, default)
-        return result
+        result = self._cache.get(key)
+        return self.serializer.loads(result) or default
 
     def delete(self, *keys):
         res = []
@@ -30,5 +30,4 @@ class MemoryCache(BaseCache):
         return key in self._cache
 
     def _delete(self, key):
-        print(key)
         return self._cache.pop(key, 0)
