@@ -15,14 +15,14 @@ from datetime import datetime
 class DiskStore:
 
     """
-    DiskStore while create a hidden file --html at local path
+    DiskStore will create a hidden file --html at local path
     You can give a path like: "/Users/toapi/" or "/Users/toapi"
     then the hidden file --html will created in given path "/User/toapi/.html"
     file name is a hash of url
     about get function:
     you can give 3 params: url, default and expiration
     url: the source url you want to request
-    defualt: return to you if can not find url source stored in disk
+    default: return to you the default if instance can not find url source stored in disk
     expiration: means that you do not need source stored over expiration 
     """
 
@@ -81,6 +81,12 @@ class DBStore:
         "DB_URL": "mysql://name:password@host/dbname",
     }
     and so on
+
+    about get function:
+    you can give 3 params: url, default and expiration
+    url: the source url you want to request
+    default: return to you the default if instance can not find url source stored in disk
+    expiration: means that you do not need source stored over expiration
     """
 
     def __init__(self, storage: dict):
