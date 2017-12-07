@@ -30,13 +30,13 @@ class Api:
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
 
     @cached(**CacheSetting.cache_config)
-    def parse(self, url, params=None, **kwargs):
+    def parse(self, url, base_url, params=None, **kwargs):
         """Parse items from a url"""
         items = []
         for index, item in enumerate(self.item_classes):
             if re.compile(item['regex']).match(url):
                 items.append(item['item'])
-        url = self.base_url + url
+        url = base_url + url
         if len(items) > 0:
             html = self.storage.get(url)
             if html is not None:
@@ -44,7 +44,6 @@ class Api:
                 items = self._parse_items(html, *items)
             else:
                 html = self._fetch_page_source(url, params=params, **kwargs)
-                print(html)
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 items = self._parse_items(html, *items)
@@ -59,7 +58,7 @@ class Api:
             'item': item
         })
 
-    def serve(self, ip='0.0.0.0', port='5000', debug=None, **options):
+    def serve(self, ip='0.0.0.0', port='5000', **options):
         """Serve as an api server"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
@@ -75,10 +74,11 @@ class Api:
                 )
             else:
                 url = request.path
+
             try:
-                res = self.parse(url, dynamic_key=self.base_url + url)
+                res = self.parse(url, base_url=self.base_url)
                 if res is None:
-                    logger.error('Received', '%s 404' % url)
+                    logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
                 res = jsonify(res)
                 logger.info(Fore.GREEN, 'Received', '%s %s' % (request.url, len(res.response[0])))
