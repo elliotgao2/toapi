@@ -4,8 +4,8 @@ logger.info(Fore.GREEN, 'Received', 'http://127.0.0.1/path2 231 200')
 logger.info(Fore.YELLOW, 'Cache', 'Set<https://fuck.com/path1:asdjla:JSON>')
 logger.info(Fore.BLUE, 'Storage', 'Get<https://fuck.com/path1:asdjla:HTML>')
 logger.info(Fore.CYAN, 'Parsed', 'Item<Post[15]>')
-logger.error('Cache', 'Set<https://fuck.com/path1:asdjla:JSON>')
-logger.error('Storage', 'Get<https://fuck.com/path1:asdjla:HTML>')
+logger.error('Cache', 'Set<https://fuck.com/path1:JSON>')
+logger.error('Storage', 'Get<https://fuck.com/path1::HTML>')
 logger.error('Parse', 'Item<Post[0]>')
 """
 import logging
