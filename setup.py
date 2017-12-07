@@ -24,7 +24,8 @@ setup(
         'flask',
         'ujson',
         'redis',
-        'pymemcache'
+        'pymemcache',
+        'pycrypto'
     ],
     license='Apache',
     packages=find_packages(),
