@@ -11,7 +11,9 @@ class RedisCache(BaseCache):
     _cache_conn = None
 
     def __init__(self, host="127.0.0.1", port=6379, db=0, password=None, decode_responses=True,
-                 serializer=JsonSerializer, **kwargs):
+                 serializer=None, **kwargs):
+        if serializer is None:
+            serializer = JsonSerializer
         super().__init__(serializer=serializer, **kwargs)
         self.host = host
         self.port = port
