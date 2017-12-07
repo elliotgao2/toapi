@@ -11,3 +11,4 @@ redis
 pymemcache
 pycrypto
 colorama
+records

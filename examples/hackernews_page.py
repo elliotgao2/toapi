@@ -1,6 +1,11 @@
-from toapi import XPath, Item, Api
+from toapi import XPath, Item, Api, Settings
 
-api = Api('https://news.ycombinator.com/', with_ajax=True)
+
+class MySettings(Settings):
+    with_ajax = False
+
+
+api = Api('https://news.ycombinator.com/', settings=MySettings)
 
 
 class Post(Item):

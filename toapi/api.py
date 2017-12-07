@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from urllib.parse import urlparse
 
 import cchardet
 import requests
@@ -9,24 +10,21 @@ from selenium import webdriver
 
 from toapi.cache import MemoryCache
 from toapi.log import logger
+from toapi.settings import Settings
 from toapi.storage import DiskStore
-
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
 
 
 class Api:
     """Api handle the routes dispatch"""
 
-    def __init__(self, base_url, with_ajax=False, *args, **kwargs):
+    def __init__(self, base_url, settings=None, *args, **kwargs):
         self.base_url = base_url
-        self.with_ajax = with_ajax
-        self.items = []
+        self.settings = settings or Settings
+        self.with_ajax = settings.with_ajax
+        self.item_classes = []
         self.cache = MemoryCache()
         self.storage = DiskStore()
-        if with_ajax:
+        if self.with_ajax:
             phantom_options = []
             phantom_options.append('--load-images=false')
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
@@ -40,7 +38,7 @@ class Api:
             return items
 
         items = []
-        for index, item in enumerate(self.items):
+        for index, item in enumerate(self.item_classes):
             if re.compile(item['regex']).match(url):
                 items.append(item['item'])
 
@@ -62,16 +60,15 @@ class Api:
 
     def register(self, item):
         """Register route"""
-        self.items.append({
+        self.item_classes.append({
             'regex': item.Meta.route,
             'item': item
         })
 
     def serve(self, ip='0.0.0.0', port='5000', debug=None, **options):
-        """Todo: Serve as an api server powered by flask"""
+        """Serve as an api server"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
-        app.debug = True
         app.logger.setLevel(logging.ERROR)
 
         @app.errorhandler(404)
@@ -118,19 +115,13 @@ class Api:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
             return text
 
-    def _parse_item(self, html, item):
-        """Parse a single item from html"""
-        result = {}
-        result[item.name] = item.parse(html)
-        if len(result[item.name]) == 0:
-            logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
-        else:
-            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
-        return result
-
     def _parse_items(self, html, *items):
         """Parse kinds of items from html"""
         results = {}
         for item in items:
-            results.update(self._parse_item(html, item))
+            results[item.name] = item.parse(html)
+            if len(results[item.name]) == 0:
+                logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(results[item.name])))
+            else:
+                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(results[item.name])))
         return results
