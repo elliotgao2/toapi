@@ -28,17 +28,27 @@ def io_test():
     store.get("ssssss")
 
 
-def db_store():
+def disk_test():
     url = "https://www.google.com123"
+    html = "<p> Hello, 'World!</p>\n<h1>this is a b'ig problem</h1'>"
+    store = DiskStore()
+    # store.save(url, html)
+    print(store.get(url, expiration=5))
+
+
+def db_store():
+    url = "https://www.google.com"
     html = "<p> Hello, 'World!</p>\n<h1>this is a b'ig problem</h1'>"
     storage = {
         "DB_URL": "mysql://thys:123456@localhost/order_system"
     }
     store = DBStore(storage)
     # store.save(url, html)
-    print(store.get(url))
+    print(store.get(url, expiration=5))
 
 
 if __name__ == "__main__":
     # io_test()
+    # disk_test()
     db_store()
+
