@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
-Tips for toapi caches: we provide you with simple caching scheme, and you can use it as following.
+Tips for toapi caches: there are several simple caching scheme we provide for you, and you can use the following ways.
+    - Use RedisCache class directly
+    - Use cached decorator
 """
 from toapi.settings import Settings
 from toapi.cache import RedisCache, MemoryCache, cached
@@ -8,7 +10,7 @@ from toapi.cache import RedisCache, MemoryCache, cached
 
 class MySettings(Settings):
     """
-
+    Create custom configuration
     """
     cache = {
         'type': MemoryCache,
