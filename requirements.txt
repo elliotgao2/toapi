@@ -10,3 +10,4 @@ ujson
 redis
 pymemcache
 pycrypto
+colorama

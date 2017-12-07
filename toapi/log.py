@@ -1,3 +1,13 @@
+"""
+logger.info(Fore.GREEN, 'Sent', 'https://fuck.com/path1 1231 200')
+logger.info(Fore.GREEN, 'Received', 'http://127.0.0.1/path2 231 200')
+logger.info(Fore.YELLOW, 'Cache', 'Set<https://fuck.com/path1:asdjla:JSON>')
+logger.info(Fore.BLUE, 'Storage', 'Get<https://fuck.com/path1:asdjla:HTML>')
+logger.info(Fore.CYAN, 'Parse', 'Item<Post[15]>')
+logger.error('Cache', 'Set<https://fuck.com/path1:asdjla:JSON>')
+logger.error('Storage', 'Get<https://fuck.com/path1:asdjla:HTML>')
+logger.error('Parse', 'Item<Post[0]>')
+"""
 import logging
 
 import colorama
@@ -17,8 +27,8 @@ class Logger:
     def debug(self, message):
         self.logger.debug(message)
 
-    def info(self, message):
-        self.logger.info(message)
+    def info(self, color, type, message):
+        self.logger.info(color + '[%-8s] %-4s %s' % (type, 'OK', message) + Style.RESET_ALL)
 
     def warning(self, message):
         self.logger.info(message)
@@ -29,18 +39,5 @@ class Logger:
     def critical(self, message):
         self.logger.info(message)
 
-    def log(self, color, type, message):
-        self.logger.info(color + '[%-8s] %-4s %s' % (type, 'OK', message) + Style.RESET_ALL)
-
 
 logger = Logger(__name__)
-
-# Usage
-# logger.log(Fore.YELLOW, 'Request', 'https://fuck.com/path1 1231 200')
-# logger.log(Fore.WHITE, 'Response', 'http://127.0.0.1/path2 231 200')
-# logger.log(Fore.GREEN, 'Cache', 'Set<asdjla:JSON>')
-# logger.log(Fore.BLUE, 'Storage', 'Get<asdjla:html>')
-# logger.log(Fore.CYAN, 'Parse', 'Item<Post>[15]')
-# logger.error('Cache', 'Set<asdjla:JSON>')
-# logger.error('Storage', 'Get<asdjla:html>')
-# logger.error('Parse', 'Item<Post>[0]')
