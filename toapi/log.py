@@ -39,5 +39,8 @@ class Logger:
     def critical(self, message):
         self.logger.info(message)
 
+    def exception(self, type, message):
+        self.logger.error(Fore.RED + '[%-8s] %-4s %s' % (type, 'FAIL', message) + Style.RESET_ALL)
+
 
 logger = Logger(__name__)
