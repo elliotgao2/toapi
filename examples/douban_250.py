@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from toapi import Css, Item, Api
 
 try:
@@ -24,6 +22,9 @@ class Post(Item):
         else:
             return ''.join([i.text.strip().replace(u'\xa0', '') for i in title])
 
+    def clean_url(self, value):
+        return value.replace('https://movie.douban.com', '')
+    
 
 api.register(Post)
 
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     headers = {
         'User-Agent': "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)"
     }
-    pprint(api.parse('/', headers=headers))
+    api.parse('/', headers=headers)
     api.serve()
     # Visit http://127.0.0.1:5000/
     # http://127.0.0.1:5000/?start=25

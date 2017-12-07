@@ -5,12 +5,19 @@
 store the html content and url
 """
 
-import os
 import hashlib
+import os
+
 import records
 
 
 class DiskStore:
+    """
+    DiskStore while create a hidden file --html at local path
+    You can give a path like: "/Users/toapi/" or "/Users/toapi"
+    then the hidden file --html will created in given path "/User/toapi/.html"
+    file name is a hash of url
+    """
 
     """
     DiskStore while create a hidden file --html at local path
@@ -21,7 +28,7 @@ class DiskStore:
 
     path = os.getcwd()
 
-    def __init__(self, path=path):
+    def __init__(self, path='./'):
         try:
             os.listdir(path)
         except Exception as e:
@@ -38,18 +45,18 @@ class DiskStore:
 
     def save(self, url, html):
         file_name = hashlib.md5(url.encode()).hexdigest()
-        with open(self.path+file_name, "wb") as f:
+        with open(self.path + file_name, "wb") as f:
             f.write(html.encode())
         return True
 
-    def get(self, url):
+    def get(self, url, default=None):
         file_name = hashlib.md5(url.encode()).hexdigest()
         try:
-            with open(self.path+file_name, "rb") as f:
-                data = f.readlines()
-            return {"status": True, "data": data}
+            with open(self.path + file_name, "rb") as f:
+                data = f.read()
+            return data
         except Exception as e:
-            return {"status": False, "data": None}
+            return default
 
 
 class DBStore:
@@ -82,7 +89,7 @@ class DBStore:
             self.db.query("INSERT INTO ToApi (url, html) VALUES ('{}', '{}') ".format(file_name, html_store))
             return True
 
-    def get(self, url):
+    def get(self, url, default=None):
         file_name = hashlib.md5(url.encode()).hexdigest()
 
         row = self.db.query("SELECT html FROM ToApi where url='{}'".format(file_name)).first()
@@ -90,5 +97,5 @@ class DBStore:
             origin_data = dict(row).get("html")
             data = origin_data.replace("toapi%%%###$$$***toapi", "'")
         except TypeError as e:
-            return None
+            return default
         return data

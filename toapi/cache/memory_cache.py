@@ -6,7 +6,9 @@ from toapi.cache.base_cache import BaseCache
 class MemoryCache(BaseCache):
     _cache = {}
 
-    def __init__(self, serializer=JsonSerializer, **kwargs):
+    def __init__(self, serializer=None, **kwargs):
+        if serializer is None:
+            serializer = JsonSerializer
         super().__init__(serializer=serializer, **kwargs)
 
     def set(self, key, value, ttl=None):

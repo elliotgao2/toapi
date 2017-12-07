@@ -7,7 +7,7 @@ class BaseCache(metaclass=abc.ABCMeta):
     The class defines some functions that is necessary provided by RedisCache MemoryCache MemcachedCache
     """
 
-    def __init__(self, serializer, namespace=None):
+    def __init__(self, serializer, namespace=None, **kwargs):
         self.namespace = namespace
         self.serializer = serializer()
 
