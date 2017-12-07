@@ -66,7 +66,7 @@ class DiskStore:
 
             with open(file_path, "rb") as f:
                 data = f.read()
-            return data
+            return data.decode()
         except FileNotFoundError as e:
             return default
 
@@ -100,7 +100,7 @@ class DBStore:
     def save(self, url, html):
 
         file_name = hashlib.md5(url.encode()).hexdigest()
-        html_store = html.replace("'", "toapi%%%###$$$***toapi")
+        html_store = html.replace("'", "toapi%%%###$$$***toapi").encode()
         row = self.db.query("SELECT html FROM ToApi where url='{}';".format(file_name)).first()
 
         if row:
@@ -123,7 +123,7 @@ class DBStore:
                 self.db.query("DELETE FROM ToApi WHERE url='{}';".format(file_name))
                 return default
             origin_data = dict(row).get("html")
-            data = origin_data.replace("toapi%%%###$$$***toapi", "'")
+            data = origin_data.replace("toapi%%%###$$$***toapi", "'").decode()
         except TypeError as e:
             return default
         return data
