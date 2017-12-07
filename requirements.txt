@@ -2,6 +2,7 @@ lxml
 flask
 selenium
 requests
+records
 cchardet
 cssselect
 pytest
