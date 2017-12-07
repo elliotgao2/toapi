@@ -74,9 +74,8 @@ class Api:
                 )
             else:
                 url = request.path
-
             try:
-                res = self.parse(url, base_url=self.base_url)
+                res = self.parse(url=url, base_url=self.base_url)
                 if res is None:
                     logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404

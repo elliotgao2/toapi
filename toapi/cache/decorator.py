@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-from colorama import Fore
 from functools import wraps
+
+from colorama import Fore
 
 from toapi.log import logger
 
@@ -34,8 +35,7 @@ def cached(cache_class=None, key=None, ttl=None, serializer=None, cache_config=N
             if isinstance(cache_config, dict):
                 kwargs.update(cache_config)
             cache_ins = cache_class(serializer=serializer, **kwargs)
-            dynamic_key = kwargs.get('dynamic_key')
-            cache_key = key or dynamic_key
+            cache_key = kwargs.get('base_url') + kwargs.get('url')
             try:
                 if cache_ins.exists(cache_key):
                     logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)
