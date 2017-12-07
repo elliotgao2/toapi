@@ -95,12 +95,13 @@ class DBStore:
         self.db = records.Database(db_url)
         self.db.query("""CREATE TABLE IF NOT EXISTS `ToApi`(`url` VARCHAR(100),
                          `html` MEDIUMTEXT NOT NULL,`create_time` DATETIME NOT NULL,PRIMARY KEY ( `url` ))
-                         ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
+                         ENGINE=InnoDB DEFAULT character set = utf8;""")
 
     def save(self, url, html):
 
         file_name = hashlib.md5(url.encode()).hexdigest()
-        html_store = html.replace("'", "toapi%%%###$$$***toapi").encode()
+        html_store = html.replace("'", "toapi%%%###$$$***toapi")
+        print(html_store)
         row = self.db.query("SELECT html FROM ToApi where url='{}';".format(file_name)).first()
 
         if row:
@@ -123,7 +124,7 @@ class DBStore:
                 self.db.query("DELETE FROM ToApi WHERE url='{}';".format(file_name))
                 return default
             origin_data = dict(row).get("html")
-            data = origin_data.replace("toapi%%%###$$$***toapi", "'").decode()
+            data = origin_data.replace("toapi%%%###$$$***toapi", "'")
         except TypeError as e:
             return default
         return data
