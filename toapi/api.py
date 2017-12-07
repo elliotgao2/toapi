@@ -76,19 +76,30 @@ class Api:
         if self.with_ajax:
             self._browser.get(url)
             text = self._browser.page_source
+            if text != '':
+                logger.info(Fore.GREEN, 'Sent', '%s %s 200' % (url, len(text)))
+            else:
+                logger.error('Sent', '%s %s' % (url, len(text)))
+            return text
         else:
             response = requests.get(url, params=params, **kwargs)
             content = response.content
             charset = cchardet.detect(content)
             text = content.decode(charset['encoding'])
-        logger.info(Fore.GREEN, 'Sent', '%s %s' % (url, len(text)))
-        return text
+            if response.status_code != 200:
+                logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
+            else:
+                logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
+            return text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
         result = {}
         result[item.name] = item.parse(html)
-        logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+        if len(result[item.name]) == 0:
+            logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+        else:
+            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
         return result
 
     def _parse_items(self, html, *items):
