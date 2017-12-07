@@ -25,7 +25,7 @@ class MySettings(Settings):
     }
 
 
-@cached(cache_class=MySettings.redis_cache['type'], ttl=0, cache_config=MySettings.redis_cache['config'])
+@cached(cache_class=MySettings.redis_cache['type'], ttl=5, cache_config=MySettings.redis_cache['config'])
 def parse(url, params=None, **kwargs):
     return 'value'
 
