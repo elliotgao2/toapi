@@ -8,7 +8,7 @@ import requests
 from colorama import Fore
 from selenium import webdriver
 
-from toapi.cache import MemoryCache
+from toapi.cache import CacheSetting, cached
 from toapi.log import logger
 from toapi.settings import Settings
 from toapi.storage import DiskStore
@@ -20,23 +20,18 @@ class Api:
     def __init__(self, base_url, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.with_ajax = settings.with_ajax
+        self.with_ajax = self.settings.with_ajax
         self.item_classes = []
-        self.cache = MemoryCache()
         self.storage = DiskStore()
+        CacheSetting.cache_config = self.settings.cache_config
         if self.with_ajax:
             phantom_options = []
             phantom_options.append('--load-images=false')
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
 
+    @cached(**CacheSetting.cache_config)
     def parse(self, url, params=None, **kwargs):
         """Parse items from a url"""
-
-        items = self.cache.get(url)
-        if items is not None:
-            logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
-            return items
-
         items = []
         for index, item in enumerate(self.item_classes):
             if re.compile(item['regex']).match(url):
@@ -52,8 +47,6 @@ class Api:
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 items = self._parse_items(html, *items)
-            if self.cache.set(url, items):
-                logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % url)
             return items
         else:
             return None
@@ -82,7 +75,7 @@ class Api:
             else:
                 url = request.path
             try:
-                res = jsonify(self.parse(url))
+                res = jsonify(self.parse(url, dynamic_key=url))
                 logger.info(Fore.GREEN, 'Received', '%s %s' % (request.url, len(res.response[0])))
                 return res
             except Exception as e:
