@@ -56,18 +56,18 @@ class DiskStore:
         file_name = hashlib.md5(url.encode()).hexdigest()
         file_path = self.path + file_name
 
-        # file change date
-        change_date = os.stat(file_path).st_ctime
-        if (time.time() - change_date) > float(expiration):
-            # delete file
-            os.remove(file_path)
-            return default
-
         try:
+            # file change date
+            change_date = os.stat(file_path).st_ctime
+            if (time.time() - change_date) > float(expiration):
+                # delete file
+                os.remove(file_path)
+                return default
+
             with open(file_path, "rb") as f:
                 data = f.read()
             return data
-        except Exception as e:
+        except FileNotFoundError as e:
             return default
 
 
