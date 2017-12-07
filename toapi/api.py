@@ -32,12 +32,11 @@ class Api:
     @cached(**CacheSetting.cache_config)
     def parse(self, url, params=None, **kwargs):
         """Parse items from a url"""
-        url = self.base_url + url
         items = []
         for index, item in enumerate(self.item_classes):
             if re.compile(item['regex']).match(url):
                 items.append(item['item'])
-
+        url = self.base_url + url
         if len(items) > 0:
             html = self.storage.get(url)
             if html is not None:
@@ -45,6 +44,7 @@ class Api:
                 items = self._parse_items(html, *items)
             else:
                 html = self._fetch_page_source(url, params=params, **kwargs)
+                print(html)
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 items = self._parse_items(html, *items)
