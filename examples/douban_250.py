@@ -22,6 +22,9 @@ class Post(Item):
         else:
             return ''.join([i.text.strip().replace(u'\xa0', '') for i in title])
 
+    def clean_url(self, value):
+        return value.replace('https://movie.douban.com', '')
+    
 
 api.register(Post)
 

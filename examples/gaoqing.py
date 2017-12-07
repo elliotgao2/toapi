@@ -1,6 +1,11 @@
-from toapi import XPath, Item, Api
+from toapi import XPath, Item, Api, Settings
 
-api = Api('http://gaoqing.la/', with_ajax=True)
+
+class MySettings(Settings):
+    with_ajax = False
+
+
+api = Api('http://gaoqing.la/', settings=MySettings)
 
 
 class Movie(Item):

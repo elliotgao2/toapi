@@ -76,9 +76,14 @@ api.serve()
 - If you use MacOS. Run `brew install phantomjs` to install.
 
 ```python
-from toapi import XPath, Item, Api
+from toapi import XPath, Item, Api, Settings
 
-api = Api('https://news.ycombinator.com/', with_ajax=True)
+
+class MySettings(Settings):
+    with_ajax = False
+
+
+api = Api('https://news.ycombinator.com/', settings=MySettings)
 
 
 class Post(Item):
@@ -97,43 +102,21 @@ class Page(Item):
         source = None
         route = '/news\?p=\d+'
 
-     def clean_next_page(self, next_page):
+    def clean_next_page(self, next_page):
         return "http://127.0.0.1:5000/" + next_page
 
 
 api.register(Post)
 api.register(Page)
 
-api.serve()
+api.serve(ip='127.0.0.1',port=5000)
 
 # Visit http://127.0.0.1:5000/news?p=1
-
-"""
-{
-  "page": {
-    "next_page": "http://127.0.0.1:5000/news?p=2"
-  },
-  "post": [
-    {
-      "title": "IPvlan overlay-free Kubernetes Networking in AWS", 
-      "url": "https://eng.lyft.com/announcing-cni-ipvlan-vpc-k8s-ipvlan-overlay-free-kubernetes-networking-in-aws-95191201476e"
-    }, 
-    {
-      "title": "Apple is sharing your facial wireframe with apps", 
-      "url": "https://www.washingtonpost.com/news/the-switch/wp/2017/11/30/apple-is-sharing-your-face-with-apps-thats-a-new-privacy-worry/"
-    }, 
-    {
-      "title": "Motel Living and Slowly Dying", 
-      "url": "https://lareviewofbooks.org/article/motel-living-and-slowly-dying/#!"
-    }
-  ]
-}
-"""
 ```
 
-## Contribute
+## Contribution
 
-- Open issue.
+- Open Issue.
 - Pull Request.
 
 ## License
