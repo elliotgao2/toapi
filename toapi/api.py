@@ -78,9 +78,7 @@ class Api:
             text = self._browser.page_source
         else:
             response = requests.get(url, params=params, **kwargs)
-            content = response.content
-            charset = cchardet.detect(content)
-            text = content.decode(charset['encoding'])
+            text = response.text
         logger.info(Fore.GREEN, 'Sent', '%s %s' % (url, len(text)))
         return text
 
