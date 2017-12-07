@@ -12,6 +12,13 @@ import records
 
 class DiskStore:
 
+    """
+    DiskStore while create a hidden file --html at local path
+    You can give a path like: "/Users/toapi/" or "/Users/toapi"
+    then the hidden file --html will created in given path "/User/toapi/.html"
+    file name is a hash of url
+    """
+
     path = os.getcwd()
 
     def __init__(self, path=path):
@@ -47,16 +54,17 @@ class DiskStore:
 
 class DBStore:
 
-    def __init__(self, storage:dict):
-        """
-        about storage, storage is a dict including keys DB_URL and NAME
-        support database: mysql, postgresql, sqlite, oracle e.t.
-        Mysql:
-        storage = {
-            "DB_URL": "mysql://name:password@host/dbname",
-        }
-        and so on
-        """
+    """
+    about storage, storage is a dict including keys DB_URL and NAME
+    support database: mysql, postgresql, sqlite, oracle e.t.
+    Mysql:
+    storage = {
+        "DB_URL": "mysql://name:password@host/dbname",
+    }
+    and so on
+    """
+
+    def __init__(self, storage: dict):
 
         db_url = storage.get("DB_URL")
         self.db = records.Database(db_url)
