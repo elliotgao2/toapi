@@ -1,8 +1,12 @@
+import logging
 import re
 
 import cchardet
 import requests
+from colorama import Fore
 from selenium import webdriver
+
+from toapi.log import logger
 
 try:
     from urllib.parse import urlparse
@@ -27,7 +31,6 @@ class Api:
         items = []
         for index, item in enumerate(self.items):
             if re.compile(item['regex']).match(url):
-                print(re.compile(item['regex']), url)
                 items.append(item['item'])
         if len(items) > 0:
             html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
@@ -46,6 +49,7 @@ class Api:
         """Todo: Serve as an api server powered by flask"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
+        app.logger.setLevel(logging.ERROR)
 
         @app.errorhandler(404)
         def page_not_found(error):
@@ -58,28 +62,33 @@ class Api:
             else:
                 url = request.path
             try:
-                return jsonify(self.parse(url))
+                res = jsonify(self.parse(url))
+                logger.info(Fore.GREEN, 'Received', '%s %s' % (request.url, len(res.response[0])))
+                return res
             except Exception as e:
                 return str(e)
 
-        app.run(ip, port, debug=debug, **options)
+        logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
+        app.run(ip, port, debug=False, **options)
 
     def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
-
         if self.with_ajax:
             self._browser.get(url)
-            return self._browser.page_source
-        response = requests.get(url, params=params, **kwargs)
-        content = response.content
-        charset = cchardet.detect(content)
-        text = content.decode(charset['encoding'])
+            text = self._browser.page_source
+        else:
+            response = requests.get(url, params=params, **kwargs)
+            content = response.content
+            charset = cchardet.detect(content)
+            text = content.decode(charset['encoding'])
+        logger.info(Fore.GREEN, 'Sent', '%s %s' % (url, len(text)))
         return text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
         result = {}
         result[item.name] = item.parse(html)
+        logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
         return result
 
     def _parse_items(self, html, *items):

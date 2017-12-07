@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="toapi",
-    version="0.1.6",
+    version="0.1.7",
     description="A library letting any web site provide APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
