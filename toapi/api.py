@@ -71,10 +71,7 @@ class Api:
             self._browser.get(url)
             return self._browser.page_source
         response = requests.get(url, params=params, **kwargs)
-        content = response.content
-        charset = cchardet.detect(content)
-        text = content.decode(charset['encoding'])
-        return text
+        return response.text
 
     def _parse_item(self, html, item):
         """Parse a single item from html"""
