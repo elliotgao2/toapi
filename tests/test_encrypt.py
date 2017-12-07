@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""
- Created by howie.hu at 06/12/2017.
-"""
+
+import random
+import string
 
 from toapi.encrypt import encrypt, decrypt
 
 
 def test_encrypt():
-    key = "L9qeRO25ojyXv37aWwrKpSAPYzVg6kBT"
+    key = ''.join(random.sample(string.ascii_letters + string.digits, 16))
     assert decrypt(encrypt('/toapi?hello=world', key), key) == "/toapi?hello=world"
