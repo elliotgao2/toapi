@@ -5,24 +5,24 @@ class MySettings(Settings):
     with_ajax = True
 
 
-api = Api('https://news.ycombinator.com/', settings=MySettings)
+api = Api('https://www.baidu.com/', settings=MySettings)
 
 
 class Post(Item):
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
+    url = XPath('//a/@href')
+    title = XPath('//a/text()')
 
     class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = '/news\?p=\d+'
+        source = XPath('//div[@class="result"]')
+        route = 's\?wd=.+'
 
 
 class Page(Item):
-    next_page = XPath('//a[@class="morelink"]/@href')
+    next_page = XPath('//div[@id="page"]//a/@href')
 
     class Meta:
         source = None
-        route = '/news\?p=\d+'
+        route = 's\?wd=.+'
 
     def clean_next_page(self, next_page):
         return "http://127.0.0.1:5000/" + next_page

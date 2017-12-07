@@ -32,6 +32,7 @@ class Api:
     @cached(**CacheSetting.cache_config)
     def parse(self, url, params=None, **kwargs):
         """Parse items from a url"""
+        url = self.base_url + url
         items = []
         for index, item in enumerate(self.item_classes):
             if re.compile(item['regex']).match(url):
@@ -43,7 +44,7 @@ class Api:
                 logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % url)
                 items = self._parse_items(html, *items)
             else:
-                html = self._fetch_page_source(self.base_url + url, params=params, **kwargs)
+                html = self._fetch_page_source(url, params=params, **kwargs)
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 items = self._parse_items(html, *items)
@@ -75,7 +76,11 @@ class Api:
             else:
                 url = request.path
             try:
-                res = jsonify(self.parse(url, dynamic_key=url))
+                res = self.parse(url, dynamic_key=self.base_url + url)
+                if res is None:
+                    logger.error('Received', '%s 404' % url)
+                    return 'Not Found', 404
+                res = jsonify(res)
                 logger.info(Fore.GREEN, 'Received', '%s %s' % (request.url, len(res.response[0])))
                 return res
             except Exception as e:
