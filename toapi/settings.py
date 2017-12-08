@@ -1,3 +1,4 @@
+import os
 from toapi.cache import MemoryCache
 
 
@@ -7,5 +8,9 @@ class Settings:
         'cache_class': MemoryCache,
         'cache_config': {},
         'serializer': None
+    }
+    storage_config = {
+        "PATH": os.getcwd(),
+        "DB_URL": None
     }
     with_ajax = False
