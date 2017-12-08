@@ -12,7 +12,6 @@ class ItemType(type):
             if isinstance(selector, Selector):
                 __selectors__[name] = selector
         dict['__selectors__'] = __selectors__
-        dict['__name__'] = dict.get('__name__', what).lower()
         dict['__base_url__'] = dict.get('__base_url__', None)
         for name in __selectors__:
             del dict[name]
