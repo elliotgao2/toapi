@@ -47,8 +47,8 @@ class DiskStore:
     def save(self, url, html):
 
         file_name = hashlib.md5(url.encode()).hexdigest()
-        with open(self.path + file_name, "wb") as f:
-            f.write(html.encode())
+        with open(self.path + file_name, "w") as f:
+            f.write(html)
         return True
 
     def get(self, url, default=None, expiration="inf"):
@@ -64,7 +64,7 @@ class DiskStore:
                 os.remove(file_path)
                 return default
 
-            with open(file_path, "rb") as f:
+            with open(file_path, "r") as f:
                 data = f.read()
             return data
         except FileNotFoundError as e:
