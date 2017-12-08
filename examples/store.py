@@ -1,4 +1,4 @@
-from toapi.storage.storage import Storage
+from toapi.storage import Storage
 from time import time
 import os
 # store = DiskStore()
