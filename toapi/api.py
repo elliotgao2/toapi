@@ -30,13 +30,19 @@ class Api:
             phantom_options.append('--load-images=false')
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
 
-    def parse(self, url, params=None, **kwargs):
+    def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
         items = []
         for index, item in enumerate(self.item_classes):
-            if item.__pattern__.match(item.__base_url__ + url):
-                item.__url__ = item.__base_url__ + url
-                items.append(item)
+            if path.startswith('/http'):
+                path = path[1:]
+                if item.__pattern__.match(path):
+                    item.__url__ = path
+                    items.append(item)
+            else:
+                if item.__pattern__.match(item.__base_url__ + path):
+                    item.__url__ = item.__base_url__ + path
+                    items.append(item)
 
         if len(items) < 0:
             return None
