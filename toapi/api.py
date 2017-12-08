@@ -20,11 +20,14 @@ class Api:
     def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.with_ajax = self.settings.with_ajax
         self.item_classes = []
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
-        if self.with_ajax:
+        if self.settings.with_ajax:
+            if self.settings.headers is not None:
+                for key, value in self.settings.headers.items():
+                    capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
+                    webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
             phantom_options = []
             phantom_options.append('--load-images=false')
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
@@ -89,6 +92,10 @@ class Api:
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
 
+        @app.route('/')
+        def hello():
+            return 'Hello, World!'
+
         @app.errorhandler(404)
         def page_not_found(error):
 
@@ -127,7 +134,7 @@ class Api:
 
     def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
-        if self.with_ajax:
+        if self.settings.with_ajax:
             self._browser.get(url)
             text = self._browser.page_source
             if text != '':

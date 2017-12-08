@@ -16,3 +16,4 @@ class Settings:
         "DB_URL": None
     }
     with_ajax = False
+    headers = None
