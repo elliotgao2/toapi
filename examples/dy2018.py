@@ -26,7 +26,7 @@ class Post(Item):
 
 
 class Page(Item):
-    __base_url__ = 'https://news.ycombinator.com/'
+    __base_url__ = 'https://news.ycombinator.com'
     next_page = XPath('//a[@class="morelink"]/@href')
 
     class Meta:

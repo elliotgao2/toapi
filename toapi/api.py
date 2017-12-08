@@ -35,9 +35,9 @@ class Api:
         items = []
         for index, item in enumerate(self.item_classes):
             if path.startswith('/http'):
-                path = path[1:]
-                if item.__pattern__.match(path):
-                    item.__url__ = path
+                full_path = path[1:]
+                if item.__pattern__.match(full_path):
+                    item.__url__ = full_path
                     items.append(item)
             else:
                 if item.__pattern__.match(item.__base_url__ + path):
@@ -48,7 +48,6 @@ class Api:
             return None
 
         results = {}
-
         pre = {}
         for item in items:
             pre[item.__url__] = pre.get(item.__url__, list())
