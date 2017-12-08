@@ -37,23 +37,20 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def _parse_item(cls, html):
         item = {}
-        for name in cls.selectors:
+        for name, selector in cls.selectors.items():
             try:
-                item[name] = getattr(cls, name)
+                item[name] = selector.parse(html)
             except IndexError:
                 item[name] = ''
             except Exception:
                 item[name] = ''
-        item = cls._clean_item(item)
-        return item
 
-    @classmethod
-    def _clean_item(cls, item):
-        for index, field_name in enumerate(item):
-            clean_method = getattr(cls, 'clean_%s' % field_name, None)
+            clean_method = getattr(cls, 'clean_%s' % name, None)
+
             if clean_method:
-                item[field_name] = clean_method(cls, item[field_name])
-            return item
+                item[name] = clean_method(cls, item[name])
+
+        return item
 
     class Meta:
         source = None
