@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from urllib.parse import urlparse
 
 import cchardet
 import requests
@@ -51,7 +52,7 @@ class Api:
             pre[item.__url__] = pre.get(item.__url__, list())
             pre[item.__url__].append(item)
 
-        for index, url in enumerate(pre):
+        for url, items in pre.items():
             cached_item = self.cache.get(url)
             if cached_item is not None:
                 logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
@@ -61,12 +62,12 @@ class Api:
             html = self.storage.get(url)
             if html is not None:
                 logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % url)
-                parsed_item = self._parse_item(html, pre[url])
+                parsed_item = self._parse_item(html, items)
             else:
                 html = self._fetch_page_source(url, params=params, **kwargs)
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
-                parsed_item = self._parse_item(html, pre[url])
+                parsed_item = self._parse_item(html, items)
 
             cached_item = self.cache.get(url) or {}
             cached_item.update(parsed_item)
@@ -84,19 +85,36 @@ class Api:
 
     def serve(self, ip='0.0.0.0', port='5000', **options):
         """Serve as an api server"""
-        from flask import Flask, request
+        from flask import Flask, request, jsonify
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
 
         @app.errorhandler(404)
-        @self.cache.api_cached()
-        def page_not_found(error, url):
+        def page_not_found(error):
+
+            parse_result = urlparse(request.url)
+            if parse_result.query != '':
+                path = '{}?{}'.format(
+                    parse_result.path,
+                    parse_result.query
+                )
+            else:
+                path = request.path
+
             try:
-                res = self.parse(url)
-                if res is None:
-                    logger.error('Received', '%s 404' % request.url)
-                    return 'Not Found', 404
-                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res)))
+                result = self.cache.get(path)
+                if result is not None:
+                    logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % path)
+                else:
+                    result = self.parse(path)
+                    if result is not None and self.cache.set(path, result):
+                        logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % path)
+                    else:
+                        logger.error('Received', '%s 404' % request.url)
+                        return 'Not Found', 404
+
+                res = jsonify(result)
+                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
                 return res
             except Exception as e:
                 return str(e)
