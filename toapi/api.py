@@ -17,7 +17,7 @@ from toapi.storage import DiskStore
 class Api:
     """Api handle the routes dispatch"""
 
-    def __init__(self, base_url, settings=None, *args, **kwargs):
+    def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
         self.with_ajax = self.settings.with_ajax

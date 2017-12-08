@@ -14,7 +14,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//div[@class="result"]')
-        route = 's\?wd=.+'
+        route = '\.+'
 
 
 class Page(Item):
@@ -22,7 +22,7 @@ class Page(Item):
 
     class Meta:
         source = None
-        route = 's\?wd=.+'
+        route = '\.+'
 
     def clean_next_page(self, next_page):
         return "http://127.0.0.1:5000/" + next_page

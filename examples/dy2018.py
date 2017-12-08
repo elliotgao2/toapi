@@ -1,15 +1,17 @@
 from toapi import XPath, Item, Api
 
-api = Api('http://www.dy2018.com')
+api = Api()
 
 
 class Movie(Item):
+    __base_url__ = 'http://www.dy2018.com'
+
     url = XPath('//b//a[@class="ulink"]/@href')
     title = XPath('//b//a[@class="ulink"]/text()')
 
     class Meta:
         source = XPath('//table[@class="tbspan"]')
-        route = '/html/gndy/dyzz/index_\d+.html'
+        route = '/'
 
 
 class Post(Item):
@@ -19,7 +21,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/news\?p=\d+'
+        route = '/'
 
 
 class Page(Item):
@@ -28,10 +30,7 @@ class Page(Item):
 
     class Meta:
         source = None
-        route = '/news\?p=\d+'
-
-    def clean_next_page(self, next_page):
-        return "http://127.0.0.1:5000/" + next_page
+        route = '/'
 
 
 api.register(Movie)
