@@ -21,8 +21,8 @@ class Storage:
             self.path = "./"
         self.db_url = settings.storage_config.get("DB_URL")
 
-        self.disk_store = DiskStore(self.path)
         self.db_store = DBStore(self.db_url) if self.db_url else None
+        self.disk_store = DiskStore(self.path) if not self.db_store else None
 
     def save(self, url, html):
 
@@ -33,5 +33,5 @@ class Storage:
     def get(self, url, expiration="inf"):
 
         if not self.db_store:
-            return self.disk_store.get(url, expiration)
-        return self.db_store.get(url, expiration)
+            return self.disk_store.get(url=url, expiration=expiration)
+        return self.db_store.get(url=url, expiration=expiration)

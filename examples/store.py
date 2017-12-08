@@ -17,6 +17,14 @@ class Settings:
     }
     with_ajax = False
 
+class Settings2:
+    """Global Settings"""
+    storage_config = {
+        "PATH": os.getcwd(),
+        "DB_URL": "mysql://thys:123456@localhost/order_system"
+    }
+    with_ajax = False
+
 
 def time_it(f):
     def decorator(*args, **kwargs):
@@ -48,17 +56,15 @@ def disk_test():
 
 def db_store():
     url = "https://www.google.com"
-    html = "<p>你好,世界</p>\n<h1>this is a big problem</h1>"
-    settings = {
-        "DB_URL": "mysql://thys:123456@localhost/order_system"
-    }
-    store = Storage(settings)
-    store.save(url, html)
-    # print(store.get(url, expiration=5))
+    html = "<p>no chinese charactors</p>\n<h1>this is a big problem</h1>"
+
+    store = Storage(Settings2)
+    store.save(url, html.encode())
+    # print(store.get(url))
 
 
 if __name__ == "__main__":
     # io_test()
-    disk_test()
-    # db_store()
+    # disk_test()
+    db_store()
 
