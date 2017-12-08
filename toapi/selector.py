@@ -2,11 +2,6 @@ import re
 
 from lxml import etree
 
-try:
-    bool(type(str))
-except NameError:
-    str = unicode
-
 
 class Selector(object):
     def __init__(self, rule):

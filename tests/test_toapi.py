@@ -29,4 +29,4 @@ def test_api_with_ajax():
     api.register(Post)
     api.register(Page)
 
-    print(api.parse('/news?p=1'))
+    api.parse('/news?p=1')
