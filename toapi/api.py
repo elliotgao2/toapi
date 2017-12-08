@@ -11,7 +11,7 @@ from selenium import webdriver
 from toapi.cache import CacheSetting, MemoryCache
 from toapi.log import logger
 from toapi.settings import Settings
-from toapi.storage.storage import Storage
+from toapi.storage import Storage
 
 
 class Api:
