@@ -1,11 +1,21 @@
-from toapi.storage import DiskStore, DBStore
+from toapi.storage.storage import Storage
 from time import time
+import os
 # store = DiskStore()
 
 url = "https://www.google.com"
 html = "<p> Hello, World!</p>"
 # store.save(url, html)
 # print(store.get(url))
+
+
+class Settings:
+    """Global Settings"""
+    storage_config = {
+        "PATH": os.getcwd(),
+        "DB_URL": None
+    }
+    with_ajax = False
 
 
 def time_it(f):
@@ -21,7 +31,7 @@ def time_it(f):
 def io_test():
     url = "https://www.google.com"
     html = "<p> Hello, World!</p>\n<h1>this is a big problem</h1>"
-    store = DiskStore()
+    store = Storage()
     # for i in range(10000):
     #     url = url+str(i)
     #     store.get(url)
@@ -30,25 +40,25 @@ def io_test():
 
 def disk_test():
     url = "https://www.google.com123"
-    html = "<p> Hello, 'World!</p>\n<h1>this is a b'ig problem</h1'>"
-    store = DiskStore()
+    html = "<p>你好世界</p>\n<h1>this is a b'ig problem</h1'>"
+    store = Storage(settings=Settings())
     # store.save(url, html)
-    print(store.get(url, expiration=5))
+    print(store.get(url))
 
 
 def db_store():
     url = "https://www.google.com"
-    html = "<p> Hello, 'World!</p>\n<h1>this is a b'ig problem</h1'>"
-    storage = {
+    html = "<p>你好,世界</p>\n<h1>this is a big problem</h1>"
+    settings = {
         "DB_URL": "mysql://thys:123456@localhost/order_system"
     }
-    store = DBStore(storage)
-    # store.save(url, html)
-    print(store.get(url, expiration=5))
+    store = Storage(settings)
+    store.save(url, html)
+    # print(store.get(url, expiration=5))
 
 
 if __name__ == "__main__":
     # io_test()
-    # disk_test()
-    db_store()
+    disk_test()
+    # db_store()
 
