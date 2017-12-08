@@ -7,14 +7,14 @@ def with_metaclass(meta):
 
 class ItemType(type):
     def __new__(cls, what, bases=None, dict=None):
-        selectors = {}
+        __selectors__ = {}
         for name, selector in dict.items():
             if isinstance(selector, Selector):
-                selectors[name] = selector
-        dict['selectors'] = selectors
+                __selectors__[name] = selector
+        dict['__selectors__'] = __selectors__
+        dict['__name__'] = dict.get('__name__', what).lower()
         dict['__base_url__'] = dict.get('__base_url__', None)
-        dict['name'] = what.lower()
-        for name in selectors:
+        for name in __selectors__:
             del dict[name]
         return type.__new__(cls, what, bases, dict)
 
@@ -37,7 +37,7 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def _parse_item(cls, html):
         item = {}
-        for name, selector in cls.selectors.items():
+        for name, selector in cls.__selectors__.items():
             try:
                 item[name] = selector.parse(html)
             except IndexError:

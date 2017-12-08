@@ -142,9 +142,9 @@ class Api:
         """Parse kinds of items from html"""
         result = {}
         for item in items:
-            result[item.name] = item.parse(html)
-            if len(result[item.name]) == 0:
-                logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+            result[item.__name__] = item.parse(html)
+            if len(result[item.__name__]) == 0:
+                logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
             else:
-                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result

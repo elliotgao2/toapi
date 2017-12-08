@@ -38,7 +38,7 @@ class Page(Item):
 
 
 api.register(Movie)
-# api.register(Post)
-# api.register(Page)
+api.register(Post)
+api.register(Page)
 
 api.serve()
