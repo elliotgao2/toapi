@@ -4,13 +4,11 @@ from functools import wraps
 from colorama import Fore
 from urllib.parse import urlparse
 
+from flask import jsonify
+
 from toapi.cache.memory_cache import MemoryCache
 from toapi.log import logger
 
-try:
-    import ujson as json
-except ImportError:
-    import json
 
 
 class CacheSetting:
@@ -75,7 +73,7 @@ class CacheSetting:
                 try:
                     if self.exists(cache_key):
                         logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)
-                        return json.dumps(self.get(cache_key))
+                        return jsonify(self.get(cache_key))
                 except Exception:
                     logger.exception('Cache', 'Get<%s>' % cache_key)
                 result = func(error, url=key, *args, **kwargs)
@@ -86,7 +84,7 @@ class CacheSetting:
                     except Exception:
                         logger.exception('Cache', 'Set<%s>' % cache_key)
 
-                return json.dumps(result)
+                return jsonify(result)
 
             return wrapper
 
