@@ -10,7 +10,6 @@ from toapi.cache.memory_cache import MemoryCache
 from toapi.log import logger
 
 
-
 class CacheSetting:
     """
     Cache setting configuration
@@ -25,7 +24,7 @@ class CacheSetting:
         'serializer': None
     }
 
-    def __init__(self, settings):
+    def __init__(self, settings=None):
         self.cache_dict = getattr(settings, 'cache_dict', self.cache_dict)
         if not isinstance(self.cache_dict.get('cache_config'), dict):
             raise ValueError("Key cache_config must be a dict")
@@ -34,6 +33,7 @@ class CacheSetting:
         self.instance = self.cache_dict['cache_class'](serializer=serializer, **self.cache_dict['cache_config'])
 
     def set(self, key, value, ttl=None):
+        ttl = ttl or self.ttl
         return self.instance.set(key, value, ttl=ttl)
 
     def get(self, key, default=None):
