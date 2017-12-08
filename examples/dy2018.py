@@ -11,17 +11,18 @@ class Movie(Item):
 
     class Meta:
         source = XPath('//table[@class="tbspan"]')
-        route = '/'
+        route = '/html/gndy/dyzz/index_\d+.html'
 
 
 class Post(Item):
-    __base_url__ = 'https://news.ycombinator.com/'
+    __base_url__ = 'https://news.ycombinator.com'
+
     url = XPath('//a[@class="storylink"]/@href')
     title = XPath('//a[@class="storylink"]/text()')
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = '/news\?p=\d+'
 
 
 class Page(Item):
@@ -30,7 +31,10 @@ class Page(Item):
 
     class Meta:
         source = None
-        route = '/'
+        route = '/news\?p=\d+'
+
+    def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + next_page
 
 
 api.register(Movie)
