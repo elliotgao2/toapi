@@ -11,7 +11,7 @@ from selenium import webdriver
 from toapi.cache import CacheSetting, MemoryCache
 from toapi.log import logger
 from toapi.settings import Settings
-from toapi.storage import DiskStore
+from toapi.storage.storage import Storage
 
 
 class Api:
@@ -23,7 +23,7 @@ class Api:
         self.with_ajax = self.settings.with_ajax
         self.item_classes = []
         self.cache = MemoryCache()
-        self.storage = DiskStore()
+        self.storage = Storage(settings=self.settings)
         CacheSetting.cache_config = self.settings.cache_config
         if self.with_ajax:
             phantom_options = []
