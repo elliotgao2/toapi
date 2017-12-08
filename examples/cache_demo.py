@@ -13,12 +13,12 @@ class MySettings(Settings):
     Create custom configuration
     """
     cache = {
-        'type': MemoryCache,
-        'config': {}
+        'cache_class': MemoryCache,
+        'cache_config': {}
     }
     redis_cache = {
-        'type': RedisCache,
-        'config': {
+        'cache_class': RedisCache,
+        'cache_config': {
             'host': '127.0.0.1',
             'port': 6379,
             'db': 0,
@@ -27,7 +27,7 @@ class MySettings(Settings):
     }
 
 
-@cached(cache_class=MySettings.redis_cache['type'], ttl=5, cache_config=MySettings.redis_cache['config'])
+@cached(**MySettings.redis_cache, ttl=5)
 def parse(url, params=None, **kwargs):
     return 'value'
 

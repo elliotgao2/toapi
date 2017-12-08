@@ -8,7 +8,7 @@ import requests
 from colorama import Fore
 from selenium import webdriver
 
-from toapi.cache import MemoryCache
+from toapi.cache import CacheSetting, MemoryCache
 from toapi.log import logger
 from toapi.settings import Settings
 from toapi.storage import DiskStore
@@ -17,55 +17,75 @@ from toapi.storage import DiskStore
 class Api:
     """Api handle the routes dispatch"""
 
-    def __init__(self, base_url, settings=None, *args, **kwargs):
+    def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.with_ajax = settings.with_ajax
+        self.with_ajax = self.settings.with_ajax
         self.item_classes = []
         self.cache = MemoryCache()
         self.storage = DiskStore()
+        CacheSetting.cache_config = self.settings.cache_config
         if self.with_ajax:
             phantom_options = []
             phantom_options.append('--load-images=false')
             self._browser = webdriver.PhantomJS(service_args=phantom_options)
 
-    def parse(self, url, params=None, **kwargs):
+    def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
-        url = self.base_url + url
-        items = self.cache.get(url)
-        if items is not None:
-            logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
-            return items
-
         items = []
         for index, item in enumerate(self.item_classes):
-            if re.compile(item['regex']).match(url):
-                items.append(item['item'])
+            if path.startswith('/http'):
+                full_path = path[1:]
+                if item.__pattern__.match(full_path):
+                    item.__url__ = full_path
+                    items.append(item)
+            else:
+                if item.__pattern__.match(item.__base_url__ + path):
+                    item.__url__ = item.__base_url__ + path
+                    items.append(item)
 
-        if len(items) > 0:
+        if len(items) < 0:
+            return None
+
+        results = {}
+        pre = {}
+        for item in items:
+            pre[item.__url__] = pre.get(item.__url__, list())
+            pre[item.__url__].append(item)
+
+        for index, url in enumerate(pre):
+            parsed_item = self.cache.get(url)
+            if parsed_item is not None:
+                logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
+                results.update(parsed_item)
+                return results
+
             html = self.storage.get(url)
             if html is not None:
                 logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % url)
-                items = self._parse_items(html, *items)
+                parsed_item = self._parse_item(html, pre[url])
             else:
                 html = self._fetch_page_source(url, params=params, **kwargs)
+
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
-                items = self._parse_items(html, *items)
-            if self.cache.set(url, items):
+                parsed_item = self._parse_item(html, pre[url])
+
+            cached_item = self.cache.get(url) or {}
+            cached_item.update(parsed_item)
+            if self.cache.set(url, cached_item):
                 logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % url)
-            return items
-        else:
-            return None
+            results.update(parsed_item)
+        return results
 
     def register(self, item):
         """Register route"""
-        self.item_classes.append({
-            'regex': item.Meta.route,
-            'item': item
-        })
+        if item.__base_url__ is None:
+            item.__base_url__ = self.base_url
+        item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
+        self.item_classes.append(item)
 
-    def serve(self, ip='0.0.0.0', port='5000', debug=None, **options):
+    def serve(self, ip='0.0.0.0', port='5000', **options):
         """Serve as an api server"""
         from flask import Flask, jsonify, request
         app = Flask(__name__)
@@ -84,10 +104,10 @@ class Api:
             try:
                 res = self.parse(url)
                 if res is None:
-                    logger.error('Received', '%s 404' % url)
+                    logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
                 res = jsonify(res)
-                logger.info(Fore.GREEN, 'Received', '%s %s' % (request.url, len(res.response[0])))
+                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response[0])))
                 return res
             except Exception as e:
                 return str(e)
@@ -119,13 +139,13 @@ class Api:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
             return text
 
-    def _parse_items(self, html, *items):
+    def _parse_item(self, html, items):
         """Parse kinds of items from html"""
-        results = {}
+        result = {}
         for item in items:
-            results[item.name] = item.parse(html)
-            if len(results[item.name]) == 0:
-                logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(results[item.name])))
+            result[item.name] = item.parse(html)
+            if len(result[item.name]) == 0:
+                logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
             else:
-                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(results[item.name])))
-        return results
+                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+        return result

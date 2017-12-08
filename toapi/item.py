@@ -12,6 +12,7 @@ class ItemType(type):
             if isinstance(selector, Selector):
                 selectors[name] = selector
         dict['selectors'] = selectors
+        dict['__base_url__'] = dict.get('__base_url__', None)
         dict['name'] = what.lower()
         for name in selectors:
             del dict[name]

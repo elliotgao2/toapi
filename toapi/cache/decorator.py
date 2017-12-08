@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 from functools import wraps
 
+from colorama import Fore
+
+from toapi.log import logger
+
 
 def dec_connector(func):
     @wraps(func)
@@ -31,21 +35,20 @@ def cached(cache_class=None, key=None, ttl=None, serializer=None, cache_config=N
             if isinstance(cache_config, dict):
                 kwargs.update(cache_config)
             cache_ins = cache_class(serializer=serializer, **kwargs)
-            dynamic_key = kwargs.get('dynamic_key')
-            cache_key = key or dynamic_key
+            cache_key = kwargs.get('base_url') + kwargs.get('url')
             try:
                 if cache_ins.exists(cache_key):
+                    logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)
                     return cache_ins.get(cache_key)
             except Exception:
-                # TODO
-                pass
+                logger.exception('Cache', 'Get<%s>' % cache_key)
             result = func(*args, **kwargs)
-            if result:
+            if result and cache_key:
                 try:
-                    cache_ins.set(cache_key, result, ttl=ttl)
-                except Exception as e:
-                    # TODO
-                    pass
+                    if cache_ins.set(cache_key, result, ttl=ttl):
+                        logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % cache_key)
+                except Exception:
+                    logger.exception('Cache', 'Set<%s>' % cache_key)
 
             return result
 
