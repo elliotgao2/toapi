@@ -24,7 +24,7 @@ class MySettings(Settings):
     }
 
 
-@cached(**MySettings.cache_dict, ttl=5)
+@cached(**MySettings.cache_dict, ttl=10)
 def parse(url, params=None, **kwargs):
     return 'value'
 
