@@ -11,7 +11,7 @@ from selenium import webdriver
 from toapi.cache import CacheSetting, MemoryCache
 from toapi.log import logger
 from toapi.settings import Settings
-from toapi.storage import DiskStore
+from toapi.storage.storage import Storage
 
 
 class Api:
@@ -23,7 +23,7 @@ class Api:
         self.with_ajax = self.settings.with_ajax
         self.item_classes = []
         self.cache = MemoryCache()
-        self.storage = DiskStore()
+        self.storage = Storage(settings=self.settings)
         CacheSetting.cache_config = self.settings.cache_config
         if self.with_ajax:
             phantom_options = []
@@ -54,10 +54,10 @@ class Api:
             pre[item.__url__].append(item)
 
         for index, url in enumerate(pre):
-            parsed_item = self.cache.get(url)
-            if parsed_item is not None:
+            cached_item = self.cache.get(url)
+            if cached_item is not None:
                 logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
-                results.update(parsed_item)
+                results.update(cached_item)
                 return results
 
             html = self.storage.get(url)
@@ -66,7 +66,6 @@ class Api:
                 parsed_item = self._parse_item(html, pre[url])
             else:
                 html = self._fetch_page_source(url, params=params, **kwargs)
-
                 if self.storage.save(url, html):
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 parsed_item = self._parse_item(html, pre[url])
@@ -75,7 +74,7 @@ class Api:
             cached_item.update(parsed_item)
             if self.cache.set(url, cached_item):
                 logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % url)
-            results.update(parsed_item)
+            results.update(cached_item)
         return results
 
     def register(self, item):

@@ -12,3 +12,4 @@ pymemcache
 pycrypto
 colorama
 records
+mkdocs
