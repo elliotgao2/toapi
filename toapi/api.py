@@ -1,14 +1,13 @@
 import logging
 import re
 import sys
-from urllib.parse import urlparse
 
 import cchardet
 import requests
 from colorama import Fore
 from selenium import webdriver
 
-from toapi.cache import CacheSetting, MemoryCache
+from toapi.cache import CacheSetting
 from toapi.log import logger
 from toapi.settings import Settings
 from toapi.storage import Storage
@@ -22,9 +21,8 @@ class Api:
         self.settings = settings or Settings
         self.with_ajax = self.settings.with_ajax
         self.item_classes = []
-        self.cache = MemoryCache()
         self.storage = Storage(settings=self.settings)
-        CacheSetting.cache_config = self.settings.cache_config
+        self.cache = CacheSetting(settings=self.settings)
         if self.with_ajax:
             phantom_options = []
             phantom_options.append('--load-images=false')
@@ -54,12 +52,6 @@ class Api:
             pre[item.__url__].append(item)
 
         for index, url in enumerate(pre):
-            cached_item = self.cache.get(url)
-            if cached_item is not None:
-                logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
-                results.update(cached_item)
-                return results
-
             html = self.storage.get(url)
             if html is not None:
                 logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % url)
@@ -70,11 +62,7 @@ class Api:
                     logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
                 parsed_item = self._parse_item(html, pre[url])
 
-            cached_item = self.cache.get(url) or {}
-            cached_item.update(parsed_item)
-            if self.cache.set(url, cached_item):
-                logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % url)
-            results.update(cached_item)
+            results.update(parsed_item)
         return results
 
     def register(self, item):
@@ -86,27 +74,19 @@ class Api:
 
     def serve(self, ip='0.0.0.0', port='5000', **options):
         """Serve as an api server"""
-        from flask import Flask, jsonify, request
+        from flask import Flask, request
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
 
         @app.errorhandler(404)
-        def page_not_found(error):
-            parse_result = urlparse(request.url)
-            if parse_result.query != '':
-                url = '{}?{}'.format(
-                    parse_result.path,
-                    parse_result.query
-                )
-            else:
-                url = request.path
+        @self.cache.api_cached()
+        def page_not_found(error, url):
             try:
                 res = self.parse(url)
                 if res is None:
                     logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
-                res = jsonify(res)
-                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response[0])))
+                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res)))
                 return res
             except Exception as e:
                 return str(e)
