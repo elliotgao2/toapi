@@ -1,7 +1,6 @@
 import logging
 import re
 import sys
-from urllib.parse import urlparse
 
 import cchardet
 import requests
@@ -93,21 +92,30 @@ class Api:
         app.logger.setLevel(logging.ERROR)
 
         @app.route('/')
-        def hello():
-            return 'Hello, World!'
+        def index():
+            base_url = "{}://{}".format(request.scheme, request.host)
+            basic_info = {
+                "cache": "{}/{}".format(base_url, "cache"),
+                "items": "{}/{}".format(base_url, "items"),
+                "status": "{}/{}".format(base_url, "status"),
+                "storage": "{}/{}".format(base_url, "storage")
+            }
+            return jsonify(basic_info)
+
+        @app.route('/items/')
+        def info():
+            res = {
+                item.__name__: "{}://{}/{}".format(request.scheme, request.host, item.__base_url__ + item.Meta.route)
+                for item in self.item_classes
+            }
+            logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res)))
+            return jsonify(res)
 
         @app.errorhandler(404)
         def page_not_found(error):
-
-            parse_result = urlparse(request.url)
-            if parse_result.query != '':
-                path = '{}?{}'.format(
-                    parse_result.path,
-                    parse_result.query
-                )
-            else:
-                path = request.path
-
+            path = request.full_path
+            if path.endswith('?'):
+                path = path[:-1]
             try:
                 result = self.cache.get(path)
                 if result is not None:
