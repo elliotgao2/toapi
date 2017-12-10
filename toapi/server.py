@@ -8,6 +8,13 @@ from toapi.log import logger
 
 
 class Server:
+    def serve(self, ip='0.0.0.0', port='5000', **options):
+        try:
+            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
+            self.app.run(ip, port, debug=False, **options)
+        except KeyboardInterrupt:
+            sys.exit()
+
     def __init__(self, api, settings):
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
@@ -58,18 +65,12 @@ class Server:
                     return 'Not Found', 404
                 api.set_cache(path, result)
                 res = jsonify(result)
-                api._update_status('_status_received')
+                api.update_status('_status_received')
                 end_time = time()
                 time_usage = end_time - start_time
                 logger.info(Fore.GREEN, 'Received',
                             '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+
                 return res
             except Exception as e:
                 return str(e)
-
-    def serve(self, ip='0.0.0.0', port='5000', **options):
-        try:
-            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-            self.app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
