@@ -52,14 +52,13 @@ class Api:
                 html = self.get_storage(url) or self.fetch_page_source(url, params=params, **kwargs)
                 if html is not None:
                     parsed_item = self.parse_item(html, items)
-                    self.set_cache(url, parsed_item)
                     results.update(parsed_item)
+                    self.set_cache(url, parsed_item)
         return results or None
 
     def register(self, item):
         """Register items"""
-        if item.__base_url__ is None:
-            item.__base_url__ = self.base_url
+        item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
         self.item_classes.append(item)
 
