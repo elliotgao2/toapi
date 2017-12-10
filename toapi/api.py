@@ -22,14 +22,16 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        if self.settings.with_ajax:
-            if self.settings.headers is not None:
-                for key, value in self.settings.headers.items():
-                    capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
-                    webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
-            phantom_options = []
-            phantom_options.append('--load-images=false')
-            self._browser = webdriver.PhantomJS(service_args=phantom_options)
+        self.browser = self._get_browser()
+
+    def _get_browser(self):
+        if self.settings.headers is not None:
+            for key, value in self.settings.headers.items():
+                capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
+                webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
+        phantom_options = []
+        phantom_options.append('--load-images=false')
+        return webdriver.PhantomJS(service_args=phantom_options)
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
@@ -75,8 +77,8 @@ class Api:
         self._update_status('_status_sent')
 
         if self.settings.with_ajax:
-            self._browser.get(url)
-            text = self._browser.page_source
+            self.browser.get(url)
+            text = self.browser.page_source
             if text != '':
                 logger.info(Fore.GREEN, 'Sent', '%s %s 200' % (url, len(text)))
             else:
