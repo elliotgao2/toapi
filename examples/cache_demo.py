@@ -5,29 +5,26 @@ Tips for toapi caches: there are several simple caching scheme we provide for yo
     - Use cached decorator
 """
 from toapi.settings import Settings
-from toapi.cache import RedisCache, MemoryCache, cached
+from toapi.cache import RedisCache, cached, CacheSetting
 
 
 class MySettings(Settings):
     """
     Create custom configuration
     """
-    cache = {
-        'cache_class': MemoryCache,
-        'cache_config': {}
-    }
-    redis_cache = {
+    cache_dict = {
         'cache_class': RedisCache,
         'cache_config': {
             'host': '127.0.0.1',
             'port': 6379,
             'db': 0,
             'password': None
-        }
+        },
+        'serializer': None
     }
 
 
-@cached(**MySettings.redis_cache, ttl=5)
+@cached(**MySettings.cache_dict, ttl=10)
 def parse(url, params=None, **kwargs):
     return 'value'
 
@@ -35,4 +32,5 @@ def parse(url, params=None, **kwargs):
 if __name__ == '__main__':
     url = '/toapi'
     result = parse(url=url, dynamic_key=url)
-    print(result)
+    cache_ins = CacheSetting(MySettings)
+    print(cache_ins.get(url))

@@ -7,14 +7,13 @@ def with_metaclass(meta):
 
 class ItemType(type):
     def __new__(cls, what, bases=None, dict=None):
-        selectors = {}
+        __selectors__ = {}
         for name, selector in dict.items():
             if isinstance(selector, Selector):
-                selectors[name] = selector
-        dict['selectors'] = selectors
+                __selectors__[name] = selector
+        dict['__selectors__'] = __selectors__
         dict['__base_url__'] = dict.get('__base_url__', None)
-        dict['name'] = what.lower()
-        for name in selectors:
+        for name in __selectors__:
             del dict[name]
         return type.__new__(cls, what, bases, dict)
 
@@ -37,23 +36,20 @@ class Item(with_metaclass(ItemType)):
     @classmethod
     def _parse_item(cls, html):
         item = {}
-        for name in cls.selectors:
+        for name, selector in cls.__selectors__.items():
             try:
-                item[name] = getattr(cls, name)
+                item[name] = selector.parse(html)
             except IndexError:
                 item[name] = ''
             except Exception:
                 item[name] = ''
-        item = cls._clean_item(item)
-        return item
 
-    @classmethod
-    def _clean_item(cls, item):
-        for index, field_name in enumerate(item):
-            clean_method = getattr(cls, 'clean_%s' % field_name, None)
+            clean_method = getattr(cls, 'clean_%s' % name, None)
+
             if clean_method:
-                item[field_name] = clean_method(cls, item[field_name])
-            return item
+                item[name] = clean_method(cls, item[name])
+
+        return item
 
     class Meta:
         source = None

@@ -1,15 +1,13 @@
-import logging
 import re
-import sys
-from urllib.parse import urlparse
 
 import cchardet
 import requests
 from colorama import Fore
 from selenium import webdriver
 
-from toapi.cache import CacheSetting, MemoryCache
+from toapi.cache import CacheSetting
 from toapi.log import logger
+from toapi.server import Server
 from toapi.settings import Settings
 from toapi.storage import Storage
 
@@ -20,113 +18,64 @@ class Api:
     def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.with_ajax = self.settings.with_ajax
         self.item_classes = []
-        self.cache = MemoryCache()
         self.storage = Storage(settings=self.settings)
-        CacheSetting.cache_config = self.settings.cache_config
-        if self.with_ajax:
-            phantom_options = []
-            phantom_options.append('--load-images=false')
-            self._browser = webdriver.PhantomJS(service_args=phantom_options)
+        self.cache = CacheSetting(settings=self.settings)
+        self.server = Server(self, settings=self.settings)
+        self.browser = self.get_browser(settings=self.settings)
+
+    def get_browser(self, settings):
+        if settings.headers is not None:
+            for key, value in settings.headers.items():
+                capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
+                webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
+        phantom_options = []
+        phantom_options.append('--load-images=false')
+        return webdriver.PhantomJS(service_args=phantom_options)
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
-        items = []
-        for index, item in enumerate(self.item_classes):
-            if path.startswith('/http'):
-                full_path = path[1:]
-                if item.__pattern__.match(full_path):
-                    item.__url__ = full_path
-                    items.append(item)
-            else:
-                if item.__pattern__.match(item.__base_url__ + path):
-                    item.__url__ = item.__base_url__ + path
-                    items.append(item)
 
-        if len(items) < 0:
-            return None
+        items = {}
+        for index, item in enumerate(self.item_classes):
+            full_path = path[1:] if path.startswith('/http') else item.__base_url__ + path
+            if item.__pattern__.match(full_path):
+                items[full_path] = items.get(full_path, list())
+                items[full_path].append(item)
 
         results = {}
-        pre = {}
-        for item in items:
-            pre[item.__url__] = pre.get(item.__url__, list())
-            pre[item.__url__].append(item)
-
-        for index, url in enumerate(pre):
-            cached_item = self.cache.get(url)
+        for url, items in items.items():
+            cached_item = self.get_cache(url)
             if cached_item is not None:
-                logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % url)
                 results.update(cached_item)
-                return results
-
-            html = self.storage.get(url)
-            if html is not None:
-                logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % url)
-                parsed_item = self._parse_item(html, pre[url])
             else:
-                html = self._fetch_page_source(url, params=params, **kwargs)
-                if self.storage.save(url, html):
-                    logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % url)
-                parsed_item = self._parse_item(html, pre[url])
-
-            cached_item = self.cache.get(url) or {}
-            cached_item.update(parsed_item)
-            if self.cache.set(url, cached_item):
-                logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % url)
-            results.update(cached_item)
-        return results
+                html = self.get_storage(url) or self.fetch_page_source(url, params=params, **kwargs)
+                if html is not None:
+                    parsed_item = self.parse_item(html, items)
+                    results.update(parsed_item)
+                    self.set_cache(url, parsed_item)
+        return results or None
 
     def register(self, item):
-        """Register route"""
-        if item.__base_url__ is None:
-            item.__base_url__ = self.base_url
+        """Register items"""
+        item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
         self.item_classes.append(item)
 
     def serve(self, ip='0.0.0.0', port='5000', **options):
-        """Serve as an api server"""
-        from flask import Flask, jsonify, request
-        app = Flask(__name__)
-        app.logger.setLevel(logging.ERROR)
+        self.server.serve(ip, port, **options)
 
-        @app.errorhandler(404)
-        def page_not_found(error):
-            parse_result = urlparse(request.url)
-            if parse_result.query != '':
-                url = '{}?{}'.format(
-                    parse_result.path,
-                    parse_result.query
-                )
-            else:
-                url = request.path
-            try:
-                res = self.parse(url)
-                if res is None:
-                    logger.error('Received', '%s 404' % request.url)
-                    return 'Not Found', 404
-                res = jsonify(res)
-                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response[0])))
-                return res
-            except Exception as e:
-                return str(e)
-
-        logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-        try:
-            app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
-
-    def _fetch_page_source(self, url, params=None, **kwargs):
+    def fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
-        if self.with_ajax:
-            self._browser.get(url)
-            text = self._browser.page_source
+        self.update_status('_status_sent')
+        if self.settings.with_ajax:
+            self.browser.get(url)
+            text = self.browser.page_source
             if text != '':
                 logger.info(Fore.GREEN, 'Sent', '%s %s 200' % (url, len(text)))
             else:
                 logger.error('Sent', '%s %s' % (url, len(text)))
-            return text
+            result = text
         else:
             response = requests.get(url, params=params, **kwargs)
             content = response.content
@@ -136,15 +85,60 @@ class Api:
                 logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
             else:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
-            return text
+            result = text
+        self.set_storage(url, result)
+        return result
 
-    def _parse_item(self, html, items):
+    def update_status(self, key):
+        """Set cache"""
+        self.cache.set(key, str(self.get_status(key) + 1))
+
+    def get_status(self, key):
+        if self.cache.get(key) is None:
+            self.cache.set(key, '0')
+        return int(self.cache.get(key))
+
+    def set_cache(self, key, value):
+        """Set cache"""
+        if self.cache.get(key) is None and self.cache.set(key, value):
+            logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % key)
+            self.update_status('_status_cache_set')
+            return True
+        return False
+
+    def get_cache(self, key, default=None):
+        """Set cache"""
+        result = self.cache.get(key)
+        if result is not None:
+            logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % key)
+            self.update_status('_status_cache_get')
+            return result
+        return default
+
+    def set_storage(self, key, value):
+        """Set storage"""
+        if self.storage.get(key) is None and self.storage.save(key, value):
+            logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
+            self.update_status('_status_storage_set')
+            return True
+        return False
+
+    def get_storage(self, key, default=None):
+        """Set storage"""
+        result = self.storage.get(key)
+        if result is not None:
+            logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % key)
+            self.update_status('_status_storage_get')
+            return result
+        return default
+
+    def parse_item(self, html, items):
         """Parse kinds of items from html"""
         result = {}
         for item in items:
-            result[item.name] = item.parse(html)
-            if len(result[item.name]) == 0:
-                logger.error('Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+            result[item.__name__] = item.parse(html)
+            if len(result[item.__name__]) == 0:
+                logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
             else:
-                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.name.title(), len(result[item.name])))
+                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result

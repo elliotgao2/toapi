@@ -32,10 +32,10 @@ def cached(cache_class=None, key=None, ttl=None, serializer=None, cache_config=N
     def cached_dec(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
+            cache_key = key or kwargs.pop('dynamic_key', None)
             if isinstance(cache_config, dict):
                 kwargs.update(cache_config)
             cache_ins = cache_class(serializer=serializer, **kwargs)
-            cache_key = kwargs.get('base_url') + kwargs.get('url')
             try:
                 if cache_ins.exists(cache_key):
                     logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)

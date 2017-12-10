@@ -2,8 +2,8 @@ from setuptools import find_packages, setup
 
 setup(
     name="toapi",
-    version="0.1.8",
-    description="A library letting any web site provide APIs.",
+    version="0.1.9",
+    description="Every web site provides APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
     url='https://github.com/gaojiuli/toapi',
