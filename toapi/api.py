@@ -84,8 +84,20 @@ class Api:
             }
             return jsonify(basic_info)
 
+        @app.route('/status')
+        def status():
+            status = {
+                'cache_set': self._get_status('_status_cache_set'),
+                'cache_get': self._get_status('_status_cache_get'),
+                'storage_set': self._get_status('_status_storage_set'),
+                'storage_get': self._get_status('_status_storage_get'),
+                'sent': self._get_status('_status_sent'),
+                'received': self._get_status('_status_received')
+            }
+            return jsonify(status)
+
         @app.route('/items/')
-        def info():
+        def items():
             result = {
                 item.__name__: "{}://{}/{}".format(request.scheme, request.host, item.__base_url__ + item.Meta.route)
                 for item in self.item_classes
@@ -107,6 +119,7 @@ class Api:
                 self.set_cache(path, result)
                 res = jsonify(result)
                 logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
+                self._update_status('_status_received')
                 return res
             except Exception as e:
                 return str(e)
@@ -119,6 +132,8 @@ class Api:
 
     def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
+        self._update_status('_status_sent')
+
         if self.settings.with_ajax:
             self._browser.get(url)
             text = self._browser.page_source
@@ -138,35 +153,48 @@ class Api:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
             return text
 
+    def _update_status(self, key):
+        """Set cache"""
+        self.cache.set(key, str(self._get_status(key) + 1))
+
+    def _get_status(self, key):
+        if self.cache.get(key) is None:
+            self.cache.set(key, '0')
+        return int(self.cache.get(key))
+
     def set_cache(self, key, value):
         """Set cache"""
-        if not self.cache.exists(key) and self.cache.set(key, value):
+        if self.cache.get(key) is None and self.cache.set(key, value):
             logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % key)
+            self._update_status('_status_cache_set')
             return True
         return False
 
-    def get_cache(self, key):
+    def get_cache(self, key, default=None):
         """Set cache"""
         result = self.cache.get(key)
         if result is not None:
             logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % key)
+            self._update_status('_status_cache_get')
             return result
-        return None
+        return default
 
     def set_storage(self, key, value):
         """Set storage"""
-        if self.storage.save(key, value):
+        if self.storage.get(key) is None and self.storage.save(key, value):
             logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
+            self._update_status('_status_storage_set')
             return True
         return False
 
-    def get_storage(self, key):
+    def get_storage(self, key, default=None):
         """Set storage"""
         result = self.storage.get(key)
         if result is not None:
             logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % key)
+            self._update_status('_status_storage_get')
             return result
-        return None
+        return default
 
     def _parse_item(self, html, items):
         """Parse kinds of items from html"""
