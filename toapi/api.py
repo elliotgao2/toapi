@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from time import time
 
 import cchardet
 import requests
@@ -103,11 +104,11 @@ class Api:
                 for item in self.item_classes
             }
             res = jsonify(result)
-            logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
             return res
 
         @app.errorhandler(404)
         def page_not_found(error):
+            start_time = time()
             path = request.full_path
             if path.endswith('?'):
                 path = path[:-1]
@@ -118,8 +119,10 @@ class Api:
                     return 'Not Found', 404
                 self.set_cache(path, result)
                 res = jsonify(result)
-                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
                 self._update_status('_status_received')
+                end_time = time()
+                time_usage = end_time - start_time
+                logger.info(Fore.GREEN, 'Received', '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage*1000))
                 return res
             except Exception as e:
                 return str(e)
