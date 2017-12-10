@@ -43,23 +43,17 @@ class Api:
                 items[full_path] = items.get(full_path, list())
                 items[full_path].append(item)
 
-        if len(items.keys()) <= 0:
-            return None
-
         results = {}
         for url, items in items.items():
             cached_item = self.get_cache(url)
             if cached_item is not None:
                 results.update(cached_item)
-
-            html = self.get_storage(url) or self._fetch_page_source(url, params=params, **kwargs)
-            if html is not None:
-                self.set_storage(url, html)
-                parsed_item = self.parse_item(html, items)
-                cached_item = self.get_cache(url) or {}
-                cached_item.update(parsed_item)
-                self.set_cache(url, cached_item)
-                results.update(cached_item)
+            else:
+                html = self.get_storage(url) or self.fetch_page_source(url, params=params, **kwargs)
+                if html is not None:
+                    parsed_item = self.parse_item(html, items)
+                    self.set_cache(url, parsed_item)
+                    results.update(parsed_item)
         return results or None
 
     def register(self, item):
@@ -72,10 +66,9 @@ class Api:
     def serve(self, ip='0.0.0.0', port='5000', **options):
         self.server.serve(ip, port, **options)
 
-    def _fetch_page_source(self, url, params=None, **kwargs):
+    def fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
         self.update_status('_status_sent')
-
         if self.settings.with_ajax:
             self.browser.get(url)
             text = self.browser.page_source
@@ -83,7 +76,7 @@ class Api:
                 logger.info(Fore.GREEN, 'Sent', '%s %s 200' % (url, len(text)))
             else:
                 logger.error('Sent', '%s %s' % (url, len(text)))
-            return text
+            result = text
         else:
             response = requests.get(url, params=params, **kwargs)
             content = response.content
@@ -93,7 +86,9 @@ class Api:
                 logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
             else:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
-            return text
+            result = text
+        self.set_storage(url, result)
+        return result
 
     def update_status(self, key):
         """Set cache"""
