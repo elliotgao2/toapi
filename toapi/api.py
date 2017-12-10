@@ -1,6 +1,4 @@
-import logging
 import re
-import sys
 
 import cchardet
 import requests
@@ -9,6 +7,7 @@ from selenium import webdriver
 
 from toapi.cache import CacheSetting
 from toapi.log import logger
+from toapi.server import Server
 from toapi.settings import Settings
 from toapi.storage import Storage
 
@@ -22,6 +21,7 @@ class Api:
         self.item_classes = []
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
+        self.server = Server(self, settings=self.settings)
         if self.settings.with_ajax:
             if self.settings.headers is not None:
                 for key, value in self.settings.headers.items():
@@ -68,57 +68,12 @@ class Api:
         self.item_classes.append(item)
 
     def serve(self, ip='0.0.0.0', port='5000', **options):
-        """Serve as an api server"""
-        from flask import Flask, request, jsonify
-        app = Flask(__name__)
-        app.logger.setLevel(logging.ERROR)
-
-        @app.route('/')
-        def index():
-            base_url = "{}://{}".format(request.scheme, request.host)
-            basic_info = {
-                "cache": "{}/{}".format(base_url, "cache"),
-                "items": "{}/{}".format(base_url, "items"),
-                "status": "{}/{}".format(base_url, "status"),
-                "storage": "{}/{}".format(base_url, "storage")
-            }
-            return jsonify(basic_info)
-
-        @app.route('/items/')
-        def info():
-            result = {
-                item.__name__: "{}://{}/{}".format(request.scheme, request.host, item.__base_url__ + item.Meta.route)
-                for item in self.item_classes
-            }
-            res = jsonify(result)
-            logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
-            return res
-
-        @app.errorhandler(404)
-        def page_not_found(error):
-            path = request.full_path
-            if path.endswith('?'):
-                path = path[:-1]
-            try:
-                result = self.get_cache(path) or self.parse(path)
-                if result is None:
-                    logger.error('Received', '%s 404' % request.url)
-                    return 'Not Found', 404
-                self.set_cache(path, result)
-                res = jsonify(result)
-                logger.info(Fore.GREEN, 'Received', '%s %s 200' % (request.url, len(res.response)))
-                return res
-            except Exception as e:
-                return str(e)
-
-        logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-        try:
-            app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
+        self.server.serve(ip, port, **options)
 
     def _fetch_page_source(self, url, params=None, **kwargs):
         """Fetch the html of given url"""
+        self._update_status('_status_sent')
+
         if self.settings.with_ajax:
             self._browser.get(url)
             text = self._browser.page_source
@@ -138,35 +93,48 @@ class Api:
                 logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
             return text
 
+    def _update_status(self, key):
+        """Set cache"""
+        self.cache.set(key, str(self._get_status(key) + 1))
+
+    def _get_status(self, key):
+        if self.cache.get(key) is None:
+            self.cache.set(key, '0')
+        return int(self.cache.get(key))
+
     def set_cache(self, key, value):
         """Set cache"""
-        if not self.cache.exists(key) and self.cache.set(key, value):
+        if self.cache.get(key) is None and self.cache.set(key, value):
             logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % key)
+            self._update_status('_status_cache_set')
             return True
         return False
 
-    def get_cache(self, key):
+    def get_cache(self, key, default=None):
         """Set cache"""
         result = self.cache.get(key)
         if result is not None:
             logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % key)
+            self._update_status('_status_cache_get')
             return result
-        return None
+        return default
 
     def set_storage(self, key, value):
         """Set storage"""
-        if self.storage.save(key, value):
+        if self.storage.get(key) is None and self.storage.save(key, value):
             logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
+            self._update_status('_status_storage_set')
             return True
         return False
 
-    def get_storage(self, key):
+    def get_storage(self, key, default=None):
         """Set storage"""
         result = self.storage.get(key)
         if result is not None:
             logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % key)
+            self._update_status('_status_storage_get')
             return result
-        return None
+        return default
 
     def _parse_item(self, html, items):
         """Parse kinds of items from html"""
