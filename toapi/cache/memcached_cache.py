@@ -47,7 +47,7 @@ class MemcachedCache(BaseCache):
     @dec_connector
     def incr(self, key, value=1):
         if not self.exists(key):
-            result = 1
+            result = value
             self.set(key, result)
         else:
             result = self._cache_conn.incr(key, value=value)
