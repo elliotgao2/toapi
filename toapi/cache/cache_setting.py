@@ -42,6 +42,9 @@ class CacheSetting:
     def exists(self, key):
         return self.instance.exists(key)
 
+    def incr(self, key):
+        return self.instance.incr(key)
+
     def api_cached(self, ttl=None, **kwargs):
         """
         This decorator provides a caching mechanism for the data

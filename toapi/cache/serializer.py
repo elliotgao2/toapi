@@ -46,4 +46,6 @@ class PickleSerializer(BaseSerializer):
         :param value: bytes
         :return: object
         """
+        if not isinstance(value, str):
+            value = str(value)
         return pickle.loads(value) if value is not None else value

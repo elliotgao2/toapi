@@ -41,8 +41,13 @@ class RedisCache(BaseCache):
         result = self._cache_conn.exists(key)
         return result
 
+    @dec_connector
+    def incr(self, key):
+        result = self._cache_conn.incr(key)
+        return result
+
     def _cache_client(self, db=None):
-        pool = redis.ConnectionPool(host=self.host, port=self.port, db=self.db, password=self.password,
+        pool = redis.ConnectionPool(host=self.host, port=self.port, db=db, password=self.password,
                                     decode_responses=self.decode_responses)
         return redis.StrictRedis(connection_pool=pool)
 
