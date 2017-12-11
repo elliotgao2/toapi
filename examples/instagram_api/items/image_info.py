@@ -15,3 +15,7 @@ class ImageInfo(Item):
     class Meta:
         source = None
         route = '/p/.*?'
+
+        web_config = {
+            "with_ajax": False
+        }
