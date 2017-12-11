@@ -22,53 +22,52 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        self.browser = self.get_browser(settings=self.settings)
-
-    def get_browser(self, settings):
-        if settings.headers is not None:
-            for key, value in settings.headers.items():
-                capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
-                webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
-        phantom_options = []
-        phantom_options.append('--load-images=false')
-        return webdriver.PhantomJS(service_args=phantom_options)
-
-    def parse(self, path, params=None, **kwargs):
-        """Parse items from a url"""
-
-        items = {}
-        for index, item in enumerate(self.item_classes):
-            full_path = path[1:] if path.startswith('/http') else item.__base_url__ + path
-            if item.__pattern__.match(full_path):
-                items[full_path] = items.get(full_path, list())
-                items[full_path].append(item)
-
-        results = {}
-        for url, items in items.items():
-            cached_item = self.get_cache(url)
-            if cached_item is not None:
-                results.update(cached_item)
-            else:
-                html = self.get_storage(url) or self.fetch_page_source(url, params=params, **kwargs)
-                if html is not None:
-                    parsed_item = self.parse_item(html, items)
-                    results.update(parsed_item)
-                    self.set_cache(url, parsed_item)
-        return results or None
+        if getattr(self.settings, 'web_config', {}).get('with_ajax', False):
+            self.browser = self.get_browser(settings=self.settings)
+        else:
+            self.browser = None
+        self.web_config = getattr(self.settings, 'web_config', {})
 
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
         self.item_classes.append(item)
+        with_ajax = getattr(item.Meta, 'web_config', {}).get('with_ajax', False)
+        if self.browser is None and with_ajax:
+            self.browser = self.get_browser(settings=self.settings)
 
     def serve(self, ip='0.0.0.0', port='5000', **options):
         self.server.serve(ip, port, **options)
 
-    def fetch_page_source(self, url, params=None, **kwargs):
+    def parse(self, path, params=None, **kwargs):
+        """Parse items from a url"""
+
+        all_items = {}
+        for index, item in enumerate(self.item_classes):
+            full_path = path[1:] if path.startswith('/http') else item.__base_url__ + path
+            if item.__pattern__.match(full_path):
+                all_items[full_path] = all_items.get(full_path, list())
+                all_items[full_path].append(item)
+
+        results = {}
+        for url, items in all_items.items():
+            for each_item in items:
+                cached_item = self.get_cache(url)
+                if cached_item is not None:
+                    results.update(cached_item)
+                else:
+                    html = self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params, **kwargs)
+                    if html is not None:
+                        parsed_item = self.parse_item(html, each_item)
+                        results.update(parsed_item)
+                        self.set_cache(url, parsed_item)
+        return results or None
+
+    def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""
         self.update_status('_status_sent')
-        if self.settings.with_ajax:
+        if getattr(item.Meta, 'web_config', {}).get('with_ajax', False) or self.web_config.get('with_ajax', False):
             self.browser.get(url)
             text = self.browser.page_source
             if text != '':
@@ -77,7 +76,9 @@ class Api:
                 logger.error('Sent', '%s %s' % (url, len(text)))
             result = text
         else:
-            response = requests.get(url, params=params, **kwargs)
+            request_config = getattr(item.Meta, 'web_config', {}).get('request_config', {}) or self.web_config.get(
+                'request_config', {})
+            response = requests.get(url, params=params, **request_config)
             content = response.content
             charset = cchardet.detect(content)
             text = content.decode(charset['encoding'])
@@ -88,6 +89,15 @@ class Api:
             result = text
         self.set_storage(url, result)
         return result
+
+    def get_browser(self, settings):
+        if getattr(settings, 'headers', None) is not None:
+            for key, value in settings.headers.items():
+                capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
+                webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
+        phantom_options = []
+        phantom_options.append('--load-images=false')
+        return webdriver.PhantomJS(service_args=phantom_options)
 
     def update_status(self, key):
         """Set cache"""
@@ -132,13 +142,12 @@ class Api:
             return result
         return default
 
-    def parse_item(self, html, items):
-        """Parse kinds of items from html"""
+    def parse_item(self, html, item):
+        """Parse item from html"""
         result = {}
-        for item in items:
-            result[item.__name__] = item.parse(html)
-            if len(result[item.__name__]) == 0:
-                logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
-            else:
-                logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+        result[item.__name__] = item.parse(html)
+        if len(result[item.__name__]) == 0:
+            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+        else:
+            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result

@@ -2,7 +2,11 @@ from toapi import XPath, Item, Api, Settings
 
 
 class MySettings(Settings):
-    with_ajax = True
+    web_config = {
+        "with_ajax": True,
+        "request_config": {},
+        "headers": None
+    }
 
 
 api = Api('https://news.ycombinator.com/', settings=MySettings)

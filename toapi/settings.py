@@ -15,5 +15,8 @@ class Settings:
         "PATH": os.getcwd(),
         "DB_URL": None
     }
-    with_ajax = False
-    headers = None
+    web_config = {
+        "with_ajax": False,
+        "request_config": {},
+        "headers": None
+    }
