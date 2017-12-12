@@ -34,12 +34,12 @@ class Server:
         @app.route('/status')
         def status():
             status = {
-                'cache_set': api._get_status('_status_cache_set'),
-                'cache_get': api._get_status('_status_cache_get'),
-                'storage_set': api._get_status('_status_storage_set'),
-                'storage_get': api._get_status('_status_storage_get'),
-                'sent': api._get_status('_status_sent'),
-                'received': api._get_status('_status_received')
+                'cache_set': api.get_status('_status_cache_set'),
+                'cache_get': api.get_status('_status_cache_get'),
+                'storage_set': api.get_status('_status_storage_set'),
+                'storage_get': api.get_status('_status_storage_get'),
+                'sent': api.get_status('_status_sent'),
+                'received': api.get_status('_status_received')
             }
             return jsonify(status)
 
