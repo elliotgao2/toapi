@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>http://www.toapi.com/</loc>
+     <loc>http://www.toapi.org/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -12,59 +12,19 @@
     
         
     <url>
-     <loc>http://www.toapi.com/installation/</loc>
+     <loc>http://www.toapi.org/installation/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.toapi.com/quickstart/</loc>
+     <loc>http://www.toapi.org/quickstart/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.toapi.com/deploy/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>http://www.toapi.com/api/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.com/item/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.com/selector/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.com/cache/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.com/storage/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.com/settings/</loc>
+     <loc>http://www.toapi.org/deploy/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -74,19 +34,59 @@
     
         
     <url>
-     <loc>http://www.toapi.com/about/release-notes/</loc>
+     <loc>http://www.toapi.org/api/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.toapi.com/about/contributing/</loc>
+     <loc>http://www.toapi.org/item/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.toapi.com/about/license/</loc>
+     <loc>http://www.toapi.org/selector/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/cache/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/storage/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/settings/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.toapi.org/about/release-notes/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/about/contributing/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/about/license/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
