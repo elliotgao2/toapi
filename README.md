@@ -61,7 +61,9 @@ from toapi import XPath, Item, Api, Settings
 
 
 class MySettings(Settings):
-    with_ajax = True
+    web = {
+        with_ajax = True
+    }
 
 
 api = Api('https://news.ycombinator.com/', settings=MySettings)

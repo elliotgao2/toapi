@@ -6,7 +6,7 @@ class MySettings(Settings):
     """
     Create custom configuration
     """
-    web_config = {
+    web = {
         "with_ajax": False,
         "request_config": {
             'proxies': {
