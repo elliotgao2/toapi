@@ -22,18 +22,18 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        if getattr(self.settings, 'web_config', {}).get('with_ajax', False):
+        if getattr(self.settings, 'web', {}).get('with_ajax', False):
             self.browser = self.get_browser(settings=self.settings)
         else:
             self.browser = None
-        self.web_config = getattr(self.settings, 'web_config', {})
+        self.web = getattr(self.settings, 'web', {})
 
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
         self.item_classes.append(item)
-        with_ajax = getattr(item.Meta, 'web_config', {}).get('with_ajax', False)
+        with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and with_ajax:
             self.browser = self.get_browser(settings=self.settings)
 
@@ -76,7 +76,7 @@ class Api:
                 logger.error('Sent', '%s %s' % (url, len(text)))
             result = text
         else:
-            request_config = getattr(item.Meta, 'web_config', {}).get('request_config', {}) or self.web_config.get(
+            request_config = getattr(item.Meta, 'web', {}).get('request_config', {}) or self.web.get(
                 'request_config', {})
             response = requests.get(url, params=params, **request_config)
             content = response.content

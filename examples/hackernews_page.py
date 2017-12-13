@@ -2,7 +2,7 @@ from toapi import XPath, Item, Api, Settings
 
 
 class MySettings(Settings):
-    web_config = {
+    web = {
         "with_ajax": True,
         "request_config": {},
         "headers": None

@@ -21,6 +21,6 @@ class User(Item):
         source = None
         route = '/(?!p/)'
 
-        web_config = {
+        web = {
             "with_ajax": True
         }

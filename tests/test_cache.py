@@ -13,7 +13,7 @@ def test_memory_cache():
 def test_cached():
     cache_ins = CacheSetting(Settings)
 
-    @cached(**Settings.cache_dict)
+    @cached(**Settings.cache)
     def hello_cache(name, **kwargs):
         return 'hello world'
 
