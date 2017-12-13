@@ -62,7 +62,7 @@ from toapi import XPath, Item, Api, Settings
 
 class MySettings(Settings):
     web = {
-        with_ajax = True
+            "with_ajax": False
     }
 
 
