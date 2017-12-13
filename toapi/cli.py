@@ -1,6 +1,9 @@
+import importlib
 import os
+import sys
 
 import click
+from colorama import Fore
 
 from toapi.log import logger
 
@@ -15,36 +18,41 @@ def cli():
 @cli.command(name="new")
 @click.argument('output_dir')
 def new(output_dir):
-    """Create a new Toapi project"""
+    """Create a new Toapi project."""
 
     if os.path.exists(output_dir):
-        logger.warning('Directory already exists.')
+        logger.error('New project', 'Directory already exists.')
         return
 
-    logger.error('Creating project directory: %s', output_dir)
-    logger.info('Success!')
+    logger.info(Fore.GREEN, 'New project', 'Creating project directory "%s"' % output_dir)
+    os.system('git clone https://github.com/gaojiuli/toapi-template %s' % output_dir)
+    logger.info(Fore.GREEN, 'New project', 'Success!')
+    click.echo('')
+    click.echo('     cd %s' % output_dir)
+    click.echo('     toapi run')
+    click.echo('')
 
 
 @cli.command(name="run")
 @click.option('-a', '--addr',
+              default='127.0.0.1:5000',
               help='IP and Port to serve documentation locally (default:"127.0.0.1:8000")',
               metavar='<IP:PORT>')
-def run(addr="127.0.0.1:5000"):
-    """Run the builtin development server"""
+def run(addr):
+    """Run app server."""
     base_path = os.getcwd()
     app_path = os.path.join(base_path, 'app.py')
 
     if not os.path.exists(app_path):
-        return logger.error('Cannot find file "app.py"!')
+        logger.error('Run', 'Cannot find file "app.py"!')
+        return
 
     try:
         ip, port = addr.split(':')
     except:
-        return logger.error('The "addr" parameter should be like "IP:PORT"')
+        logger.error('Run', 'The "addr" parameter should be like "IP:PORT"')
+        return
 
-    try:
-        app = getattr(module, 'app')
-    except:
-        return logger.error('The "app.py" should contains a Api instance')
-
-    print(app.__dict__)
+    sys.path.append(base_path)
+    app = importlib.import_module('app', base_path)
+    app.api.serve(ip=ip, port=port)
