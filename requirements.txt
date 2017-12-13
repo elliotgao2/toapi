@@ -13,3 +13,4 @@ pycrypto
 colorama
 records
 mkdocs
+cchardet
