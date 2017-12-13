@@ -36,7 +36,7 @@ def new(output_dir):
 @cli.command(name="run")
 @click.option('-a', '--addr',
               default='127.0.0.1:5000',
-              help='IP and Port to serve documentation locally (default:"127.0.0.1:8000")',
+              help='IP and Port to serve documentation locally (default:"127.0.0.1:5000")',
               metavar='<IP:PORT>')
 def run(addr):
     """Run app server."""

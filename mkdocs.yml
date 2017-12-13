@@ -1,1 +1,49 @@
-site_name: My Docs
+site_name: Toapi
+site_url: http://www.gaojiuli.com/toapi
+site_description: Every web site provides APIs.
+site_author: Jiuli Gao
+
+repo_url: https://github.com/gaojiuli/toapi/
+repo_name: 'gaojiuli/toapi'
+
+pages:
+    - Home: index.md
+    - User Guide:
+        - Installation: installation.md
+        - Quick Start: quickstart.md
+        - Deploy: deploy.md
+    - Topics:
+        - Api: api.md
+        - Item: item.md
+        - Selector: selector.md
+        - Cache: cache.md
+        - Storage: storage.md
+        - Setting: settings.md
+    - About:
+        - Release notes: about/release-notes.md
+        - Contributing: about/contributing.md
+        - License: about/license.md
+
+markdown_extensions:
+    - toc:
+        permalink: 
+    - admonition
+    - def_list
+    - codehilite
+
+copyright: Copyright &copy; 2017 <a href="https://github.com/gaojiuli">Jiuli Gao</a>.
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue'
+    accent: 'blue'
+  font:
+    text: 'Ubuntu'
+    code: 'Ubuntu Mono'
+  logo: './logo.png'
+  social:
+    - type: 'github'
+      link: 'https://github.com/gaojiuli'
+plugins:
+    - search
