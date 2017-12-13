@@ -12,7 +12,7 @@ class MySettings(Settings):
     """
     Create custom configuration
     """
-    cache_dict = {
+    cache = {
         'cache_class': RedisCache,
         'cache_config': {
             'host': '127.0.0.1',
@@ -24,7 +24,7 @@ class MySettings(Settings):
     }
 
 
-@cached(**MySettings.cache_dict, ttl=10)
+@cached(**MySettings.cache, ttl=10)
 def parse(url, params=None, **kwargs):
     return 'value'
 

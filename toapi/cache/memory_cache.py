@@ -31,5 +31,10 @@ class MemoryCache(BaseCache):
     def exists(self, key):
         return key in self._cache
 
+    def incr(self, key):
+        result = self._cache.get(key, 0) + 1
+        self._cache[key] = result
+        return self._cache.get(key)
+
     def _delete(self, key):
         return self._cache.pop(key, 0)

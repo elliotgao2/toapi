@@ -2,7 +2,11 @@ from toapi import XPath, Item, Api, Settings
 
 
 class MySettings(Settings):
-    with_ajax = False
+    web = {
+        "with_ajax": False,
+        "request_config": {},
+        "headers": None
+    }
 
 
 api = Api('http://gaoqing.la/', settings=MySettings)

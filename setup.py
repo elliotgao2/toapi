@@ -1,8 +1,10 @@
 from setuptools import find_packages, setup
 
+from toapi import __version__
+
 setup(
     name="toapi",
-    version="0.1.9",
+    version=__version__,
     description="Every web site provides APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
@@ -26,10 +28,16 @@ setup(
         'ujson',
         'redis',
         'pymemcache',
-        'pycrypto'
+        'pycrypto',
+        'click'
     ],
     license='Apache',
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'toapi=toapi.cli:cli',
+        ],
+    },
     py_modules=['toapi'],
     include_package_data=True,
     zip_safe=False

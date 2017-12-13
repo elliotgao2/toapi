@@ -28,7 +28,7 @@ class Logger:
         self.logger.debug(message)
 
     def info(self, color, type, message):
-        self.logger.info(color + '[%-8s] %-4s %s' % (type, 'OK', message) + Style.RESET_ALL)
+        self.logger.info(color + '[%-8s] %-2s %s' % (type, 'OK', message) + Style.RESET_ALL)
 
     def warning(self, message):
         self.logger.info(message)

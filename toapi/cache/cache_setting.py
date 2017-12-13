@@ -25,12 +25,12 @@ class CacheSetting:
     }
 
     def __init__(self, settings=None):
-        self.cache_dict = getattr(settings, 'cache_dict', self.cache_dict)
-        if not isinstance(self.cache_dict.get('cache_config'), dict):
+        self.cache = getattr(settings, 'cache', self.cache_dict)
+        if not isinstance(self.cache.get('cache_config'), dict):
             raise ValueError("Key cache_config must be a dict")
-        serializer = self.cache_dict.get('serializer')
-        self.ttl = self.cache_dict.get('ttl', None)
-        self.instance = self.cache_dict['cache_class'](serializer=serializer, **self.cache_dict['cache_config'])
+        serializer = self.cache.get('serializer')
+        self.ttl = self.cache.get('ttl')
+        self.instance = self.cache['cache_class'](serializer=serializer, **self.cache['cache_config'])
 
     def set(self, key, value, ttl=None):
         ttl = ttl or self.ttl
@@ -41,6 +41,9 @@ class CacheSetting:
 
     def exists(self, key):
         return self.instance.exists(key)
+
+    def incr(self, key):
+        return self.instance.incr(key)
 
     def api_cached(self, ttl=None, **kwargs):
         """

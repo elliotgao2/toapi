@@ -20,3 +20,7 @@ class User(Item):
     class Meta:
         source = None
         route = '/(?!p/)'
+
+        web = {
+            "with_ajax": True
+        }

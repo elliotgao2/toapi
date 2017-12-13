@@ -1,9 +1,14 @@
 # Toapi
 
+
+
 [![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
 [![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+
+
+![Toapi](logo.png)
 
 A library letting any web site provide APIs.
 In the past, we crawl data and storage them and create api service to share them maybe we should also update them regularly.
@@ -18,6 +23,14 @@ The only thing you should do is defining your data, they would be shared as api 
 
 - `pip install toapi`
 - `pip install git+https://github.com/gaojiuli/toapi/`
+
+## Get Started
+
+```bash
+toapi new my_api
+cd my_api
+toapi run -a 127.0.0.1:5000 
+```
 
 ## Usage
 
@@ -61,7 +74,9 @@ from toapi import XPath, Item, Api, Settings
 
 
 class MySettings(Settings):
-    with_ajax = True
+    web = {
+        "with_ajax": False
+    }
 
 
 api = Api('https://news.ycombinator.com/', settings=MySettings)

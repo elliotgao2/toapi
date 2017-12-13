@@ -39,6 +39,13 @@ class BaseCache(metaclass=abc.ABCMeta):
         """
         pass
 
+    @abc.abstractmethod
+    def incr(self, key):
+        """
+        Increments the value of ``key``.
+        """
+        pass
+
 
 class BaseSerializer(metaclass=abc.ABCMeta):
     """
