@@ -19,6 +19,14 @@ The only thing you should do is defining your data, they would be shared as api 
 - `pip install toapi`
 - `pip install git+https://github.com/gaojiuli/toapi/`
 
+## Get Started
+
+```bash
+toapi new my_api
+cd my_api
+toapi run -a 127.0.0.1:5000 
+```
+
 ## Usage
 
 ### Static site:

@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="toapi",
-    version="0.1.9",
+    version="0.1.10",
     description="Every web site provides APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
@@ -30,6 +30,11 @@ setup(
     ],
     license='Apache',
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'toapi=toapi.cli:cli',
+        ],
+    },
     py_modules=['toapi'],
     include_package_data=True,
     zip_safe=False
