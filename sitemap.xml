@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>http://www.gaojiuli.com/toapi/</loc>
+     <loc>http://www.toapi.com/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -12,59 +12,19 @@
     
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/installation/</loc>
+     <loc>http://www.toapi.com/installation/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/quickstart/</loc>
+     <loc>http://www.toapi.com/quickstart/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/deploy/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/api/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/item/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/selector/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/cache/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/storage/</loc>
-     <lastmod>2017-12-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.gaojiuli.com/toapi/settings/</loc>
+     <loc>http://www.toapi.com/deploy/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -74,19 +34,59 @@
     
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/about/release-notes/</loc>
+     <loc>http://www.toapi.com/api/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/about/contributing/</loc>
+     <loc>http://www.toapi.com/item/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.gaojiuli.com/toapi/about/license/</loc>
+     <loc>http://www.toapi.com/selector/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.com/cache/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.com/storage/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.com/settings/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.toapi.com/about/release-notes/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.com/about/contributing/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.com/about/license/</loc>
      <lastmod>2017-12-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
