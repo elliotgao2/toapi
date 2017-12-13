@@ -28,7 +28,8 @@ setup(
         'ujson',
         'redis',
         'pymemcache',
-        'pycrypto'
+        'pycrypto',
+        'click'
     ],
     license='Apache',
     packages=find_packages(),
