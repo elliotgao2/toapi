@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/installation/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/quickstart/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/deploy/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/api/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/item/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/selector/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/cache/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/storage/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/settings/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/about/release-notes/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/about/contributing/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.gaojiuli.com/toapi/about/license/</loc>
+     <lastmod>2017-12-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+</urlset>

@@ -1,0 +1,169 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Toapi\n\uf0c1\n\n\nEvery web site provides APIs.\n\n\n\n\nOverview\n\uf0c1\n\n\nToapi is a \nclever\n, \nsimple\n and \nfast\n library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.\n\n\nMultiple caching\n\uf0c1\n\n\nToapi use cache to prevent repeated parsing and use storage to prevent sending request.\n\n\nMultiple sites\n\uf0c1\n\n\nA toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs\n\n\nEasy to deploy.\n\uf0c1\n\n\nA toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.\n\n\nStatus Monitor\n\uf0c1\n\n\nA toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.\n\n\nGetting help\n\uf0c1\n\n\nTo get help with Toapi, please use the \nGitHub issues",
+            "title": "Home"
+        },
+        {
+            "location": "/#toapi",
+            "text": "Every web site provides APIs.",
+            "title": "Toapi"
+        },
+        {
+            "location": "/#overview",
+            "text": "Toapi is a  clever ,  simple  and  fast  library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.",
+            "title": "Overview"
+        },
+        {
+            "location": "/#multiple-caching",
+            "text": "Toapi use cache to prevent repeated parsing and use storage to prevent sending request.",
+            "title": "Multiple caching"
+        },
+        {
+            "location": "/#multiple-sites",
+            "text": "A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs",
+            "title": "Multiple sites"
+        },
+        {
+            "location": "/#easy-to-deploy",
+            "text": "A toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.",
+            "title": "Easy to deploy."
+        },
+        {
+            "location": "/#status-monitor",
+            "text": "A toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.",
+            "title": "Status Monitor"
+        },
+        {
+            "location": "/#getting-help",
+            "text": "To get help with Toapi, please use the  GitHub issues",
+            "title": "Getting help"
+        },
+        {
+            "location": "/installation/",
+            "text": "Manual Installation\n\uf0c1\n\n\nIn order to manually install Toapi you'll need \nPython\n installed on your\nsystem, as well as the Python package manager, \npip\n. You can check if you have\nthese already installed from the command line:\n\n\n$ python --version\nPython \n3\n.5.2\n$ pip --version\npip \n9\n.0.1\n\n\n\n\n\nToapi supports Python3.5+.\n\n\nInstalling Python\n\uf0c1\n\n\nInstall \nPython\n by downloading an installer appropriate for your system from\n\npython.org\n and running it.\n\n\n\n\nNote\n\n\nIf you are installing Python on Windows, be sure to check the box to have\nPython added to your PATH if the installer offers such an option (it's\nnormally off by default).\n\n\n\n\n\n\nInstalling pip\n\uf0c1\n\n\nIf you're using a recent version of Python, the Python package manager, \npip\n,\nis most likely installed by default. However, you may need to upgrade pip to the\nlasted version:\n\n\npip install --upgrade pip\n\n\n\n\n\nIf you need to install \npip\n for the first time, download [get-pip.py].\nThen run the following command to install it:\n\n\npython get-pip.py\n\n\n\n\n\nInstalling Toapi\n\uf0c1\n\n\nInstall the \ntoapi\n package using pip:\n\n\npip install toapi\n\n\n\n\n\nYou should now have the \ntoapi\n command installed on your system. Run \ntoapi\n--version\n to check that everything worked okay.\n\n\n$ toapi --version\ntoapi, version \n1\n.0.0\n\n\n\n\n\n\n\nNote\n\n\nIf you are using Windows, some of the above commands may not work\nout-of-the-box.\n\n\nA quick solution may be to preface every Python command with \npython -m\n\nlike this:\n\n\npython -m pip install toapi\npython -m api\n\n\n\n\n\nFor a more permanent solution, you may need to edit your \nPATH\n environment\nvariable to include the \nScripts\n directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example \nC:\\Python34\\\n), open the\n\nTools\n, then \nScripts\n folder, and run the \nwin_add2path.py\n file by double\nclicking on it. Alternatively, you can \ndownload\n the script and run it\n(\npython win_add2path.py\n).",
+            "title": "Installation"
+        },
+        {
+            "location": "/installation/#manual-installation",
+            "text": "In order to manually install Toapi you'll need  Python  installed on your\nsystem, as well as the Python package manager,  pip . You can check if you have\nthese already installed from the command line:  $ python --version\nPython  3 .5.2\n$ pip --version\npip  9 .0.1  Toapi supports Python3.5+.",
+            "title": "Manual Installation"
+        },
+        {
+            "location": "/installation/#installing-python",
+            "text": "Install  Python  by downloading an installer appropriate for your system from python.org  and running it.   Note  If you are installing Python on Windows, be sure to check the box to have\nPython added to your PATH if the installer offers such an option (it's\nnormally off by default).",
+            "title": "Installing Python"
+        },
+        {
+            "location": "/installation/#installing-pip",
+            "text": "If you're using a recent version of Python, the Python package manager,  pip ,\nis most likely installed by default. However, you may need to upgrade pip to the\nlasted version:  pip install --upgrade pip  If you need to install  pip  for the first time, download [get-pip.py].\nThen run the following command to install it:  python get-pip.py",
+            "title": "Installing pip"
+        },
+        {
+            "location": "/installation/#installing-toapi",
+            "text": "Install the  toapi  package using pip:  pip install toapi  You should now have the  toapi  command installed on your system. Run  toapi\n--version  to check that everything worked okay.  $ toapi --version\ntoapi, version  1 .0.0   Note  If you are using Windows, some of the above commands may not work\nout-of-the-box.  A quick solution may be to preface every Python command with  python -m \nlike this:  python -m pip install toapi\npython -m api  For a more permanent solution, you may need to edit your  PATH  environment\nvariable to include the  Scripts  directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example  C:\\Python34\\ ), open the Tools , then  Scripts  folder, and run the  win_add2path.py  file by double\nclicking on it. Alternatively, you can  download  the script and run it\n( python win_add2path.py ).",
+            "title": "Installing Toapi"
+        },
+        {
+            "location": "/quickstart/",
+            "text": "$ toapi new my-api\n$ \ncd\n my-api\n$ toapi run",
+            "title": "Quick Start"
+        },
+        {
+            "location": "/deploy/",
+            "text": "",
+            "title": "Deploy"
+        },
+        {
+            "location": "/api/",
+            "text": "",
+            "title": "Api"
+        },
+        {
+            "location": "/item/",
+            "text": "",
+            "title": "Item"
+        },
+        {
+            "location": "/selector/",
+            "text": "",
+            "title": "Selector"
+        },
+        {
+            "location": "/cache/",
+            "text": "",
+            "title": "Cache"
+        },
+        {
+            "location": "/storage/",
+            "text": "",
+            "title": "Storage"
+        },
+        {
+            "location": "/settings/",
+            "text": "",
+            "title": "Setting"
+        },
+        {
+            "location": "/about/release-notes/",
+            "text": "Release Notes\n\uf0c1\n\n\n\n\nUpgrading\n\uf0c1\n\n\nTo upgrade Toapi to the latest version, use pip:\n\n\npip install -U toapi\n\n\n\n\n\nYou can determine your currently installed version using \ntoapi --version\n:\n\n\n$ toapi --version\ntoapi, version \n1\n.0.0\n\n\n\n\n\nMaintenance team\n\uf0c1\n\n\n\n\n@gaojiuli\n\n\n@howie6879\n\n\n@wuqiangroy",
+            "title": "Release notes"
+        },
+        {
+            "location": "/about/release-notes/#release-notes",
+            "text": "",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/about/release-notes/#upgrading",
+            "text": "To upgrade Toapi to the latest version, use pip:  pip install -U toapi  You can determine your currently installed version using  toapi --version :  $ toapi --version\ntoapi, version  1 .0.0",
+            "title": "Upgrading"
+        },
+        {
+            "location": "/about/release-notes/#maintenance-team",
+            "text": "@gaojiuli  @howie6879  @wuqiangroy",
+            "title": "Maintenance team"
+        },
+        {
+            "location": "/about/contributing/",
+            "text": "Contributing to Toapi\n\uf0c1\n\n\nAn introduction to contributing to the Toapi project.\n\n\nThe Toapi project welcomes, and depends, on contributions from developers and\nusers in the open source community. Contributions can be made in a number of\nways, a few examples are:\n\n\n\n\nCode patches via pull requests\n\n\nDocumentation improvements\n\n\nBug reports and patch reviews\n\n\n\n\nCode of Conduct\n\uf0c1\n\n\nEveryone interacting in the Toapi project's codebases, issue trackers, chat\nrooms, and mailing lists is expected to follow the \nPyPA Code of Conduct\n.\n\n\nReporting an Issue\n\uf0c1\n\n\nPlease include as much detail as you can. Let us know your platform and Toapi\nversion. If the problem is visual (for example a theme or design issue) please\nadd a screenshot and if you get an error please include the full error and\ntraceback.\n\n\nInstalling for Development\n\uf0c1\n\n\nRun the following command. It is \nstrongly\n recommended that you do\nthis within a \nvirtualenv\n.\n\n\ngit clone https://github.com/gaojiuli/toapi\n\ncd\n toapi\npip install --editable .\n\n\n\n\n\nThis will install Toapi in development mode which binds the \ntoapi\n command\nto the git repository.\n\n\nRunning the tests\n\uf0c1\n\n\nTo run the tests, it is recommended that you use \npytest\n. This just needs\nto be pip installed and then the test suite can be ran for Toapi but running\nthe command \npytest\n in the root of your Toapi repository.\n\n\nIt will attempt to run the tests against all of the Python versions we\nsupport. So don't be concerned if you are missing some and they fail. The rest\nwill be verified by \nTravis\n when you submit a pull request.\n\n\nSubmitting Pull Requests\n\uf0c1\n\n\nOnce you are happy with your changes or you are ready for some feedback, push\nit to your fork and send a pull request. For a change to be accepted it will\nmost likely need to have tests and documentation if it is a new feature.",
+            "title": "Contributing"
+        },
+        {
+            "location": "/about/contributing/#contributing-to-toapi",
+            "text": "An introduction to contributing to the Toapi project.  The Toapi project welcomes, and depends, on contributions from developers and\nusers in the open source community. Contributions can be made in a number of\nways, a few examples are:   Code patches via pull requests  Documentation improvements  Bug reports and patch reviews",
+            "title": "Contributing to Toapi"
+        },
+        {
+            "location": "/about/contributing/#code-of-conduct",
+            "text": "Everyone interacting in the Toapi project's codebases, issue trackers, chat\nrooms, and mailing lists is expected to follow the  PyPA Code of Conduct .",
+            "title": "Code of Conduct"
+        },
+        {
+            "location": "/about/contributing/#reporting-an-issue",
+            "text": "Please include as much detail as you can. Let us know your platform and Toapi\nversion. If the problem is visual (for example a theme or design issue) please\nadd a screenshot and if you get an error please include the full error and\ntraceback.",
+            "title": "Reporting an Issue"
+        },
+        {
+            "location": "/about/contributing/#installing-for-development",
+            "text": "Run the following command. It is  strongly  recommended that you do\nthis within a  virtualenv .  git clone https://github.com/gaojiuli/toapi cd  toapi\npip install --editable .  This will install Toapi in development mode which binds the  toapi  command\nto the git repository.",
+            "title": "Installing for Development"
+        },
+        {
+            "location": "/about/contributing/#running-the-tests",
+            "text": "To run the tests, it is recommended that you use  pytest . This just needs\nto be pip installed and then the test suite can be ran for Toapi but running\nthe command  pytest  in the root of your Toapi repository.  It will attempt to run the tests against all of the Python versions we\nsupport. So don't be concerned if you are missing some and they fail. The rest\nwill be verified by  Travis  when you submit a pull request.",
+            "title": "Running the tests"
+        },
+        {
+            "location": "/about/contributing/#submitting-pull-requests",
+            "text": "Once you are happy with your changes or you are ready for some feedback, push\nit to your fork and send a pull request. For a change to be accepted it will\nmost likely need to have tests and documentation if it is a new feature.",
+            "title": "Submitting Pull Requests"
+        },
+        {
+            "location": "/about/license/",
+            "text": "Copyright 2017 Jiuli Gao\n\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\n\n\n\n\nUnless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.",
+            "title": "License"
+        }
+    ]
+}
