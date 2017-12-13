@@ -10,4 +10,3 @@ class MySettings(Settings):
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite3',
     }
-    with_ajax = None

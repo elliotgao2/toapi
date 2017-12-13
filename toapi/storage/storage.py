@@ -15,11 +15,11 @@ class Storage:
     """
 
     def __init__(self, settings):
-
-        self.path = settings.storage_config.get("PATH")
+        self.storage = getattr(settings, 'storage', {})
+        self.path = self.storage.get("PATH")
         if not self.path:
             self.path = "./"
-        self.db_url = settings.storage_config.get("DB_URL")
+        self.db_url = self.storage.get("DB_URL")
 
         self.db_store = DBStore(self.db_url) if self.db_url else None
         self.disk_store = DiskStore(self.path) if not self.db_store else None
