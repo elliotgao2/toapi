@@ -37,7 +37,7 @@ class Api:
         if self.browser is None and with_ajax:
             self.browser = self.get_browser(settings=self.settings)
 
-    def serve(self, ip='0.0.0.0', port='5000', **options):
+    def serve(self, ip='0.0.0.0', port=5000, **options):
         self.server.serve(ip, port, **options)
 
     def parse(self, path, params=None, **kwargs):
