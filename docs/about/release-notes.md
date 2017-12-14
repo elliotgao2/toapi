@@ -6,12 +6,17 @@
 
 To upgrade Toapi to the latest version, use pip:
 
-    pip install -U toapi
+```text
+pip install -U toapi
+```
+
 
 You can determine your currently installed version using `toapi --version`:
 
-    $ toapi --version
-    toapi, version 1.0.0
+```text
+$ toapi --version
+toapi, version 1.0.0
+```
 
 ## Maintenance team
 
