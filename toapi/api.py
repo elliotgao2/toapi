@@ -62,7 +62,9 @@ class Api:
                 caching_item = {}
                 html = None
                 for each_item in items:
-                    html = html or self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params,
+                    html = html or self.get_storage(url) or self.fetch_page_source(url,
+                                                                                   item=each_item,
+                                                                                   params=params,
                                                                                    **kwargs)
                     if html is not None:
                         parsed_item = self.parse_item(html, each_item)
@@ -85,7 +87,7 @@ class Api:
         else:
             request_config = getattr(item.Meta, 'web', {}).get('request_config', {}) or self.web.get(
                 'request_config', {})
-            response = requests.get(url, params=params, **request_config)
+            response = requests.get(url, params=params, timeout=15, **request_config)
             content = response.content
             charset = cchardet.detect(content)
             text = content.decode(charset['encoding'])
