@@ -82,4 +82,5 @@ toapi, version 1.0.0
 ---
 
 [pip]: http://pip.readthedocs.io/en/stable/installing/
+[get-pip.py]: https://bootstrap.pypa.io/get-pip.py
 [Python]: https://www.python.org/
