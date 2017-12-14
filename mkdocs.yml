@@ -24,11 +24,11 @@ pages:
         - "Bonus: Testing the Application": tutorials/testing.md
     - Topics:
         - Api: topics/api.md
+        - Item: topics/item.md
+        - Selector: topics/selector.md
         - Settings: topics/settings.md
         - Cache: topics/cache.md
         - Storage: topics/storage.md
-        - Item: topics/item.md
-        - Selector: topics/selector.md
 
 markdown_extensions:
     - toc:
