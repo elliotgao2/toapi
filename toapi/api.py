@@ -52,16 +52,18 @@ class Api:
 
         results = {}
         for url, items in all_items.items():
-            for each_item in items:
-                cached_item = self.get_cache(url)
-                if cached_item is not None:
-                    results.update(cached_item)
-                else:
+            cached_item = self.get_cache(url)
+            if cached_item is not None:
+                results.update(cached_item)
+            else:
+                caching_item = {}
+                for each_item in items:
                     html = self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params, **kwargs)
                     if html is not None:
                         parsed_item = self.parse_item(html, each_item)
-                        results.update(parsed_item)
-                        self.set_cache(url, parsed_item)
+                        caching_item.update(parsed_item)
+                self.set_cache(url, caching_item)
+                results.update(caching_item)
         return results or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
