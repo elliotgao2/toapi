@@ -26,10 +26,10 @@ The only thing you should do is defining your data, they would be shared as api 
 
 ## Get Started
 
-```bash
-toapi new my_api
-cd my_api
-toapi run -a 127.0.0.1:5000 
+```text
+$ toapi new api
+$ cd api
+$ toapi run 
 ```
 
 ## Usage

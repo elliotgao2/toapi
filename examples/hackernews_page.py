@@ -9,7 +9,7 @@ class MySettings(Settings):
     }
 
 
-api = Api('https://news.ycombinator.com/', settings=MySettings)
+api = Api('https://news.ycombinator.com', settings=MySettings)
 
 
 class Post(Item):

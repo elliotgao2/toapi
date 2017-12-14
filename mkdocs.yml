@@ -20,7 +20,7 @@ pages:
         - Storage: storage.md
         - Setting: settings.md
     - About:
-        - Release notes: about/release-notes.md
+        - Release Notes: about/release-notes.md
         - Contributing: about/contributing.md
         - License: about/license.md
 

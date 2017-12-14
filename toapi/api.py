@@ -1,4 +1,5 @@
 import re
+import sys
 
 import cchardet
 import requests
@@ -22,10 +23,8 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        if getattr(self.settings, 'web', {}).get('with_ajax', False):
-            self.browser = self.get_browser(settings=self.settings)
-        else:
-            self.browser = None
+        self.app = self.server.app
+        self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
     def register(self, item):
@@ -38,7 +37,11 @@ class Api:
             self.browser = self.get_browser(settings=self.settings)
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
-        self.server.serve(ip, port, **options)
+        try:
+            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
+            self.app.run(ip, port, debug=False, **options)
+        except KeyboardInterrupt:
+            sys.exit()
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
@@ -57,8 +60,10 @@ class Api:
                 results.update(cached_item)
             else:
                 caching_item = {}
+                html = None
                 for each_item in items:
-                    html = self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params, **kwargs)
+                    html = html or self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params,
+                                                                                   **kwargs)
                     if html is not None:
                         parsed_item = self.parse_item(html, each_item)
                         caching_item.update(parsed_item)
@@ -69,7 +74,7 @@ class Api:
     def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""
         self.update_status('_status_sent')
-        if self.browser is not None:
+        if getattr(item.Meta, 'web', {}).get('with_ajax', False) and self.browser is not None:
             self.browser.get(url)
             text = self.browser.page_source
             if text != '':
@@ -93,6 +98,8 @@ class Api:
         return result
 
     def get_browser(self, settings):
+        if not getattr(self.settings, 'web', {}).get('with_ajax', False):
+            return None
         if getattr(settings, 'headers', None) is not None:
             for key, value in settings.headers.items():
                 capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
