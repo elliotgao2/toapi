@@ -1,4 +1,5 @@
 import re
+import sys
 
 import cchardet
 import requests
@@ -22,6 +23,7 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
+        self.app = self.server.app
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
@@ -35,7 +37,11 @@ class Api:
             self.browser = self.get_browser(settings=self.settings)
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
-        self.server.serve(ip, port, **options)
+        try:
+            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
+            self.app.run(ip, port, debug=False, **options)
+        except KeyboardInterrupt:
+            sys.exit()
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
