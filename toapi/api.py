@@ -57,8 +57,10 @@ class Api:
                 results.update(cached_item)
             else:
                 caching_item = {}
+                html = None
                 for each_item in items:
-                    html = self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params, **kwargs)
+                    html = html or self.get_storage(url) or self.fetch_page_source(url, item=each_item, params=params,
+                                                                                   **kwargs)
                     if html is not None:
                         parsed_item = self.parse_item(html, each_item)
                         caching_item.update(parsed_item)
