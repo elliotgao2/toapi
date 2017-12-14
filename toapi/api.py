@@ -68,7 +68,7 @@ class Api:
     def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""
         self.update_status('_status_sent')
-        if self.browser is not None:
+        if getattr(item.Meta, 'web', {}).get('with_ajax', False) and self.browser is not None:
             self.browser.get(url)
             text = self.browser.page_source
             if text != '':
