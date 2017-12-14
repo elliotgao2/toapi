@@ -2,8 +2,8 @@
     "docs": [
         {
             "location": "/",
-            "text": "Toapi\n\uf0c1\n\n\nEvery web site provides APIs.\n\n\n\n\nOverview\n\uf0c1\n\n\nToapi is a \nclever\n, \nsimple\n and \nfast\n library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.\n\n\nGet Started\n\uf0c1\n\n\nInstallation\n\uf0c1\n\n\n$ pip install toapi\n$ toapi -v\ntoapi, version 0.1.12\n\n\n\n\n\nNew Project\n\uf0c1\n\n\n$ toapi new api\n2017/12/14 09:16:54 [New project] OK Creating project directory \"api\" \nCloning into 'api'...\nremote: Counting objects: 10, done.\nremote: Compressing objects: 100% (8/8), done.\nremote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0\nUnpacking objects: 100% (10/10), done.\nChecking connectivity... done.\n2017/12/14 09:16:56 [New project] OK Success! \n\n     cd api\n     toapi run\n\n\n\n\n\nRun\n\uf0c1\n\n\nIn the directory of 'api' created above. Run t\n\n\n$ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000\n\n\n\n\n\nThen, everything is done. Visit http://127.0.0.1:5000 in your browser!\n\n\nScreenshot\n\uf0c1\n\n\nRunning Log\n\uf0c1\n\n\n\n\nRunning Items\n\uf0c1\n\n\n\n\nRunning Status\n\uf0c1\n\n\n\n\nRunning Results\n\uf0c1\n\n\n\n\nFeatures\n\uf0c1\n\n\nMultiple caching\n\uf0c1\n\n\nToapi use cache to prevent repeated parsing and use storage to prevent sending request.\n\n\nMultiple sites\n\uf0c1\n\n\nA toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs\n\n\nEasy to deploy.\n\uf0c1\n\n\nA toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.\n\n\nStatus Monitor\n\uf0c1\n\n\nA toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.\n\n\nGetting help\n\uf0c1\n\n\nTo get help with Toapi, please use the \nGitHub issues",
-            "title": "Home"
+            "text": "Toapi\n\uf0c1\n\n\nEvery web site provides APIs.\n\n\n\n\n\n\n\n\n\n\n\n\nOverview\n\uf0c1\n\n\nToapi is a \nclever\n, \nsimple\n and \nfast\n library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.\n\n\nGet Started\n\uf0c1\n\n\nInstallation\n\uf0c1\n\n\n$ pip install toapi\n$ toapi -v\ntoapi, version 0.1.12\n\n\n\n\n\nNew Project\n\uf0c1\n\n\n$ toapi new api\n2017/12/14 09:16:54 [New project] OK Creating project directory \"api\" \nCloning into 'api'...\nremote: Counting objects: 10, done.\nremote: Compressing objects: 100% (8/8), done.\nremote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0\nUnpacking objects: 100% (10/10), done.\nChecking connectivity... done.\n2017/12/14 09:16:56 [New project] OK Success! \n\n     cd api\n     toapi run\n\n\n\n\n\nRun\n\uf0c1\n\n\nIn the directory of 'api' created above. Run the command line as follows.\n\n\n$ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000\n\n\n\n\n\nThen, everything is done. Visit http://127.0.0.1:5000 in your browser!\n\n\nDeploy\n\uf0c1\n\n\nA Toapi app is a flask app. So you can deploy it as follows:\n\n\n\n\nWhile lightweight and easy to use, Flask\u2019s built-in server is not suitable for production as it doesn\u2019t scale well and by default serves only one request at a time. Some of the options available for properly running Flask in production are documented here.\n\n\nIf you want to deploy your Flask application to a WSGI server not listed here, look up the server documentation about how to use a WSGI app with it. Just remember that your Flask application object is the actual WSGI application.\n\n\n\n\nDeployment Options \u2014 Flask Documentation (0.12)\n\n\nScreenshots\n\uf0c1\n\n\nRunning Log\n\uf0c1\n\n\n\n\nRunning Items\n\uf0c1\n\n\n\n\nRunning Status\n\uf0c1\n\n\n\n\nRunning Results\n\uf0c1\n\n\n\n\nFeatures\n\uf0c1\n\n\nMultiple caching\n\uf0c1\n\n\nToapi use cache to prevent repeated parsing and use storage to prevent sending request.\n\n\nMultiple sites\n\uf0c1\n\n\nA toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs\n\n\nEasy to deploy.\n\uf0c1\n\n\nA toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.\n\n\nStatus Monitor\n\uf0c1\n\n\nA toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.\n\n\nGetting help\n\uf0c1\n\n\nTo get help with Toapi, please use the \nGitHub issues",
+            "title": "Introduce"
         },
         {
             "location": "/#toapi",
@@ -32,13 +32,18 @@
         },
         {
             "location": "/#run",
-            "text": "In the directory of 'api' created above. Run t  $ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000  Then, everything is done. Visit http://127.0.0.1:5000 in your browser!",
+            "text": "In the directory of 'api' created above. Run the command line as follows.  $ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000  Then, everything is done. Visit http://127.0.0.1:5000 in your browser!",
             "title": "Run"
         },
         {
-            "location": "/#screenshot",
+            "location": "/#deploy",
+            "text": "A Toapi app is a flask app. So you can deploy it as follows:   While lightweight and easy to use, Flask\u2019s built-in server is not suitable for production as it doesn\u2019t scale well and by default serves only one request at a time. Some of the options available for properly running Flask in production are documented here.  If you want to deploy your Flask application to a WSGI server not listed here, look up the server documentation about how to use a WSGI app with it. Just remember that your Flask application object is the actual WSGI application.   Deployment Options \u2014 Flask Documentation (0.12)",
+            "title": "Deploy"
+        },
+        {
+            "location": "/#screenshots",
             "text": "",
-            "title": "Screenshot"
+            "title": "Screenshots"
         },
         {
             "location": "/#running-log",
@@ -91,74 +96,34 @@
             "title": "Getting help"
         },
         {
-            "location": "/installation/",
-            "text": "Manual Installation\n\uf0c1\n\n\nIn order to manually install Toapi you'll need \nPython\n installed on your\nsystem, as well as the Python package manager, \npip\n. You can check if you have\nthese already installed from the command line:\n\n\n$ python --version\nPython \n3\n.5.2\n$ pip --version\npip \n9\n.0.1\n\n\n\n\n\nToapi supports Python3.5+.\n\n\nInstalling Python\n\uf0c1\n\n\nInstall \nPython\n by downloading an installer appropriate for your system from\n\npython.org\n and running it.\n\n\n\n\nNote\n\n\nIf you are installing Python on Windows, be sure to check the box to have\nPython added to your PATH if the installer offers such an option (it's\nnormally off by default).\n\n\n\n\n\n\nInstalling pip\n\uf0c1\n\n\nIf you're using a recent version of Python, the Python package manager, \npip\n,\nis most likely installed by default. However, you may need to upgrade pip to the\nlasted version:\n\n\npip install --upgrade pip\n\n\n\n\n\nIf you need to install \npip\n for the first time, download [get-pip.py].\nThen run the following command to install it:\n\n\npython get-pip.py\n\n\n\n\n\nInstalling Toapi\n\uf0c1\n\n\nInstall the \ntoapi\n package using pip:\n\n\npip install toapi\n\n\n\n\n\nYou should now have the \ntoapi\n command installed on your system. Run \ntoapi\n--version\n to check that everything worked okay.\n\n\n$ toapi --version\ntoapi, version \n1\n.0.0\n\n\n\n\n\n\n\nNote\n\n\nIf you are using Windows, some of the above commands may not work\nout-of-the-box.\n\n\nA quick solution may be to preface every Python command with \npython -m\n\nlike this:\n\n\npython -m pip install toapi\npython -m api\n\n\n\n\n\nFor a more permanent solution, you may need to edit your \nPATH\n environment\nvariable to include the \nScripts\n directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example \nC:\\Python34\\\n), open the\n\nTools\n, then \nScripts\n folder, and run the \nwin_add2path.py\n file by double\nclicking on it. Alternatively, you can \ndownload\n the script and run it\n(\npython win_add2path.py\n).",
+            "location": "/about/installation/",
+            "text": "Manual Installation\n\uf0c1\n\n\nIn order to manually install Toapi you'll need \nPython\n installed on your\nsystem, as well as the Python package manager, \npip\n. You can check if you have\nthese already installed from the command line:\n\n\n$ python --version\nPython 3.5.2\n$ pip --version\npip 9.0.1\n\n\n\n\n\nToapi supports Python3.5+.\n\n\nInstalling Python\n\uf0c1\n\n\nInstall \nPython\n by downloading an installer appropriate for your system from\n\npython.org\n and running it.\n\n\n\n\nNote\n\n\nIf you are installing Python on Windows, be sure to check the box to have\nPython added to your PATH if the installer offers such an option (it's\nnormally off by default).\n\n\n\n\nInstalling pip\n\uf0c1\n\n\nIf you're using a recent version of Python, the Python package manager, \npip\n,\nis most likely installed by default. However, you may need to upgrade pip to the\nlasted version:\n\n\npip install --upgrade pip\n\n\n\n\n\nIf you need to install \npip\n for the first time, download [get-pip.py].\nThen run the following command to install it:\n\n\npython get-pip.py\n\n\n\n\n\nInstalling Toapi\n\uf0c1\n\n\nInstall the \ntoapi\n package using pip:\n\n\npip install toapi\n\n\n\n\n\nYou should now have the \ntoapi\n command installed on your system. Run \ntoapi\n--version\n to check that everything worked okay.\n\n\n$ toapi --version\ntoapi, version 1.0.0\n\n\n\n\n\n\n\nNote\n\n\nIf you are using Windows, some of the above commands may not work\nout-of-the-box.\n\n\nA quick solution may be to preface every Python command with \npython -m\n\nlike this:\n\n\npython -m pip install toapi\npython -m api\n\n\n\n\n\nFor a more permanent solution, you may need to edit your \nPATH\n environment\nvariable to include the \nScripts\n directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example \nC:\\Python34\\\n), open the\n\nTools\n, then \nScripts\n folder, and run the \nwin_add2path.py\n file by double\nclicking on it. Alternatively, you can \ndownload\n the script and run it\n(\npython win_add2path.py\n).",
             "title": "Installation"
         },
         {
-            "location": "/installation/#manual-installation",
-            "text": "In order to manually install Toapi you'll need  Python  installed on your\nsystem, as well as the Python package manager,  pip . You can check if you have\nthese already installed from the command line:  $ python --version\nPython  3 .5.2\n$ pip --version\npip  9 .0.1  Toapi supports Python3.5+.",
+            "location": "/about/installation/#manual-installation",
+            "text": "In order to manually install Toapi you'll need  Python  installed on your\nsystem, as well as the Python package manager,  pip . You can check if you have\nthese already installed from the command line:  $ python --version\nPython 3.5.2\n$ pip --version\npip 9.0.1  Toapi supports Python3.5+.",
             "title": "Manual Installation"
         },
         {
-            "location": "/installation/#installing-python",
+            "location": "/about/installation/#installing-python",
             "text": "Install  Python  by downloading an installer appropriate for your system from python.org  and running it.   Note  If you are installing Python on Windows, be sure to check the box to have\nPython added to your PATH if the installer offers such an option (it's\nnormally off by default).",
             "title": "Installing Python"
         },
         {
-            "location": "/installation/#installing-pip",
+            "location": "/about/installation/#installing-pip",
             "text": "If you're using a recent version of Python, the Python package manager,  pip ,\nis most likely installed by default. However, you may need to upgrade pip to the\nlasted version:  pip install --upgrade pip  If you need to install  pip  for the first time, download [get-pip.py].\nThen run the following command to install it:  python get-pip.py",
             "title": "Installing pip"
         },
         {
-            "location": "/installation/#installing-toapi",
-            "text": "Install the  toapi  package using pip:  pip install toapi  You should now have the  toapi  command installed on your system. Run  toapi\n--version  to check that everything worked okay.  $ toapi --version\ntoapi, version  1 .0.0   Note  If you are using Windows, some of the above commands may not work\nout-of-the-box.  A quick solution may be to preface every Python command with  python -m \nlike this:  python -m pip install toapi\npython -m api  For a more permanent solution, you may need to edit your  PATH  environment\nvariable to include the  Scripts  directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example  C:\\Python34\\ ), open the Tools , then  Scripts  folder, and run the  win_add2path.py  file by double\nclicking on it. Alternatively, you can  download  the script and run it\n( python win_add2path.py ).",
+            "location": "/about/installation/#installing-toapi",
+            "text": "Install the  toapi  package using pip:  pip install toapi  You should now have the  toapi  command installed on your system. Run  toapi\n--version  to check that everything worked okay.  $ toapi --version\ntoapi, version 1.0.0   Note  If you are using Windows, some of the above commands may not work\nout-of-the-box.  A quick solution may be to preface every Python command with  python -m \nlike this:  python -m pip install toapi\npython -m api  For a more permanent solution, you may need to edit your  PATH  environment\nvariable to include the  Scripts  directory of your Python installation.\nRecent versions of Python include a script to do this for you. Navigate to\nyour Python installation directory (for example  C:\\Python34\\ ), open the Tools , then  Scripts  folder, and run the  win_add2path.py  file by double\nclicking on it. Alternatively, you can  download  the script and run it\n( python win_add2path.py ).",
             "title": "Installing Toapi"
         },
         {
-            "location": "/quickstart/",
-            "text": "$ toapi new my-api\n$ \ncd\n my-api\n$ toapi run",
-            "title": "Quick Start"
-        },
-        {
-            "location": "/deploy/",
-            "text": "",
-            "title": "Deploy"
-        },
-        {
-            "location": "/api/",
-            "text": "",
-            "title": "Api"
-        },
-        {
-            "location": "/item/",
-            "text": "",
-            "title": "Item"
-        },
-        {
-            "location": "/selector/",
-            "text": "",
-            "title": "Selector"
-        },
-        {
-            "location": "/cache/",
-            "text": "",
-            "title": "Cache"
-        },
-        {
-            "location": "/storage/",
-            "text": "",
-            "title": "Storage"
-        },
-        {
-            "location": "/settings/",
-            "text": "",
-            "title": "Setting"
-        },
-        {
             "location": "/about/release-notes/",
-            "text": "Release Notes\n\uf0c1\n\n\n\n\nUpgrading\n\uf0c1\n\n\nTo upgrade Toapi to the latest version, use pip:\n\n\npip install -U toapi\n\n\n\n\n\nYou can determine your currently installed version using \ntoapi --version\n:\n\n\n$ toapi --version\ntoapi, version \n1\n.0.0\n\n\n\n\n\nMaintenance team\n\uf0c1\n\n\n\n\n@gaojiuli\n\n\n@howie6879\n\n\n@wuqiangroy",
-            "title": "Release notes"
+            "text": "Release Notes\n\uf0c1\n\n\n\n\nUpgrading\n\uf0c1\n\n\nTo upgrade Toapi to the latest version, use pip:\n\n\npip install -U toapi\n\n\n\n\n\nYou can determine your currently installed version using \ntoapi --version\n:\n\n\n$ toapi --version\ntoapi, version 1.0.0\n\n\n\n\n\nMaintenance team\n\uf0c1\n\n\n\n\n@gaojiuli\n\n\n@howie6879\n\n\n@wuqiangroy",
+            "title": "Release Notes"
         },
         {
             "location": "/about/release-notes/#release-notes",
@@ -167,7 +132,7 @@
         },
         {
             "location": "/about/release-notes/#upgrading",
-            "text": "To upgrade Toapi to the latest version, use pip:  pip install -U toapi  You can determine your currently installed version using  toapi --version :  $ toapi --version\ntoapi, version  1 .0.0",
+            "text": "To upgrade Toapi to the latest version, use pip:  pip install -U toapi  You can determine your currently installed version using  toapi --version :  $ toapi --version\ntoapi, version 1.0.0",
             "title": "Upgrading"
         },
         {
@@ -214,6 +179,76 @@
             "location": "/about/license/",
             "text": "Copyright 2017 Jiuli Gao\n\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\n\n\n\n\nUnless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.",
             "title": "License"
+        },
+        {
+            "location": "/tutorials/introducing/",
+            "text": "",
+            "title": "Introducing Aim"
+        },
+        {
+            "location": "/tutorials/step0-creating-new-project/",
+            "text": "",
+            "title": "Step 0 Creating New Project"
+        },
+        {
+            "location": "/tutorials/step1-global-settings/",
+            "text": "",
+            "title": "Step 1 Global Settings"
+        },
+        {
+            "location": "/tutorials/step2-redis/",
+            "text": "",
+            "title": "Step 2 Using Redis"
+        },
+        {
+            "location": "/tutorials/step3-mongodb/",
+            "text": "",
+            "title": "Step 3 Using Mongodb"
+        },
+        {
+            "location": "/tutorials/step4-defining-items/",
+            "text": "",
+            "title": "Step 4 Defining Items"
+        },
+        {
+            "location": "/tutorials/step5-packagin-apis/",
+            "text": "",
+            "title": "Step 5 Packaging The APIs"
+        },
+        {
+            "location": "/tutorials/testing/",
+            "text": "",
+            "title": "Bonus: Testing the Application"
+        },
+        {
+            "location": "/topics/api/",
+            "text": "",
+            "title": "Api"
+        },
+        {
+            "location": "/topics/settings/",
+            "text": "",
+            "title": "Settings"
+        },
+        {
+            "location": "/topics/cache/",
+            "text": "",
+            "title": "Cache"
+        },
+        {
+            "location": "/topics/storage/",
+            "text": "",
+            "title": "Storage"
+        },
+        {
+            "location": "/topics/item/",
+            "text": "",
+            "title": "Item"
+        },
+        {
+            "location": "/topics/selector/",
+            "text": "",
+            "title": "Selector"
         }
     ]
 }
