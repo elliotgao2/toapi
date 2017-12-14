@@ -226,6 +226,41 @@
             "title": "Api"
         },
         {
+            "location": "/topics/item/",
+            "text": "",
+            "title": "Item"
+        },
+        {
+            "location": "/topics/selector/",
+            "text": "Selector fields is used to parse field values from HTML. There are three selectors right now:\n\n\n\n\nXPath\n\n\nCss\n\n\nRegex\n\n\n\n\nCore arguments\n\uf0c1\n\n\nEach Selector field class constructor takes at least these arguments.  Some Field classes take additional, field-specific arguments, but the following should always be accepted:\n\n\nrule\n\uf0c1\n\n\nThe arguments \nrule\n is the rule of selector which maybe a xpath expression or a css select expression or a regex expression.\n\n\nXPath Selector\n\uf0c1\n\n\nThe rule argument is xpath expression.\n\n\nfrom\n \ntoapi\n \nimport\n \nXPath\n\n\n\nfield\n \n=\n \nXPath\n(\n'//a[@class=\"user\"]/text()'\n)\n\n\n\n\n\n\nSignature:\n \nXPath(rule)\n\n\n\n\nCss Selector\n\uf0c1\n\n\nThe rule argument is css select expression.\n\n\nfrom\n \ntoapi\n \nimport\n \nCss\n\n\n\nfield\n \n=\n \nCss\n(\n'a.user'\n,\n \nattr\n=\n'href'\n)\n\n\n\n\n\n\nSignature:\n \nCss(rule, attr=None)\n\n\n\n\nattr\n Css select expression can't determine which part ot parse. We need the \nattr\n argument for that.\n\n\n\n\n\n\nRegex Selector\n\uf0c1\n\n\nThe rule argument regex expression.\n\n\nfrom\n \ntoapi\n \nimport\n \nRegex\n\n\n\nfield\n \n=\n \nRegex\n(\n'\\d{18}'\n)\n\n\n\n\n\n\nSignature:\n \nRegex(rule)",
+            "title": "Selector"
+        },
+        {
+            "location": "/topics/selector/#core-arguments",
+            "text": "Each Selector field class constructor takes at least these arguments.  Some Field classes take additional, field-specific arguments, but the following should always be accepted:",
+            "title": "Core arguments"
+        },
+        {
+            "location": "/topics/selector/#rule",
+            "text": "The arguments  rule  is the rule of selector which maybe a xpath expression or a css select expression or a regex expression.",
+            "title": "rule"
+        },
+        {
+            "location": "/topics/selector/#xpath-selector",
+            "text": "The rule argument is xpath expression.  from   toapi   import   XPath  field   =   XPath ( '//a[@class=\"user\"]/text()' )   Signature:   XPath(rule)",
+            "title": "XPath Selector"
+        },
+        {
+            "location": "/topics/selector/#css-selector",
+            "text": "The rule argument is css select expression.  from   toapi   import   Css  field   =   Css ( 'a.user' ,   attr = 'href' )   Signature:   Css(rule, attr=None)   attr  Css select expression can't determine which part ot parse. We need the  attr  argument for that.",
+            "title": "Css Selector"
+        },
+        {
+            "location": "/topics/selector/#regex-selector",
+            "text": "The rule argument regex expression.  from   toapi   import   Regex  field   =   Regex ( '\\d{18}' )   Signature:   Regex(rule)",
+            "title": "Regex Selector"
+        },
+        {
             "location": "/topics/settings/",
             "text": "",
             "title": "Settings"
@@ -239,16 +274,6 @@
             "location": "/topics/storage/",
             "text": "",
             "title": "Storage"
-        },
-        {
-            "location": "/topics/item/",
-            "text": "",
-            "title": "Item"
-        },
-        {
-            "location": "/topics/selector/",
-            "text": "",
-            "title": "Selector"
         }
     ]
 }

@@ -503,6 +503,96 @@
 
 
   <li class="md-nav__item">
+    <a href="../item/" title="Item" class="md-nav__link">
+      Item
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Selector
+      </label>
+    
+    <a href="./" title="Selector" class="md-nav__link md-nav__link--active">
+      Selector
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-arguments" title="Core arguments" class="md-nav__link">
+    Core arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule" title="rule" class="md-nav__link">
+    rule
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xpath-selector" title="XPath Selector" class="md-nav__link">
+    XPath Selector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css-selector" title="Css Selector" class="md-nav__link">
+    Css Selector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regex-selector" title="Regex Selector" class="md-nav__link">
+    Regex Selector
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../settings/" title="Settings" class="md-nav__link">
       Settings
     </a>
@@ -533,37 +623,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../item/" title="Item" class="md-nav__link">
-      Item
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-    <a href="./" title="Selector" class="md-nav__link md-nav__link--active">
-      Selector
-    </a>
-    
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -576,6 +635,67 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-arguments" title="Core arguments" class="md-nav__link">
+    Core arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule" title="rule" class="md-nav__link">
+    rule
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xpath-selector" title="XPath Selector" class="md-nav__link">
+    XPath Selector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css-selector" title="Css Selector" class="md-nav__link">
+    Css Selector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regex-selector" title="Regex Selector" class="md-nav__link">
+    Regex Selector
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -586,7 +706,49 @@
                 
                   <h1>Selector</h1>
                 
-                
+                <p>Selector fields is used to parse field values from HTML. There are three selectors right now:</p>
+<ul>
+<li>XPath</li>
+<li>Css</li>
+<li>Regex</li>
+</ul>
+<h2 id="core-arguments">Core arguments<a class="headerlink" href="#core-arguments" title="Permanent link"></a></h2>
+<p>Each Selector field class constructor takes at least these arguments.  Some Field classes take additional, field-specific arguments, but the following should always be accepted:</p>
+<h3 id="rule"><code>rule</code><a class="headerlink" href="#rule" title="Permanent link"></a></h3>
+<p>The arguments <code>rule</code> is the rule of selector which maybe a xpath expression or a css select expression or a regex expression.</p>
+<h2 id="xpath-selector">XPath Selector<a class="headerlink" href="#xpath-selector" title="Permanent link"></a></h2>
+<p>The rule argument is xpath expression.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">XPath</span>
+
+<span class="n">field</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;user&quot;]/text()&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Signature:</strong> <code>XPath(rule)</code></p>
+<hr />
+<h2 id="css-selector">Css Selector<a class="headerlink" href="#css-selector" title="Permanent link"></a></h2>
+<p>The rule argument is css select expression.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">Css</span>
+
+<span class="n">field</span> <span class="o">=</span> <span class="n">Css</span><span class="p">(</span><span class="s1">&#39;a.user&#39;</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Signature:</strong> <code>Css(rule, attr=None)</code></p>
+<ul>
+<li><code>attr</code> Css select expression can't determine which part ot parse. We need the <code>attr</code> argument for that.</li>
+</ul>
+<hr />
+<h2 id="regex-selector">Regex Selector<a class="headerlink" href="#regex-selector" title="Permanent link"></a></h2>
+<p>The rule argument regex expression.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">Regex</span>
+
+<span class="n">field</span> <span class="o">=</span> <span class="n">Regex</span><span class="p">(</span><span class="s1">&#39;\d{18}&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Signature:</strong> <code>Regex(rule)</code></p>
+<hr />
                 
                   
                 
@@ -619,6 +781,20 @@
             </div>
           </a>
         
+        
+          <a href="../settings/" title="Settings" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Settings
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

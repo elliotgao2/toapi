@@ -96,6 +96,18 @@
     </url>
         
     <url>
+     <loc>http://www.toapi.org/topics/item/</loc>
+     <lastmod>2017-12-14</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.toapi.org/topics/selector/</loc>
+     <lastmod>2017-12-14</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>http://www.toapi.org/topics/settings/</loc>
      <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
@@ -109,18 +121,6 @@
         
     <url>
      <loc>http://www.toapi.org/topics/storage/</loc>
-     <lastmod>2017-12-14</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.org/topics/item/</loc>
-     <lastmod>2017-12-14</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>http://www.toapi.org/topics/selector/</loc>
      <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
