@@ -22,27 +22,27 @@ class RedisCache(BaseCache):
         self.decode_responses = decode_responses
 
     @dec_connector
-    def set(self, key, value, ttl=None):
+    def set(self, key, value, ttl=None, **kwargs):
         result = self._cache_conn.set(key, self.serializer.dumps(value), ex=ttl)
         return result
 
     @dec_connector
-    def get(self, key, default=None):
+    def get(self, key, default=None, **kwargs):
         result = self._cache_conn.get(key)
         return self.serializer.loads(result) or default
 
     @dec_connector
-    def delete(self, *keys):
+    def delete(self, *keys, **kwargs):
         result = self._cache_conn.delete(*keys)
         return result
 
     @dec_connector
-    def exists(self, key):
+    def exists(self, key, **kwargs):
         result = self._cache_conn.exists(key)
         return result
 
     @dec_connector
-    def incr(self, key):
+    def incr(self, key, **kwargs):
         result = self._cache_conn.incr(key)
         return result
 

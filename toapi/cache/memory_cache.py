@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import time
+
 from toapi.cache.serializer import JsonSerializer
 from toapi.cache.base_cache import BaseCache
 
@@ -11,16 +13,24 @@ class MemoryCache(BaseCache):
             serializer = JsonSerializer
         super().__init__(serializer=serializer, **kwargs)
 
-    def set(self, key, value, ttl=None):
-        self._cache[key] = self.serializer.dumps(value)
+    def set(self, key, value, ttl=None, is_serialize=True, **kwargs):
         if ttl:
-            # TODO
-            pass
+            ttl = int(time.time()) + int(ttl)
+        value = self.serializer.dumps((value, ttl)) if is_serialize else (value, ttl)
+        self._cache[key] = value
         return True
 
-    def get(self, key, default=None):
-        result = self._cache.get(key)
-        return self.serializer.loads(result) or default
+    def get(self, key, default=None, is_serialize=True, **kwargs):
+        set_default = self.serializer.dumps((default, None)) if is_serialize else (default, None)
+        result = self._cache.get(key, set_default)
+        result_list = self.serializer.loads(result) if is_serialize else result
+        value = result_list[0]
+        if result_list[1] is not None:
+            ts = int(time.time())
+            if ts > result_list[1]:
+                self._delete(key=key)
+                value = None
+        return value or default
 
     def delete(self, *keys):
         res = []
@@ -28,13 +38,13 @@ class MemoryCache(BaseCache):
             res.append(self._delete(key))
         return res
 
-    def exists(self, key):
+    def exists(self, key, **kwargs):
         return key in self._cache
 
-    def incr(self, key):
-        result = self._cache.get(key, 0) + 1
-        self._cache[key] = result
-        return self._cache.get(key)
+    def incr(self, key, **kwargs):
+        result = int(self.get(key, default=0)) + 1
+        self.set(key, result)
+        return result
 
     def _delete(self, key):
         return self._cache.pop(key, 0)
