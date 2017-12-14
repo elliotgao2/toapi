@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Tips for toapi caches: there are several simple caching scheme we provide for you, and you can use the following ways.
+Tips for toapi caches: there are several simple caching schemes we provide for you, and you can use the following ways.
     - Use RedisCache class directly
     - Use cached decorator
 """
