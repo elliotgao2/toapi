@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "Toapi\n\uf0c1\n\n\nEvery web site provides APIs.\n\n\n\n\nOverview\n\uf0c1\n\n\nToapi is a \nclever\n, \nsimple\n and \nfast\n library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.\n\n\nMultiple caching\n\uf0c1\n\n\nToapi use cache to prevent repeated parsing and use storage to prevent sending request.\n\n\nMultiple sites\n\uf0c1\n\n\nA toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs\n\n\nEasy to deploy.\n\uf0c1\n\n\nA toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.\n\n\nStatus Monitor\n\uf0c1\n\n\nA toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.\n\n\nGetting help\n\uf0c1\n\n\nTo get help with Toapi, please use the \nGitHub issues",
+            "text": "Toapi\n\uf0c1\n\n\nEvery web site provides APIs.\n\n\n\n\nOverview\n\uf0c1\n\n\nToapi is a \nclever\n, \nsimple\n and \nfast\n library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.\n\n\nGet Started\n\uf0c1\n\n\nInstallation\n\uf0c1\n\n\n$ pip install toapi\n$ toapi -v\ntoapi, version 0.1.12\n\n\n\n\n\nNew Project\n\uf0c1\n\n\n$ toapi new api\n2017/12/14 09:16:54 [New project] OK Creating project directory \"api\" \nCloning into 'api'...\nremote: Counting objects: 10, done.\nremote: Compressing objects: 100% (8/8), done.\nremote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0\nUnpacking objects: 100% (10/10), done.\nChecking connectivity... done.\n2017/12/14 09:16:56 [New project] OK Success! \n\n     cd api\n     toapi run\n\n\n\n\n\nRun\n\uf0c1\n\n\nIn the directory of 'api' created above. Run t\n\n\n$ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000\n\n\n\n\n\nThen, everything is done. Visit http://127.0.0.1:5000 in your browser!\n\n\nScreenshot\n\uf0c1\n\n\nRunning Log\n\uf0c1\n\n\n\n\nRunning Items\n\uf0c1\n\n\n\n\nRunning Status\n\uf0c1\n\n\n\n\nRunning Results\n\uf0c1\n\n\n\n\nFeatures\n\uf0c1\n\n\nMultiple caching\n\uf0c1\n\n\nToapi use cache to prevent repeated parsing and use storage to prevent sending request.\n\n\nMultiple sites\n\uf0c1\n\n\nA toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs\n\n\nEasy to deploy.\n\uf0c1\n\n\nA toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.\n\n\nStatus Monitor\n\uf0c1\n\n\nA toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.\n\n\nGetting help\n\uf0c1\n\n\nTo get help with Toapi, please use the \nGitHub issues",
             "title": "Home"
         },
         {
@@ -14,6 +14,56 @@
             "location": "/#overview",
             "text": "Toapi is a  clever ,  simple  and  fast  library letting any \nweb site provide APIs. In the past, we crawl data and storage them and create \napi service to share them maybe we should also update them regularly. \nThis library make things easy. The only thing you should do is defining your data, \nthey would be shared as api service automatically.",
             "title": "Overview"
+        },
+        {
+            "location": "/#get-started",
+            "text": "",
+            "title": "Get Started"
+        },
+        {
+            "location": "/#installation",
+            "text": "$ pip install toapi\n$ toapi -v\ntoapi, version 0.1.12",
+            "title": "Installation"
+        },
+        {
+            "location": "/#new-project",
+            "text": "$ toapi new api\n2017/12/14 09:16:54 [New project] OK Creating project directory \"api\" \nCloning into 'api'...\nremote: Counting objects: 10, done.\nremote: Compressing objects: 100% (8/8), done.\nremote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0\nUnpacking objects: 100% (10/10), done.\nChecking connectivity... done.\n2017/12/14 09:16:56 [New project] OK Success! \n\n     cd api\n     toapi run",
+            "title": "New Project"
+        },
+        {
+            "location": "/#run",
+            "text": "In the directory of 'api' created above. Run t  $ toapi run\n2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000  Then, everything is done. Visit http://127.0.0.1:5000 in your browser!",
+            "title": "Run"
+        },
+        {
+            "location": "/#screenshot",
+            "text": "",
+            "title": "Screenshot"
+        },
+        {
+            "location": "/#running-log",
+            "text": "",
+            "title": "Running Log"
+        },
+        {
+            "location": "/#running-items",
+            "text": "",
+            "title": "Running Items"
+        },
+        {
+            "location": "/#running-status",
+            "text": "",
+            "title": "Running Status"
+        },
+        {
+            "location": "/#running-results",
+            "text": "",
+            "title": "Running Results"
+        },
+        {
+            "location": "/#features",
+            "text": "",
+            "title": "Features"
         },
         {
             "location": "/#multiple-caching",
