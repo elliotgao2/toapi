@@ -12,35 +12,35 @@ class BaseCache(metaclass=abc.ABCMeta):
         self.serializer = serializer()
 
     @abc.abstractmethod
-    def set(self, key, value, ttl=None):
+    def set(self, key, value, ttl=None, **kwargs):
         """
         Set the value at key ``key`` to ``value``
         """
         pass
 
     @abc.abstractmethod
-    def get(self, key, default=None):
+    def get(self, key, default=None, **kwargs):
         """
         Return the value at key ``name``, or None if the key doesn't exist
         """
         pass
 
     @abc.abstractmethod
-    def delete(self, *keys):
+    def delete(self, *keys, **kwargs):
         """
         Delete one or more keys specified by ``keys``
         """
         pass
 
     @abc.abstractmethod
-    def exists(self, key):
+    def exists(self, key, **kwargs):
         """
         Returns a boolean indicating whether key ``name`` exists
         """
         pass
 
     @abc.abstractmethod
-    def incr(self, key):
+    def incr(self, key, **kwargs):
         """
         Increments the value of ``key``.
         """
@@ -53,9 +53,9 @@ class BaseSerializer(metaclass=abc.ABCMeta):
     """
 
     @abc.abstractmethod
-    def dumps(self, value):
+    def dumps(self, value, **kwargs):
         pass
 
     @abc.abstractmethod
-    def loads(self, value):
+    def loads(self, value, **kwargs):
         pass

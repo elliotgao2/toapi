@@ -21,31 +21,31 @@ class MemcachedCache(BaseCache):
         self.kwargs = kwargs
 
     @dec_connector
-    def set(self, key, value, ttl=None):
+    def set(self, key, value, ttl=None, **kwargs):
         ttl = ttl or 0
         result = self._cache_conn.set(key, self.serializer.dumps(value), expire=ttl)
         return result
 
     @dec_connector
-    def get(self, key, default=None):
+    def get(self, key, default=None, **kwargs):
         result = self._cache_conn.get(key)
         if result:
             if isinstance(result, bytes):
                 result = bytes.decode(result)
-        return self.serializer.loads(result) or default
+        return self.serializer.loads(result) if result is not None else default
 
     @dec_connector
-    def delete(self, key):
+    def delete(self, key, **kwargs):
         result = self._cache_conn.delete(key)
         return result
 
     @dec_connector
-    def exists(self, key):
+    def exists(self, key, **kwargs):
         result = self._cache_conn.get(key)
         return result != None
 
     @dec_connector
-    def incr(self, key, value=1):
+    def incr(self, key, value=1, **kwargs):
         if not self.exists(key):
             result = value
             self.set(key, result)
