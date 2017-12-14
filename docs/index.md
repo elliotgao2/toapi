@@ -1,17 +1,103 @@
-# Welcome to MkDocs
+# Toapi
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+Every web site provides APIs.
 
-## Commands
+[![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
+[![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+[![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+[![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
 
-## Project layout
+---
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Overview
+
+Toapi is a **clever**, **simple** and **fast** library letting any 
+web site provide APIs. In the past, we crawl data and storage them and create 
+api service to share them maybe we should also update them regularly. 
+This library make things easy. The only thing you should do is defining your data, 
+they would be shared as api service automatically.
+
+## Get Started
+
+### Installation
+
+```text
+$ pip install toapi
+$ toapi -v
+toapi, version 0.1.12
+```
+
+### New Project
+
+```text
+$ toapi new api
+2017/12/14 09:16:54 [New project] OK Creating project directory "api" 
+Cloning into 'api'...
+remote: Counting objects: 10, done.
+remote: Compressing objects: 100% (8/8), done.
+remote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0
+Unpacking objects: 100% (10/10), done.
+Checking connectivity... done.
+2017/12/14 09:16:56 [New project] OK Success! 
+
+     cd api
+     toapi run
+
+```
+
+### Run
+
+In the directory of 'api' created above. Run the command line as follows.
+
+```text
+$ toapi run
+2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000
+```
+
+Then, everything is done. Visit http://127.0.0.1:5000 in your browser!
+
+## Screenshots
+
+### Running Log
+
+![Running Log](./imgs/runinglog.jpg)
+
+### Running Items
+
+![Running Items](./imgs/runningitems.jpg)
+
+### Running Status
+
+![Running Status](./imgs/runningstatus.jpg)
+
+### Running Results
+
+![Running Results](./imgs/runningresult.jpg)
+
+## Features
+
+### Multiple caching
+
+Toapi use cache to prevent repeated parsing and use storage to prevent sending request.
+
+### Multiple sites
+
+A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
+
+### Easy to deploy.
+
+A toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.
+
+### Status Monitor
+
+A toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.
+
+## Getting help
+
+To get help with Toapi, please use the [GitHub issues]
+
+[GitHub issues]: https://github.com/gaojiuli/toapi/issues
+[GitHub project pages]: https://help.github.com/articles/creating-project-pages-manually/
+[pip]: http://pip.readthedocs.io/en/stable/installing/
+[Python]: https://www.python.org/

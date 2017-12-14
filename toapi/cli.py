@@ -5,10 +5,12 @@ import sys
 import click
 from colorama import Fore
 
+from toapi import __version__
 from toapi.log import logger
 
 
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
+@click.version_option(__version__, '-v', '--version')
 def cli():
     """
     Toapi - Every web site provides APIs.
@@ -36,7 +38,7 @@ def new(output_dir):
 @cli.command(name="run")
 @click.option('-a', '--addr',
               default='127.0.0.1:5000',
-              help='IP and Port to serve documentation locally (default:"127.0.0.1:8000")',
+              help='IP and Port to serve documentation locally (default:"127.0.0.1:5000")',
               metavar='<IP:PORT>')
 def run(addr):
     """Run app server."""

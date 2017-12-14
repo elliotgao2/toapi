@@ -3,7 +3,6 @@ flask
 selenium
 requests
 records
-cchardet
 cssselect
 pytest
 ujson
@@ -13,3 +12,4 @@ pycrypto
 colorama
 records
 mkdocs
+cchardet
