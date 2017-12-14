@@ -24,7 +24,6 @@ class MemoryCache(BaseCache):
         set_default = self.serializer.dumps((default, None)) if is_serialize else (default, None)
         result = self._cache.get(key, set_default)
         result_list = self.serializer.loads(result) if is_serialize else result
-        print(result_list)
         value = result_list[0]
         if result_list[1] is not None:
             ts = int(time.time())
