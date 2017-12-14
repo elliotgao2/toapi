@@ -4,7 +4,7 @@ In order to manually install Toapi you'll need [Python] installed on your
 system, as well as the Python package manager, [pip]. You can check if you have
 these already installed from the command line:
 
-```bash
+```text
 $ python --version
 Python 3.5.2
 $ pip --version
@@ -24,8 +24,6 @@ Install [Python] by downloading an installer appropriate for your system from
     Python added to your PATH if the installer offers such an option (it's
     normally off by default).
 
-    ![Add Python to PATH](img/win-py-install.png)
-
 [python.org]: https://www.python.org/downloads/
 
 #### Installing pip
@@ -34,14 +32,14 @@ If you're using a recent version of Python, the Python package manager, [pip],
 is most likely installed by default. However, you may need to upgrade pip to the
 lasted version:
 
-```bash
+```text
 pip install --upgrade pip
 ```
 
 If you need to install [pip] for the first time, download [get-pip.py].
 Then run the following command to install it:
 
-```bash
+```text
 python get-pip.py
 ```
 
@@ -49,14 +47,14 @@ python get-pip.py
 
 Install the `toapi` package using pip:
 
-```bash
+```text
 pip install toapi
 ```
 
 You should now have the `toapi` command installed on your system. Run `toapi
 --version` to check that everything worked okay.
 
-```bash
+```text
 $ toapi --version
 toapi, version 1.0.0
 ```

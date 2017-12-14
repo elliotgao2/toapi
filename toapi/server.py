@@ -8,7 +8,7 @@ from toapi.log import logger
 
 
 class Server:
-    def serve(self, ip='0.0.0.0', port=5000, **options):
+    def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
             self.app.run(ip, port, debug=False, **options)
