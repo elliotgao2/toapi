@@ -22,10 +22,7 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        if getattr(self.settings, 'web', {}).get('with_ajax', False):
-            self.browser = self.get_browser(settings=self.settings)
-        else:
-            self.browser = None
+        self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
     def register(self, item):
@@ -95,6 +92,8 @@ class Api:
         return result
 
     def get_browser(self, settings):
+        if not getattr(self.settings, 'web', {}).get('with_ajax', False):
+            return None
         if getattr(settings, 'headers', None) is not None:
             for key, value in settings.headers.items():
                 capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
