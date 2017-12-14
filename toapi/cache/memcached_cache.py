@@ -32,7 +32,7 @@ class MemcachedCache(BaseCache):
         if result:
             if isinstance(result, bytes):
                 result = bytes.decode(result)
-        return self.serializer.loads(result) or default
+        return self.serializer.loads(result) if result is not None else default
 
     @dec_connector
     def delete(self, key, **kwargs):

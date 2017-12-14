@@ -29,7 +29,7 @@ class RedisCache(BaseCache):
     @dec_connector
     def get(self, key, default=None, **kwargs):
         result = self._cache_conn.get(key)
-        return self.serializer.loads(result) or default
+        return self.serializer.loads(result) if result is not None else default
 
     @dec_connector
     def delete(self, *keys, **kwargs):
