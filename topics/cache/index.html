@@ -545,9 +545,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Cache
+      </label>
+    
     <a href="./" title="Cache" class="md-nav__link md-nav__link--active">
       Cache
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-arguments" title="Core arguments" class="md-nav__link">
+    Core arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How It Works?" class="md-nav__link">
+    How It Works?
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -576,6 +615,47 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-arguments" title="Core arguments" class="md-nav__link">
+    Core arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How It Works?" class="md-nav__link">
+    How It Works?
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -586,7 +666,105 @@
                 
                   <h1>Cache</h1>
                 
-                
+                <p>When you are writing a service, maybe you need to be able to save a piece of JSON data to your system's memory.</p>
+<p>There are three ways to create a cache, using a MemoryCache, RedisCache or MemcachedCache.</p>
+<p>What is the difference between these three ways?</p>
+<ul>
+<li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/memory_cache.py">MemoryCache</a>: easy to configure, but it automatically destroys when the server is stopped.</li>
+<li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/redis_cache.py">RedisCache</a>: stable but you have to install Redis.</li>
+<li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/memcached_cache.py">MemcachedCache</a>: stable but you have to install Memcached.</li>
+</ul>
+<p>There are two serialization schemes we provide for you:</p>
+<ul>
+<li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/serializer.py">JsonSerializer</a></li>
+<li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/serializer.py">PickleSerializer</a></li>
+</ul>
+<h2 id="core-arguments">Core arguments<a class="headerlink" href="#core-arguments" title="Permanent link"></a></h2>
+<p><code>RedisCache</code> and <code>MemcachedCache</code> class constructor takes at least these arguments. Some Field classes take additional, field-specific arguments, but the following should always be accepted:</p>
+<ul>
+<li>host</li>
+<li>port</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>MemoryCache</code> can be instantiated directly</p>
+</div>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"></a></h2>
+<p>These methods can be used with very convenient, first of all, you just need to add one new class which inheritance the <a href="https://github.com/gaojiuli/toapi/blob/master/toapi/settings.py"><code>Toapi.Settings</code></a>.</p>
+<p>Let's take a look at a quick example of using MemoryCache.Start off by adding the following to your <code>settings.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi.cache</span> <span class="kn">import</span> <span class="n">MemoryCache</span><span class="p">,</span> <span class="n">RedisCache</span>
+
+
+<span class="k">class</span> <span class="nc">MyMemorySettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create custom configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># If you want to use other classes, just replace it</span>
+        <span class="s1">&#39;cache_class&#39;</span><span class="p">:</span> <span class="n">MemoryCache</span><span class="p">,</span>
+        <span class="s1">&#39;cache_config&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="c1"># Default value is JsonSerializer</span>
+        <span class="s1">&#39;serializer&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ttl&#39;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">MyRedisSettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If you want to use Redis, you can create your configuration like this</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># If you want to use other classes, just replace it</span>
+        <span class="s1">&#39;cache_class&#39;</span><span class="p">:</span> <span class="n">RedisCache</span><span class="p">,</span>
+        <span class="s1">&#39;cache_config&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+            <span class="s1">&#39;db&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="bp">None</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;serializer&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ttl&#39;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>Next create <code>cache_demo.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi.cache</span> <span class="kn">import</span> <span class="n">cached</span><span class="p">,</span> <span class="n">CacheSetting</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">MyMemorySettings</span>
+
+<span class="c1"># Create a cache instance</span>
+<span class="c1"># Or cache_ins = CacheSetting(MyRedisSettings)</span>
+<span class="n">cache_ins</span> <span class="o">=</span> <span class="n">CacheSetting</span><span class="p">(</span><span class="n">MyMemorySettings</span><span class="p">)</span>
+
+<span class="c1"># Set the value at key, the key will be automatically deleted after 10s</span>
+<span class="n">cache_ins</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;toapi&#39;</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Return the value at key ``name``,</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">cache_ins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+
+<span class="c1"># Output</span>
+<span class="c1"># toapi</span>
+</pre></div>
+
+
+<p>Once a cache instance has been created, you can use it anywhere to implement data caching.</p>
+<p>Now you know some of the basic operations for using cache_ins, but how can you add a cache to your API service?</p>
+<p>Add the following to your <code>app.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">Api</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">MyMemorySettings</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="s1">&#39;https://www.github.com&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">MyMemorySettings</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="how-it-works">How It Works?<a class="headerlink" href="#how-it-works" title="Permanent link"></a></h2>
+<p>The <a href="https://github.com/gaojiuli/toapi/blob/master/toapi/api.py"><code>Api</code></a> class will initialize the <code>cache</code> attribute based on the value of settings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Api class can accept a parameter named settings, if settings is None, the default configuration will take effect</p>
+<p>You can read the basic configuration from <a href="https://github.com/gaojiuli/toapi/blob/master/toapi/settings.py"><code>toapi/settings.py</code></a></p>
+</div>
                 
                   
                 
