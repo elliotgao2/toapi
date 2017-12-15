@@ -27,7 +27,7 @@ def new(output_dir):
         return
 
     logger.info(Fore.GREEN, 'New project', 'Creating project directory "%s"' % output_dir)
-    os.system('git clone https://github.com/gaojiuli/toapi-template %s' % output_dir)
+    os.system('git clone https://github.com/toapi/toapi-template %s' % output_dir)
     logger.info(Fore.GREEN, 'New project', 'Success!')
     click.echo('')
     click.echo('     cd %s' % output_dir)
