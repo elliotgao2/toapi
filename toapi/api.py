@@ -32,9 +32,9 @@ class Api:
         item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
         self.item_classes.append(item)
-        with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
-        if self.browser is None and with_ajax:
-            self.browser = self.get_browser(settings=self.settings)
+        item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
+        if self.browser is None and item_with_ajax:
+            self.browser = self.get_browser(settings=self.settings, item_with_ajax=item_with_ajax)
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
@@ -99,8 +99,9 @@ class Api:
         self.set_storage(url, result)
         return result
 
-    def get_browser(self, settings):
-        if not getattr(self.settings, 'web', {}).get('with_ajax', False):
+    def get_browser(self, settings, item_with_ajax=False):
+        """Get browser"""
+        if not getattr(self.settings, 'web', {}).get('with_ajax', False) and not item_with_ajax:
             return None
         if getattr(settings, 'headers', None) is not None:
             for key, value in settings.headers.items():
