@@ -7,22 +7,28 @@ repo_url: https://github.com/gaojiuli/toapi/
 repo_name: 'gaojiuli/toapi'
 
 pages:
-    - Home: index.md
-    - User Guide:
-        - Installation: installation.md
-        - Quick Start: quickstart.md
-        - Deploy: deploy.md
-    - Topics:
-        - Api: api.md
-        - Item: item.md
-        - Selector: selector.md
-        - Cache: cache.md
-        - Storage: storage.md
-        - Setting: settings.md
-    - About:
-        - Release notes: about/release-notes.md
+    - Toapi:
+        - Introduce: index.md
+        - Installation: about/installation.md
+        - Release Notes: about/release-notes.md
         - Contributing: about/contributing.md
         - License: about/license.md
+    - Tutorials:
+        - Introducing Aim: tutorials/introducing.md
+        - Step 0 Creating New Project: tutorials/step0-creating-new-project.md
+        - Step 1 Global Settings: tutorials/step1-global-settings.md
+        - Step 2 Using Redis: tutorials/step2-redis.md
+        - Step 3 Using Mongodb: tutorials/step3-mongodb.md
+        - Step 4 Defining Items: tutorials/step4-defining-items.md
+        - Step 5 Packaging The APIs: tutorials/step5-packagin-apis.md
+        - "Bonus: Testing the Application": tutorials/testing.md
+    - Topics:
+        - Api: topics/api.md
+        - Item: topics/item.md
+        - Selector: topics/selector.md
+        - Settings: topics/settings.md
+        - Cache: topics/cache.md
+        - Storage: topics/storage.md
 
 markdown_extensions:
     - toc:
@@ -35,6 +41,8 @@ copyright: Copyright &copy; 2017 <a href="https://github.com/gaojiuli">Jiuli Gao
 
 theme:
   name: 'material'
+  feature:
+    tabs: true
   palette:
     primary: 'blue'
     accent: 'blue'

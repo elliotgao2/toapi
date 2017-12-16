@@ -32,18 +32,18 @@ class CacheSetting:
         self.ttl = self.cache.get('ttl')
         self.instance = self.cache['cache_class'](serializer=serializer, **self.cache['cache_config'])
 
-    def set(self, key, value, ttl=None):
+    def set(self, key, value, ttl=None, **kwargs):
         ttl = ttl or self.ttl
-        return self.instance.set(key, value, ttl=ttl)
+        return self.instance.set(key, value, ttl=ttl, **kwargs)
 
-    def get(self, key, default=None):
-        return self.instance.get(key, default=default)
+    def get(self, key, default=None, **kwargs):
+        return self.instance.get(key, default=default, **kwargs)
 
-    def exists(self, key):
-        return self.instance.exists(key)
+    def exists(self, key, **kwargs):
+        return self.instance.exists(key, **kwargs)
 
-    def incr(self, key):
-        return self.instance.incr(key)
+    def incr(self, key, **kwargs):
+        return self.instance.incr(key, **kwargs)
 
     def api_cached(self, ttl=None, **kwargs):
         """
@@ -76,13 +76,13 @@ class CacheSetting:
                 try:
                     if self.exists(cache_key):
                         logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)
-                        return jsonify(self.get(cache_key))
+                        return jsonify(self.get(cache_key, **kwargs))
                 except Exception:
                     logger.exception('Cache', 'Get<%s>' % cache_key)
                 result = func(error, url=key, *args, **kwargs)
                 if result and cache_key:
                     try:
-                        if self.set(cache_key, result, ttl=ttl):
+                        if self.set(cache_key, result, ttl=ttl, **kwargs):
                             logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % cache_key)
                     except Exception:
                         logger.exception('Cache', 'Set<%s>' % cache_key)

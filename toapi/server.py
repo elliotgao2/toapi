@@ -1,4 +1,3 @@
-import sys
 from time import time
 
 from colorama import Fore
@@ -8,13 +7,6 @@ from toapi.log import logger
 
 
 class Server:
-    def serve(self, ip='0.0.0.0', port=5000, **options):
-        try:
-            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-            self.app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
-
     def __init__(self, api, settings):
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)

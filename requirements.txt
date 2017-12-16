@@ -13,3 +13,4 @@ colorama
 records
 mkdocs
 cchardet
+mkdocs-material

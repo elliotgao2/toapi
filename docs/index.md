@@ -2,6 +2,12 @@
 
 Every web site provides APIs.
 
+[![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
+[![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+[![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+[![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
+
+
 ---
 
 ## Overview
@@ -11,6 +17,76 @@ web site provide APIs. In the past, we crawl data and storage them and create
 api service to share them maybe we should also update them regularly. 
 This library make things easy. The only thing you should do is defining your data, 
 they would be shared as api service automatically.
+
+## Get Started
+
+### Installation
+
+```text
+$ pip install toapi
+$ toapi -v
+toapi, version 0.1.12
+```
+
+### New Project
+
+```text
+$ toapi new api
+2017/12/14 09:16:54 [New project] OK Creating project directory "api" 
+Cloning into 'api'...
+remote: Counting objects: 10, done.
+remote: Compressing objects: 100% (8/8), done.
+remote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0
+Unpacking objects: 100% (10/10), done.
+Checking connectivity... done.
+2017/12/14 09:16:56 [New project] OK Success! 
+
+     cd api
+     toapi run
+
+```
+
+### Run
+
+In the directory of 'api' created above. Run the command line as follows.
+
+```text
+$ toapi run
+2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000
+```
+
+Then, everything is done. Visit http://127.0.0.1:5000 in your browser!
+
+### Deploy
+
+A Toapi app is a flask app. So you can deploy it as follows:
+
+
+> While lightweight and easy to use, Flask’s built-in server is not suitable for production as it doesn’t scale well and by default serves only one request at a time. Some of the options available for properly running Flask in production are documented here.
+
+> If you want to deploy your Flask application to a WSGI server not listed here, look up the server documentation about how to use a WSGI app with it. Just remember that your Flask application object is the actual WSGI application.
+
+[Deployment Options &#8212; Flask Documentation (0.12)](http://flask.pocoo.org/docs/0.12/deploying/)
+
+## Screenshots
+
+### Running Log
+
+![Running Log](./imgs/runinglog.jpg)
+
+### Running Items
+
+![Running Items](./imgs/runningitems.jpg)
+
+### Running Status
+
+![Running Status](./imgs/runningstatus.jpg)
+
+### Running Results
+
+![Running Results](./imgs/runningresult.jpg)
+
+## Features
 
 ### Multiple caching
 

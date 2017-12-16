@@ -39,13 +39,13 @@ def cached(cache_class=None, key=None, ttl=None, serializer=None, cache_config=N
             try:
                 if cache_ins.exists(cache_key):
                     logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % cache_key)
-                    return cache_ins.get(cache_key)
+                    return cache_ins.get(cache_key, **kwargs)
             except Exception:
                 logger.exception('Cache', 'Get<%s>' % cache_key)
             result = func(*args, **kwargs)
             if result and cache_key:
                 try:
-                    if cache_ins.set(cache_key, result, ttl=ttl):
+                    if cache_ins.set(cache_key, result, ttl=ttl, **kwargs):
                         logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % cache_key)
                 except Exception:
                     logger.exception('Cache', 'Set<%s>' % cache_key)
