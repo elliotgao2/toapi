@@ -1,6 +1,6 @@
 # Toapi
 
-
+Every web site provides APIs.
 
 [![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
 [![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
@@ -10,111 +10,111 @@
 
 ![Toapi](logo.png)
 
-A library letting any web site provide APIs.
-In the past, we crawl data and storage them and create api service to share them maybe we should also update them regularly.
-This library make things easy.
-The only thing you should do is defining your data, they would be shared as api service automatically.
+## Overview
+
+Toapi is a **clever**, **simple** and **fast** library letting any 
+web site provide APIs. In the past, we crawl data and storage them and create 
+api service to share them maybe we should also update them regularly. 
+This library make things easy. The only thing you should do is defining your data, 
+they would be shared as api service automatically.
+
+Documentation: [Toapi Documentation](http://www.toapi.org)
 
 ## Diagram
 
 ![Toapi](diagram.png)
 
-## Installation
-
-- `pip install toapi`
-- `pip install git+https://github.com/gaojiuli/toapi/`
-
 ## Get Started
+
+### Installation
+
+```text
+$ pip install toapi
+$ toapi -v
+toapi, version 0.1.12
+```
+
+### New Project
 
 ```text
 $ toapi new api
-$ cd api
-$ toapi run 
+2017/12/14 09:16:54 [New project] OK Creating project directory "api" 
+Cloning into 'api'...
+remote: Counting objects: 10, done.
+remote: Compressing objects: 100% (8/8), done.
+remote: Total 10 (delta 1), reused 10 (delta 1), pack-reused 0
+Unpacking objects: 100% (10/10), done.
+Checking connectivity... done.
+2017/12/14 09:16:56 [New project] OK Success! 
+
+     cd api
+     toapi run
+
 ```
 
-## Usage
+### Run
 
-### Static site:
+In the directory of 'api' created above. Run the command line as follows.
 
-```python
-from toapi import XPath, Item, Api
-
-api = Api('https://news.ycombinator.com/')
-
-
-class Post(Item):
-    url = XPath('//a[@class="storylink"][1]/@href')
-    title = XPath('//a[@class="storylink"][1]/text()')
-
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = '/'
-
-
-api.register(Post)
-
-api.serve()
-
-# Visit http://127.0.0.1:5000/
+```text
+$ toapi run
+2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000
 ```
 
-- Item.Meta.route: A regex statement. Define the path of your api service. Which means when the request path match the route regex statement, the Item would be parsed. Most of the time, the route is the same as ths path of source site.
-- Item.Meta.source: The section part of html that contains a single item.
-- api.serve(): Run a server, provide api service.
-- api.parse(): Parse a path. If the path is not defined in Item.Meta.route, this method returns nothing.
+Then, everything is done. Visit http://127.0.0.1:5000 in your browser!
 
-### Site with ajax:
+### Deploy
 
-- `Phantomjs` is required. Run `phantomjs -v` to check.
-- If you use Ubuntu. Run `sudo apt install phantomjs` to install.
-- If you use MacOS. Run `brew install phantomjs` to install.
-
-```python
-from toapi import XPath, Item, Api, Settings
+A Toapi app is a flask app. So you can deploy it as follows:
 
 
-class MySettings(Settings):
-    web = {
-        "with_ajax": True
-    }
+> While lightweight and easy to use, Flask’s built-in server is not suitable for production as it doesn’t scale well and by default serves only one request at a time. Some of the options available for properly running Flask in production are documented here.
 
+> If you want to deploy your Flask application to a WSGI server not listed here, look up the server documentation about how to use a WSGI app with it. Just remember that your Flask application object is the actual WSGI application.
 
-api = Api('https://news.ycombinator.com/', settings=MySettings)
+[Deployment Options &#8212; Flask Documentation (0.12)](http://flask.pocoo.org/docs/0.12/deploying/)
 
+## Screenshots
 
-class Post(Item):
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
+### Running Log
 
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = '/news\?p=\d+'
+![Running Log](./docs/imgs/runinglog.jpg)
 
+### Running Items
 
-class Page(Item):
-    next_page = XPath('//a[@class="morelink"]/@href')
+![Running Items](./docs/imgs/runningitems.jpg)
 
-    class Meta:
-        source = None
-        route = '/news\?p=\d+'
+### Running Status
 
-    def clean_next_page(self, next_page):
-        return "http://127.0.0.1:5000/" + next_page
+![Running Status](./docs/imgs/runningstatus.jpg)
 
+### Running Results
 
-api.register(Post)
-api.register(Page)
+![Running Results](./docs/imgs/runningresult.jpg)
 
-api.serve(ip='127.0.0.1',port=5000)
+## Features
 
-# Visit http://127.0.0.1:5000/news?p=1
-```
+### Multiple caching
 
-## Contribution
+Toapi use cache to prevent repeated parsing and use storage to prevent sending request.
 
-- Open Issue.
-- Pull Request.
+### Multiple sites
 
-## License
+A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
 
-Apache-2.0
+### Easy to deploy.
+
+A toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.
+
+### Status Monitor
+
+A toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.
+
+## Getting help
+
+To get help with Toapi, please use the [GitHub issues]
+
+[GitHub issues]: https://github.com/gaojiuli/toapi/issues
+[GitHub project pages]: https://help.github.com/articles/creating-project-pages-manually/
+[pip]: http://pip.readthedocs.io/en/stable/installing/
+[Python]: https://www.python.org/
