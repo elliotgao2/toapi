@@ -2,6 +2,8 @@ import os
 import time
 import hashlib
 
+from toapi.log import logger
+
 
 class DiskStore:
 
