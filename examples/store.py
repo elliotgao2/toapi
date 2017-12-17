@@ -1,5 +1,5 @@
 from toapi.storage import Storage
-from time import time
+from time import time, sleep
 import os
 
 # store = DiskStore()
@@ -53,8 +53,13 @@ def disk_test():
     url = "https://www.google.com123"
     html = "<p>你好世界</p>\n<h1>this is a b'ig problem</h1'>"
     store = Storage(settings=Settings)
-    # store.save(url, html)
-    print(store.get(url))
+    n = 1
+    while n < 3:
+        store.save(url, html)
+        sleep(10)
+        print("times: {}".format(n))
+        n += 1
+    # print(store.get(url, expiration=5))
 
 
 def db_store():
@@ -68,5 +73,5 @@ def db_store():
 
 if __name__ == "__main__":
     # io_test()
-    # disk_test()
-    db_store()
+    disk_test()
+    # db_store()
