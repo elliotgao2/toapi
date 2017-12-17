@@ -2,8 +2,6 @@ import os
 import time
 import hashlib
 
-from toapi.log import logger
-
 
 class DiskStore:
 
@@ -43,13 +41,9 @@ class DiskStore:
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-        try:
-            with open(self.path + file_name, "w", encoding="utf-8") as f:
-                f.write(html)
-            return True
-        except Exception as e:
-            logger.error('Storage', 'Set<{}>'.format(str(e)))
-            return False
+        with open(self.path + file_name, "w", encoding="utf-8") as f:
+            f.write(html)
+        return True
 
     def get(self, url, default=None, expiration="inf"):
 

@@ -139,11 +139,16 @@ class Api:
 
     def set_storage(self, key, value):
         """Set storage"""
-        if self.storage.get(key) is None and self.storage.save(key, value):
-            logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
-            self.update_status('_status_storage_set')
-            return True
-        return False
+
+        try:
+            if self.storage.get(key) is None and self.storage.save(key, value):
+                logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
+                self.update_status('_status_storage_set')
+                return True
+            return False
+        except Exception as e:
+            logger.error('Storage', 'Set<{}>'.format(str(e)))
+            return False
 
     def get_storage(self, key, default=None):
         """Set storage"""
