@@ -28,16 +28,18 @@ class DiskStore:
 
         if path.endswith("/"):
             if not os.path.exists(path + ".html"):
-                os.mkdir(path + ".html")
+                os.makedirs(path + ".html")
             self.path = path + ".html/"
         else:
             if not os.path.exists(path + "/.html"):
-                os.mkdir(path + "/.html")
+                os.makedirs(path + "/.html")
             self.path = path + "/.html/"
 
     def save(self, url, html):
 
         file_name = hashlib.md5(url.encode()).hexdigest()
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
         with open(self.path + file_name, "w", encoding="utf-8") as f:
             f.write(html)
         return True
