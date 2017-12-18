@@ -20,6 +20,8 @@ they would be shared as api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
 
+[![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
+
 ## Diagram
 
 ![Toapi](diagram.png)
