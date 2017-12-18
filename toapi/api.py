@@ -40,7 +40,8 @@ class Api:
         try:
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
             self.server.run(ip, port, **options)
-        except Exception:
+        except Exception as e:
+            logger.error('Serving', '%s' % str(e))
             exit()
 
     def parse(self, path, params=None, **kwargs):
