@@ -25,13 +25,14 @@ class Css(Selector):
         super(Css, self).__init__(rule)
         self.attr = attr
 
-    def parse(self, html):
+    def parse(self, html, is_source=False):
         if isinstance(html, etree._Element):
             html = etree.tostring(html)
         d = etree.HTML(html)
         value = d.cssselect(self.rule)
+        if is_source:
+            return value
         if self.attr:
-            # TODO
             value = value[0].get(self.attr).strip() if len(value) == 1 else value
         else:
             if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
@@ -45,11 +46,13 @@ class Css(Selector):
 class XPath(Selector):
     """XPath selector"""
 
-    def parse(self, html):
+    def parse(self, html, is_source=False):
         if isinstance(html, etree._Element):
             html = etree.tostring(html)
         d = etree.HTML(html)
         value = d.xpath(self.rule)
+        if is_source:
+            return value
         if isinstance(value, list) and len(value) == 1:
             if isinstance(value[0], etree._Element):
                 text = ''
