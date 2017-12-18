@@ -1,6 +1,6 @@
 When you are writing a service, maybe you need to be able to save a piece of JSON data to your system's memory.
 
-There are three ways to create a cache, using a MemoryCache, RedisCache or MemcachedCache.
+There are three ways to create a cache, which are MemoryCache, RedisCache or MemcachedCache.
 
 What is the difference between these three ways?
 
@@ -15,7 +15,7 @@ There are two serialization schemes we provide for you:
 
 ## Core arguments
 
-`RedisCache` and `MemcachedCache` class constructor takes at least these arguments. Some Field classes take additional, field-specific arguments, but the following should always be accepted:
+`RedisCache` and `MemcachedCache` class constructor must takes these arguments. Some Field classes take additional, field-specific arguments, but the following should always be accepted:
 
 - host
 - port
