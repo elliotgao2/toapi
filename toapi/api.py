@@ -23,7 +23,6 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        self.app = self.server.app
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
@@ -40,9 +39,9 @@ class Api:
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-            self.app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
+            self.server.run(ip, port, **options)
+        except Exception:
+            exit()
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
