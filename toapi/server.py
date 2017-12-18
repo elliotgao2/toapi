@@ -2,6 +2,7 @@ from time import time
 
 from colorama import Fore
 from flask import Flask, request, jsonify, logging
+from signal import signal, SIGINT, SIGTERM
 
 from toapi.log import logger
 
@@ -66,3 +67,15 @@ class Server:
                 return res
             except Exception as e:
                 return str(e)
+
+    def run(self, ip='127.0.0.1', port=5000, **options):
+        """Runs the application"""
+
+        for _signal in [SIGINT, SIGTERM]:
+            signal(_signal, self.stop)
+
+        self.app.run(ip, port, **options)
+
+    def stop(self, signal, frame):
+        logger.info(Fore.WHITE, 'Server', 'Server Stopped')
+        exit()
