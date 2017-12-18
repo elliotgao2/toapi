@@ -533,9 +533,61 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Settings
+      </label>
+    
     <a href="./" title="Settings" class="md-nav__link md-nav__link--active">
       Settings
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" title="Attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache" title="cache" class="md-nav__link">
+    cache
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" title="storage" class="md-nav__link">
+    storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" title="web" class="md-nav__link">
+    web
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -576,6 +628,60 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" title="Attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache" title="cache" class="md-nav__link">
+    cache
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" title="storage" class="md-nav__link">
+    storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" title="web" class="md-nav__link">
+    web
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -586,7 +692,44 @@
                 
                   <h1>Settings</h1>
                 
-                
+                <p>Global settings.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">Api</span><span class="p">,</span> <span class="n">Settings</span>
+<span class="kn">from</span> <span class="nn">toapi.cache</span> <span class="kn">import</span> <span class="n">MemoryCache</span>
+
+<span class="k">class</span> <span class="nc">MySettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create custom configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PATH&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+        <span class="s2">&quot;DB_URL&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># If you want to use other classes, just replace it</span>
+        <span class="s1">&#39;cache_class&#39;</span><span class="p">:</span> <span class="n">MemoryCache</span><span class="p">,</span>
+        <span class="s1">&#39;cache_config&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="c1"># Default value is JsonSerializer</span>
+        <span class="s1">&#39;serializer&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ttl&#39;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;with_ajax&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s2">&quot;request_config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="s1">&#39;https://www.github.com&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">MySettings</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link"></a></h2>
+<h3 id="cache">cache<a class="headerlink" href="#cache" title="Permanent link"></a></h3>
+<p>Config how the app perform <a href="../cache">cache</a>. </p>
+<h3 id="storage">storage<a class="headerlink" href="#storage" title="Permanent link"></a></h3>
+<p>Config how the app perform <a href="../storage">storage</a>. </p>
+<h3 id="web">web<a class="headerlink" href="#web" title="Permanent link"></a></h3>
+<p>Config how the app perform request. </p>
                 
                   
                 

@@ -222,12 +222,92 @@
         },
         {
             "location": "/topics/api/",
-            "text": "",
+            "text": "Api is the whole program entrance which connects items, cache, storage, \nhandles the request from user and fetches html from source sites. For \nexample:\n\n\nfrom\n \ntoapi\n \nimport\n \nXPath\n,\n \nItem\n,\n \nApi\n\n\n\napi\n \n=\n \nApi\n(\nbase_url\n=\n'https://news.ycombinator.com'\n)\n\n\n\n\nclass\n \nPost\n(\nItem\n):\n\n    \nurl\n \n=\n \nXPath\n(\n'//a[@class=\"storylink\"]/@href'\n)\n\n    \ntitle\n \n=\n \nXPath\n(\n'//a[@class=\"storylink\"]/text()'\n)\n\n\n    \nclass\n \nMeta\n:\n\n        \nsource\n \n=\n \nXPath\n(\n'//tr[@class=\"athing\"]'\n)\n\n        \nroute\n \n=\n \n'/'\n\n\n\n\napi\n.\nregister\n(\nPost\n)\n\n\napi\n.\nserve\n()\n\n\n\n\n\n\nArguments\n\uf0c1\n\n\nbase_url\n\uf0c1\n\n\nThe argument \nbase_url\n is hostname of source web site. \ndefault = None\n\n\nsettings\n\uf0c1\n\n\nThe argument \nsettings\n is the global configuration of the whole app. \ndefault = None\n means use default settings.\n\n\n\n\nMethods\n\uf0c1\n\n\n.register(self, item)\n\uf0c1\n\n\nRegister an item so that we could parse it.\n\n\n.serve(self, ip='127.0.0.1', port=5000, **options)\n\uf0c1\n\n\nStart to serve.\n\n\n.parse(self, path, params=None, **kwargs)\n\uf0c1\n\n\nParse items if the path is defined in registered items.\n\n\n.fetch_page_source(self, url, item, params=None, **kwargs)\n\uf0c1\n\n\nFetch html from an url.\n\n\n.get_browser(self, settings, item_with_ajax=False)\n\uf0c1\n\n\nInit a PhantomJS instance to the Api instance.\n\n\n.update_status(self, key)\n\uf0c1\n\n\nUpdate status of Api instance.\n\n\n.get_status(self, key)\n\uf0c1\n\n\nGet status of Api instance.\n\n\n.set_cache(self, key, value)\n\uf0c1\n\n\nSet cache. In Api instance, the value usually in type of \ndict\n.\n\n\n.get_cache(self, key)\n\uf0c1\n\n\nGet cache.\n\n\n.set_storage(self, key, value)\n\uf0c1\n\n\nSet storage.In Api instance, the value is usually a HTML.\n\n\n.get_storage(self, key)\n\uf0c1\n\n\nGet storage.\n\n\n.parse_item(self,  html, item)\n\uf0c1\n\n\nParse items from HTML.",
             "title": "Api"
         },
         {
-            "location": "/topics/item/",
+            "location": "/topics/api/#arguments",
             "text": "",
+            "title": "Arguments"
+        },
+        {
+            "location": "/topics/api/#base_url",
+            "text": "The argument  base_url  is hostname of source web site.  default = None",
+            "title": "base_url"
+        },
+        {
+            "location": "/topics/api/#settings",
+            "text": "The argument  settings  is the global configuration of the whole app.  default = None  means use default settings.",
+            "title": "settings"
+        },
+        {
+            "location": "/topics/api/#methods",
+            "text": "",
+            "title": "Methods"
+        },
+        {
+            "location": "/topics/api/#registerself-item",
+            "text": "Register an item so that we could parse it.",
+            "title": ".register(self, item)"
+        },
+        {
+            "location": "/topics/api/#serveself-ip127001-port5000-options",
+            "text": "Start to serve.",
+            "title": ".serve(self, ip='127.0.0.1', port=5000, **options)"
+        },
+        {
+            "location": "/topics/api/#parseself-path-paramsnone-kwargs",
+            "text": "Parse items if the path is defined in registered items.",
+            "title": ".parse(self, path, params=None, **kwargs)"
+        },
+        {
+            "location": "/topics/api/#fetch_page_sourceself-url-item-paramsnone-kwargs",
+            "text": "Fetch html from an url.",
+            "title": ".fetch_page_source(self, url, item, params=None, **kwargs)"
+        },
+        {
+            "location": "/topics/api/#get_browserself-settings-item_with_ajaxfalse",
+            "text": "Init a PhantomJS instance to the Api instance.",
+            "title": ".get_browser(self, settings, item_with_ajax=False)"
+        },
+        {
+            "location": "/topics/api/#update_statusself-key",
+            "text": "Update status of Api instance.",
+            "title": ".update_status(self, key)"
+        },
+        {
+            "location": "/topics/api/#get_statusself-key",
+            "text": "Get status of Api instance.",
+            "title": ".get_status(self, key)"
+        },
+        {
+            "location": "/topics/api/#set_cacheself-key-value",
+            "text": "Set cache. In Api instance, the value usually in type of  dict .",
+            "title": ".set_cache(self, key, value)"
+        },
+        {
+            "location": "/topics/api/#get_cacheself-key",
+            "text": "Get cache.",
+            "title": ".get_cache(self, key)"
+        },
+        {
+            "location": "/topics/api/#set_storageself-key-value",
+            "text": "Set storage.In Api instance, the value is usually a HTML.",
+            "title": ".set_storage(self, key, value)"
+        },
+        {
+            "location": "/topics/api/#get_storageself-key",
+            "text": "Get storage.",
+            "title": ".get_storage(self, key)"
+        },
+        {
+            "location": "/topics/api/#parse_itemself-html-item",
+            "text": "Parse items from HTML.",
+            "title": ".parse_item(self,  html, item)"
+        },
+        {
+            "location": "/topics/item/",
+            "text": "Item is the key to the whole system which determine what is the result and\nwhere is the result. \n\n\nfrom\n \ntoapi\n \nimport\n \nXPath\n,\n \nItem\n\n\n\nclass\n \nPost\n(\nItem\n):\n\n    \nurl\n \n=\n \nXPath\n(\n'//a[@class=\"storylink\"]/@href'\n)\n\n    \ntitle\n \n=\n \nXPath\n(\n'//a[@class=\"storylink\"]/text()'\n)\n\n\n    \nclass\n \nMeta\n:\n\n        \nsource\n \n=\n \nXPath\n(\n'//tr[@class=\"athing\"]'\n)\n\n        \nroute\n \n=\n \n'/'\n\n\n\n\n\n\nAs you can see. The fields of item are \nselector instances\n. \nAnd the Meta class determine the basic attributes of item.\n\n\n\n\nMeta.source: A section of a HTML, which should contains one complete item. It is a \nselector instance\n\n\nMeta.route: The url path regex expression of source site.",
             "title": "Item"
         },
         {
@@ -262,8 +342,28 @@
         },
         {
             "location": "/topics/settings/",
-            "text": "",
+            "text": "Global settings.\n\n\nimport\n \nos\n\n\nfrom\n \ntoapi\n \nimport\n \nApi\n,\n \nSettings\n\n\nfrom\n \ntoapi.cache\n \nimport\n \nMemoryCache\n\n\n\nclass\n \nMySettings\n(\nSettings\n):\n\n    \n\"\"\"\n\n\n    Create custom configuration\n\n\n    \"\"\"\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \nos\n.\ngetcwd\n(),\n\n        \n\"DB_URL\"\n:\n \nNone\n\n    \n}\n\n    \ncache\n \n=\n \n{\n\n        \n# If you want to use other classes, just replace it\n\n        \n'cache_class'\n:\n \nMemoryCache\n,\n\n        \n'cache_config'\n:\n \n{},\n\n        \n# Default value is JsonSerializer\n\n        \n'serializer'\n:\n \nNone\n,\n\n        \n'ttl'\n:\n \nNone\n\n    \n}\n\n    \nweb\n \n=\n \n{\n\n        \n\"with_ajax\"\n:\n \nTrue\n,\n\n        \n\"request_config\"\n:\n \n{},\n\n        \n\"headers\"\n:\n \nNone\n\n    \n}\n\n\n\napi\n \n=\n \nApi\n(\n'https://www.github.com'\n,\n \nsettings\n=\nMySettings\n)\n\n\n\n\n\n\nAttributes\n\uf0c1\n\n\ncache\n\uf0c1\n\n\nConfig how the app perform \ncache\n. \n\n\nstorage\n\uf0c1\n\n\nConfig how the app perform \nstorage\n. \n\n\nweb\n\uf0c1\n\n\nConfig how the app perform request.",
             "title": "Settings"
+        },
+        {
+            "location": "/topics/settings/#attributes",
+            "text": "",
+            "title": "Attributes"
+        },
+        {
+            "location": "/topics/settings/#cache",
+            "text": "Config how the app perform  cache .",
+            "title": "cache"
+        },
+        {
+            "location": "/topics/settings/#storage",
+            "text": "Config how the app perform  storage .",
+            "title": "storage"
+        },
+        {
+            "location": "/topics/settings/#web",
+            "text": "Config how the app perform request.",
+            "title": "web"
         },
         {
             "location": "/topics/cache/",
