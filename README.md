@@ -108,7 +108,7 @@ Toapi use cache to prevent repeated parsing and use storage to prevent sending r
 
 A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
 
-### Multiple Templates & Application
+### Multiple Templates & Applications
 
 Any application created by toapi could be shared to others.
 
