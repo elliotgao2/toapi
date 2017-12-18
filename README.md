@@ -108,6 +108,10 @@ Toapi use cache to prevent repeated parsing and use storage to prevent sending r
 
 A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
 
+### Multiple Templates & Application
+
+Any application created by toapi could be shared to others.
+
 ### Easy to deploy.
 
 A toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.
