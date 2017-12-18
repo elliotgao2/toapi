@@ -55,6 +55,8 @@ def run(addr):
     except:
         logger.error('Run', 'The "addr" parameter should be like "IP:PORT"')
         return
+    assert port.isdecimal()
+    port = int(port)
 
     sys.path.append(base_path)
     app = importlib.import_module('app', base_path)
