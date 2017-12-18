@@ -38,7 +38,7 @@ setup(
         'pycrypto',
         'click'
     ],
-    license='Apache',
+    license='Apache 2.0',
     packages=find_packages(),
     entry_points={
         'console_scripts': [
