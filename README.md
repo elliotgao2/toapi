@@ -24,6 +24,12 @@ Documentation: [Toapi Documentation](http://www.toapi.org)
 
 ![Toapi](diagram.png)
 
+
+- Sending only one request to source web site with the same url.
+- Most of the data fetched from cache and storage.
+- Getting HTML from storage when the cache expired.
+- Getting HTML from source site when the storage expired.
+
 ## Get Started
 
 ### Installation
