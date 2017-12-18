@@ -31,6 +31,7 @@ class Api:
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
+        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.__pattern__, item.__name__))
         self.item_classes.append(item)
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
