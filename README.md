@@ -20,9 +20,17 @@ they would be shared as api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
 
+[![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
+
 ## Diagram
 
 ![Toapi](diagram.png)
+
+
+- Sending only one request to source web site with the same url.
+- Most of the data fetched from cache and storage.
+- Getting HTML from storage when the cache expired.
+- Getting HTML from source site when the storage expired.
 
 ## Get Started
 
@@ -101,6 +109,10 @@ Toapi use cache to prevent repeated parsing and use storage to prevent sending r
 ### Multiple sites
 
 A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
+
+### Multiple Templates & Applications
+
+Any application created by toapi could be shared to others.
 
 ### Easy to deploy.
 
