@@ -168,57 +168,6 @@
         
       
       
-        
-
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../.." title="Toapi" class="md-tabs__link">
-          Toapi
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../../tutorials/introducing/" title="Tutorials" class="md-tabs__link">
-          Tutorials
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../api/" title="Topics" class="md-tabs__link md-tabs__link--active">
-          Topics
-        </a>
-      
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -667,7 +616,7 @@
                   <h1>Cache</h1>
                 
                 <p>When you are writing a service, maybe you need to be able to save a piece of JSON data to your system's memory.</p>
-<p>There are three ways to create a cache, using a MemoryCache, RedisCache or MemcachedCache.</p>
+<p>There are three ways to create a cache, which are MemoryCache, RedisCache or MemcachedCache.</p>
 <p>What is the difference between these three ways?</p>
 <ul>
 <li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/memory_cache.py">MemoryCache</a>: easy to configure, but it automatically destroys when the server is stopped.</li>
@@ -680,7 +629,7 @@
 <li><a href="https://github.com/gaojiuli/toapi/blob/master/toapi/cache/serializer.py">PickleSerializer</a></li>
 </ul>
 <h2 id="core-arguments">Core arguments<a class="headerlink" href="#core-arguments" title="Permanent link"></a></h2>
-<p><code>RedisCache</code> and <code>MemcachedCache</code> class constructor takes at least these arguments. Some Field classes take additional, field-specific arguments, but the following should always be accepted:</p>
+<p><code>RedisCache</code> and <code>MemcachedCache</code> class constructor must takes these arguments. Some Field classes take additional, field-specific arguments, but the following should always be accepted:</p>
 <ul>
 <li>host</li>
 <li>port</li>

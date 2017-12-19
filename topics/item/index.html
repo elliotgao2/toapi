@@ -168,57 +168,6 @@
         
       
       
-        
-
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../.." title="Toapi" class="md-tabs__link">
-          Toapi
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../../tutorials/introducing/" title="Tutorials" class="md-tabs__link">
-          Tutorials
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../api/" title="Topics" class="md-tabs__link md-tabs__link--active">
-          Topics
-        </a>
-      
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -509,9 +458,34 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Item
+      </label>
+    
     <a href="./" title="Item" class="md-nav__link md-nav__link--active">
       Item
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clean-data" title="Clean Data" class="md-nav__link">
+    Clean Data
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -576,6 +550,33 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clean-data" title="Clean Data" class="md-nav__link">
+    Clean Data
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -606,6 +607,21 @@ And the Meta class determine the basic attributes of item.</p>
 <li>Meta.source: A section of a HTML, which should contains one complete item. It is a <a href="../selector">selector instance</a></li>
 <li>Meta.route: The url path regex expression of source site.</li>
 </ul>
+<h2 id="clean-data">Clean Data<a class="headerlink" href="#clean-data" title="Permanent link"></a></h2>
+<p>The <code>clean_{field}</code> method of item instance is for further processing the returned values. For example:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">XPath</span><span class="p">,</span> <span class="n">Item</span>
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/@href&#39;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//tr[@class=&quot;athing&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+
+    <span class="k">def</span> <span class="nf">clean_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;http://127.0.0.1</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">url</span>
+</pre></div>
                 
                   
                 
