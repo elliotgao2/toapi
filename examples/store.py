@@ -24,7 +24,7 @@ class Settings2:
     """Global Settings"""
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": "mysql://thys:123456@localhost/order_system"
+        "DB_URL": "mysql://guest:123456@localhost/order_system"
     }
 
 
@@ -63,15 +63,15 @@ def disk_test():
 
 
 def db_store():
-    url = "https://www.google.com"
-    html = "<p>no chinese charactors</p>\n<h1>this is a big problem</h1>"
+    url = "测试中文"
+    html = "中文测试<a>add html</a><p>add a\'</p>"
 
     store = Storage(Settings2)
-    store.save(url, html.encode())
-    # print(store.get(url))
+    store.save(url, html)
+    print(store.get(url))
 
 
 if __name__ == "__main__":
     # io_test()
-    disk_test()
-    # db_store()
+    # disk_test()
+    db_store()
