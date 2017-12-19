@@ -1,3 +1,4 @@
+import os
 from toapi.storage import Storage
 from toapi.settings import Settings
 
@@ -16,12 +17,12 @@ def test_disk_storage():
     store.save(url, html)
     assert store.get(url) == html
 
-#
-# def test_db_storage():
-#
-#     Settings.storage.update({
-#         "DB_URL": "mysql://guest:123456@localhost/order_system"
-#     })
-#     store = Storage(Settings)
-#     store.save(url, html)
-#     assert store.get(url) == html
+
+def test_db_storage():
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    Settings.storage.update({
+        "DB_URL": "sqlite:///" + os.path.join(basedir, 'data.sqlite')
+    })
+    store = Storage(Settings)
+    store.save(url, html)
+    assert store.get(url) == html
