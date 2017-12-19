@@ -11,7 +11,17 @@ html = """
 url = "https://www.zhihu.com"
 
 
-def test_storage():
+def test_disk_storage():
+    store = Storage(Settings)
+    store.save(url, html)
+    assert store.get(url) == html
+
+
+def test_db_storage():
+
+    Settings.storage.update({
+        "DB_URL": "mysql://guest:123456@localhost/order_system"
+    })
     store = Storage(Settings)
     store.save(url, html)
     assert store.get(url) == html
