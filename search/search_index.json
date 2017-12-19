@@ -392,8 +392,43 @@
         },
         {
             "location": "/topics/storage/",
-            "text": "",
+            "text": "Storage provides 2 ways to you to store your data -- local disk and database.\n\n\nHow to configure them\n\uf0c1\n\n\nLocal Disk\n\uf0c1\n\n\nYour data will be stored in a hidden file called .html which will be created in where programe running.\n\nYou can still input the path you want to store in Settings.  \n\n\nfrom\n \ntoapi\n \nimport\n \nApi\n,\n \nSettings\n\n\n\n\nclass\n \nMySettings\n(\nSetting\n):\n\n    \n'''your own settings'''\n\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \n\"/Users/username/toapi\"\n,\n\n        \n\"DB_URL\"\n:\n \nNone\n\n    \n}\n  \n\n\n\n\n\n\bSytem will load your path, and create a hidden file -- .html under your path: /Users/username/toapi/.html, and every site will be stored here.\n\n\nDatabase\n\uf0c1\n\n\nYou need a database to save your import data and make it read faster.\n\nTo use database, you have to configure it first.\n\n\nfrom\n \ntoapi\n \nimport\n \nApi\n,\n \nSettings\n\n\n\n\nclass\n \nMySettings\n(\nSetting\n):\n\n    \n'''your own settings'''\n\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \n\"/Users/username/toapi\"\n,\n\n        \n\"DB_URL\"\n:\n \n\"sqlite:////User/username/toapi/data.sqlite\"\n\n    \n}\n\n\n\n\n\n\nwarning: if you configure PATH and DB_URL both, system will use database only!\n\n\nHow to use storage\n\uf0c1\n\n\nIt\u2018s easy and cheeryful to use it, you even do not configure anything.\n\n\nfrom\n \nstorage\n \nimport\n \nStorage\n\n\nfrom\n \napi\n \nimport\n \nSettings\n\n\n\nstore\n \n=\n \nStorage\n(\nSettings\n)\n\n\nurl\n \n=\n \n\"www.toapi.org\"\n\n\nhtml\n \n=\n \n\"html content\"\n\n\nstore\n.\nsave\n(\nurl\n,\n \nhtml\n)\n\n\nstore\n.\nget\n(\nurl\n)\n \n# you can give a expiration\n\n\n\n\n\n\nAttributes\n\uf0c1\n\n\nsave(url, html)\n\uf0c1\n\n\nsave() receive two params, url and html.\n\n- url is the url you current surf\n- html is the contents you current surf.\n\n\nget(url, default, expiration)\n\uf0c1\n\n\nget() receive three params, url, default and expiration.\n\n- url is easy and simple to know.\n\n- default is the returned value while no result finding in disk or database.\n- expiration means you want to get the contents in expired time, if data expired, the system will automatically delete.",
             "title": "Storage"
+        },
+        {
+            "location": "/topics/storage/#how-to-configure-them",
+            "text": "",
+            "title": "How to configure them"
+        },
+        {
+            "location": "/topics/storage/#local-disk",
+            "text": "Your data will be stored in a hidden file called .html which will be created in where programe running. \nYou can still input the path you want to store in Settings.    from   toapi   import   Api ,   Settings  class   MySettings ( Setting ): \n     '''your own settings''' \n\n     storage   =   { \n         \"PATH\" :   \"/Users/username/toapi\" , \n         \"DB_URL\" :   None \n     }     \bSytem will load your path, and create a hidden file -- .html under your path: /Users/username/toapi/.html, and every site will be stored here.",
+            "title": "Local Disk"
+        },
+        {
+            "location": "/topics/storage/#database",
+            "text": "You need a database to save your import data and make it read faster. \nTo use database, you have to configure it first.  from   toapi   import   Api ,   Settings  class   MySettings ( Setting ): \n     '''your own settings''' \n\n     storage   =   { \n         \"PATH\" :   \"/Users/username/toapi\" , \n         \"DB_URL\" :   \"sqlite:////User/username/toapi/data.sqlite\" \n     }   warning: if you configure PATH and DB_URL both, system will use database only!",
+            "title": "Database"
+        },
+        {
+            "location": "/topics/storage/#how-to-use-storage",
+            "text": "It\u2018s easy and cheeryful to use it, you even do not configure anything.  from   storage   import   Storage  from   api   import   Settings  store   =   Storage ( Settings )  url   =   \"www.toapi.org\"  html   =   \"html content\"  store . save ( url ,   html )  store . get ( url )   # you can give a expiration",
+            "title": "How to use storage"
+        },
+        {
+            "location": "/topics/storage/#attributes",
+            "text": "",
+            "title": "Attributes"
+        },
+        {
+            "location": "/topics/storage/#saveurl-html",
+            "text": "save() receive two params, url and html. \n- url is the url you current surf\n- html is the contents you current surf.",
+            "title": "save(url, html)"
+        },
+        {
+            "location": "/topics/storage/#geturl-default-expiration",
+            "text": "get() receive three params, url, default and expiration. \n- url is easy and simple to know. \n- default is the returned value while no result finding in disk or database.\n- expiration means you want to get the contents in expired time, if data expired, the system will automatically delete.",
+            "title": "get(url, default, expiration)"
         }
     ]
 }
