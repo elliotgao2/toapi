@@ -1,10 +1,10 @@
-import records
 import hashlib
 from datetime import datetime
 
+import records
+
 
 class DBStore:
-
     """
     about storage, storage is a dict including keys DB_URL and NAME
     support database: mysql, postgresql, sqlite, oracle e.t.
@@ -48,7 +48,7 @@ class DBStore:
 
         try:
             create_time = dict(row).get("create_time")
-            if (datetime.now()-create_time).total_seconds() > float(expiration):
+            if (datetime.now() - create_time).total_seconds() > float(expiration):
                 self.db.query("DELETE FROM ToApi WHERE url='{}';".format(file_name))
                 return default
             origin_data = dict(row).get("html")

@@ -42,7 +42,7 @@ class MemcachedCache(BaseCache):
     @dec_connector
     def exists(self, key, **kwargs):
         result = self._cache_conn.get(key)
-        return result != None
+        return result is not None
 
     @dec_connector
     def incr(self, key, value=1, **kwargs):
