@@ -73,7 +73,7 @@ def run(addr):
 
     try:
         ip, port = addr.split(':')
-    except:
+    except Exception:
         logger.error('Run', 'The "addr" parameter should be like "IP:PORT"')
         return
     port = int(port)

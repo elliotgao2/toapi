@@ -14,3 +14,6 @@ records
 mkdocs
 cchardet
 mkdocs-material
+flake8
+pytest-pep8
+pytest-cov
