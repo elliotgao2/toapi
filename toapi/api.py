@@ -1,5 +1,4 @@
 import re
-import sys
 
 import cchardet
 import requests
@@ -23,7 +22,6 @@ class Api:
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
-        self.app = self.server.app
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
@@ -31,6 +29,7 @@ class Api:
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
         item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
+        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.__pattern__, item.__name__))
         self.item_classes.append(item)
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
@@ -38,10 +37,12 @@ class Api:
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
+            self.server.init_route()
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-            self.app.run(ip, port, debug=False, **options)
-        except KeyboardInterrupt:
-            sys.exit()
+            self.server.run(ip, port, **options)
+        except Exception as e:
+            logger.error('Serving', '%s' % str(e))
+            exit()
 
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
@@ -90,7 +91,7 @@ class Api:
             response = requests.get(url, params=params, timeout=15, **request_config)
             content = response.content
             charset = cchardet.detect(content)
-            text = content.decode(charset['encoding'])
+            text = content.decode(charset['encoding'] or 'utf-8')
             if response.status_code != 200:
                 logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
             else:

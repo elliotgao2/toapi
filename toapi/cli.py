@@ -18,22 +18,43 @@ def cli():
 
 
 @cli.command(name="new")
-@click.argument('output_dir')
-def new(output_dir):
-    """Create a new Toapi project."""
+@click.argument('dir_or_project')
+def new(dir_or_project):
+    """Create a new Toapi project.
 
-    if os.path.exists(output_dir):
-        logger.error('New project', 'Directory already exists.')
-        return
+    Giving a dir means start a default template,
 
-    logger.info(Fore.GREEN, 'New project', 'Creating project directory "%s"' % output_dir)
-    os.system('git clone https://github.com/toapi/toapi-template %s' % output_dir)
-    os.system('rm -rf %s/.git' % output_dir)
-    logger.info(Fore.GREEN, 'New project', 'Success!')
-    click.echo('')
-    click.echo('     cd %s' % output_dir)
-    click.echo('     toapi run')
-    click.echo('')
+    Example: toapi new api
+
+    Giving a github project means start a github template.
+
+    Example: toapi new toapi/toapi-one
+    """
+
+    if '/' in dir_or_project:
+        dir_name = dir_or_project.split('/')[-1]
+        logger.info(Fore.GREEN, 'New project', 'Creating project directory "%s"' % dir_name)
+        os.system('git clone https://github.com/%s %s' % (dir_or_project, dir_name))
+        os.system('rm -rf %s/.git' % dir_name)
+        logger.info(Fore.GREEN, 'New project', 'Success!')
+        click.echo('')
+        click.echo('     cd %s' % dir_name)
+        click.echo('     toapi run')
+        click.echo('')
+
+    else:
+        if os.path.exists(dir_or_project):
+            logger.error('New project', 'Directory already exists.')
+            return
+
+        logger.info(Fore.GREEN, 'New project', 'Creating project directory "%s"' % dir_or_project)
+        os.system('git clone https://github.com/toapi/toapi-template %s' % dir_or_project)
+        os.system('rm -rf %s/.git' % dir_or_project)
+        logger.info(Fore.GREEN, 'New project', 'Success!')
+        click.echo('')
+        click.echo('     cd %s' % dir_or_project)
+        click.echo('     toapi run')
+        click.echo('')
 
 
 @cli.command(name="run")
@@ -52,10 +73,10 @@ def run(addr):
 
     try:
         ip, port = addr.split(':')
-    except:
+    except Exception:
         logger.error('Run', 'The "addr" parameter should be like "IP:PORT"')
         return
-
+    port = int(port)
     sys.path.append(base_path)
     app = importlib.import_module('app', base_path)
     app.api.serve(ip=ip, port=port)

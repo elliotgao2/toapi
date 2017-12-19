@@ -1,12 +1,22 @@
+sudo: false
 language: python
+
 python:
 - '3.5'
 - '3.6'
-sudo: false
+
 install:
 - pip install -r requirements.txt
 - pip install ./
 script: pytest
+
+
+cache:
+  - pip
+
+notifications:
+  email: false
+
 deploy:
   provider: pypi
   user: gaojiuli

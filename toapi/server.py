@@ -1,3 +1,4 @@
+from signal import signal, SIGINT, SIGTERM
 from time import time
 
 from colorama import Fore
@@ -11,6 +12,12 @@ class Server:
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
         self.app = app
+        self.api = api
+        self.settings = settings
+
+    def init_route(self):
+        app = self.app
+        api = self.api
 
         @app.route('/')
         def index():
@@ -66,3 +73,15 @@ class Server:
                 return res
             except Exception as e:
                 return str(e)
+
+    def run(self, ip='127.0.0.1', port=5000, **options):
+        """Runs the application"""
+
+        for _signal in [SIGINT, SIGTERM]:
+            signal(_signal, self.stop)
+
+        self.app.run(ip, port, **options)
+
+    def stop(self, signal, frame):
+        logger.info(Fore.WHITE, 'Server', 'Server Stopped')
+        exit()

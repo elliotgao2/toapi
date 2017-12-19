@@ -1,43 +1,53 @@
+from flask import jsonify, request
+
 from toapi import XPath, Item, Api
 
-api = Api()
+api = Api(base_url='http://www.dy2018.com')
 
 
-class Movie(Item):
-    __base_url__ = 'http://www.dy2018.com'
-
+class MovieList(Item):
     url = XPath('//b//a[@class="ulink"]/@href')
     title = XPath('//b//a[@class="ulink"]/text()')
 
     class Meta:
         source = XPath('//table[@class="tbspan"]')
-        route = '/html/gndy/dyzz/index_\d+.html'
+        route = '/html/gndy/dyzz/(index_\d+.html)?'
+
+    def clean_url(self, url):
+        return '/movies/{}/'.format(url.split('/')[-1].split('.')[0])
 
 
-class Post(Item):
-    __base_url__ = 'https://news.ycombinator.com'
-
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
-
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = '/news\?p=\d+'
-
-
-class Page(Item):
-    __base_url__ = 'https://news.ycombinator.com'
-    next_page = XPath('//a[@class="morelink"]/@href')
+class Movie(Item):
+    download = XPath('//*[@id="Zoom"]/table[1]//a/text()')
 
     class Meta:
         source = None
-        route = '/news\?p=\d+'
-
-    def clean_next_page(self, next_page):
-        return "http://127.0.0.1:5000/" + next_page
+        route = '/i/\d+.html'
 
 
+api.register(MovieList)
 api.register(Movie)
-api.register(Post)
-api.register(Page)
+app = api.server.app
+
+
+@app.route('/movies/')
+def movie_list():
+    page = request.args.get('page', '1')
+    results = {}
+    results['page'] = {
+        'next': '/movies/?page={}'.format(int(page) + 1) if int(page) > 0 else None,
+        'prev': '/movies/?page={}'.format(int(page) - 1) if int(page) > 1 else None
+    }
+    if page == '1':
+        results['data'] = api.parse('/html/gndy/dyzz/')
+    else:
+        results['data'] = api.parse('/html/gndy/dyzz/index_{}.html'.format(page))
+    return jsonify(results)
+
+
+@app.route('/movies/<id>/')
+def movie(id):
+    return jsonify(api.parse('/i/{}.html'.format(id)))
+
+
 api.serve()

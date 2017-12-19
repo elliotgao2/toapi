@@ -27,7 +27,7 @@ class Item(with_metaclass(ItemType)):
         if cls.Meta.source is None:
             return cls._parse_item(html)
         else:
-            sections = cls.Meta.source.parse(html)
+            sections = cls.Meta.source.parse(html, is_source=True)
             results = []
             for section in sections:
                 results.append(cls._parse_item(section))
