@@ -1,8 +1,8 @@
+from signal import signal, SIGINT, SIGTERM
 from time import time
 
 from colorama import Fore
 from flask import Flask, request, jsonify, logging
-from signal import signal, SIGINT, SIGTERM
 
 from toapi.log import logger
 
@@ -12,6 +12,12 @@ class Server:
         app = Flask(__name__)
         app.logger.setLevel(logging.ERROR)
         self.app = app
+        self.api = api
+        self.settings = settings
+
+    def init_route(self):
+        app = self.app
+        api = self.api
 
         @app.route('/')
         def index():

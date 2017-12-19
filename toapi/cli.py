@@ -76,7 +76,7 @@ def run(addr):
     except:
         logger.error('Run', 'The "addr" parameter should be like "IP:PORT"')
         return
-
+    port = int(port)
     sys.path.append(base_path)
     app = importlib.import_module('app', base_path)
     app.api.serve(ip=ip, port=port)

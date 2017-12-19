@@ -1,10 +1,17 @@
+import ast
+import re
+
 from setuptools import find_packages, setup
 
-from toapi import __version__
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('toapi/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 setup(
     name="toapi",
-    version=__version__,
+    version=version,
     description="Every web site provides APIs.",
     author="Gaojiuli",
     author_email="gaojiuli@gmail.com",
@@ -31,7 +38,7 @@ setup(
         'pycrypto',
         'click'
     ],
-    license='Apache',
+    license='Apache 2.0',
     packages=find_packages(),
     entry_points={
         'console_scripts': [

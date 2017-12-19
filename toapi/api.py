@@ -1,5 +1,4 @@
 import re
-import sys
 
 import cchardet
 import requests
@@ -38,9 +37,11 @@ class Api:
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
+            self.server.init_route()
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
             self.server.run(ip, port, **options)
-        except Exception:
+        except Exception as e:
+            logger.error('Serving', '%s' % str(e))
             exit()
 
     def parse(self, path, params=None, **kwargs):
@@ -90,7 +91,7 @@ class Api:
             response = requests.get(url, params=params, timeout=15, **request_config)
             content = response.content
             charset = cchardet.detect(content)
-            text = content.decode(charset['encoding'])
+            text = content.decode(charset['encoding'] or 'utf-8')
             if response.status_code != 200:
                 logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
             else:
