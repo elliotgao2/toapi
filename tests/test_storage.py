@@ -1,3 +1,4 @@
+import os
 from toapi.storage import Storage
 from toapi.settings import Settings
 
@@ -18,9 +19,9 @@ def test_disk_storage():
 
 
 def test_db_storage():
-
+    basedir = os.path.abspath(os.path.dirname(__file__))
     Settings.storage.update({
-        "DB_URL": "mysql://guest:123456@localhost/order_system"
+        "DB_URL": "sqlite:///" + os.path.join(basedir, 'data.sqlite')
     })
     store = Storage(Settings)
     store.save(url, html)

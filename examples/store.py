@@ -24,7 +24,7 @@ class Settings2:
     """Global Settings"""
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": "mysql://guest:123456@localhost/order_system"
+        "DB_URL": "mysql://thys:123456@localhost/order_system"
     }
 
 
