@@ -1,7 +1,7 @@
 import hashlib
 from datetime import datetime
 
-import records
+from records import Database
 
 
 class DBStore:
@@ -21,7 +21,7 @@ class DBStore:
 
     def __init__(self, db_url):
 
-        self.db = records.Database(db_url)
+        self.db = Database(db_url)
         self.db.query("""CREATE TABLE IF NOT EXISTS `ToApi`(`url` VARCHAR(100),
                          `html` MEDIUMTEXT NOT NULL,`create_time` DATETIME NOT NULL,PRIMARY KEY ( `url` ))
                          ENGINE=InnoDB DEFAULT character set = utf8;""")
@@ -29,15 +29,20 @@ class DBStore:
     def save(self, url, html):
 
         file_name = hashlib.md5(url.encode()).hexdigest()
-        html_store = html.replace("'", "toapi%%%###$$$***toapi")
-        row = self.db.query("SELECT html FROM ToApi where url='{}';".format(file_name)).first()
-
+        html_store = html.replace("\"", "toapi###$$$###toapi")
+        html_store = html_store.replace("\'", "toapi***$$$***toapi").encode("unicode-escape")
+        sql = """SELECT html 
+                 FROM ToApi
+                 WHERE url="{}";""".format(file_name)
+        row = self.db.query(sql).first()
         if row:
-            self.db.query("UPDATE ToApi SET html='{}', create_time='{}' WHERE url='{}';".format(
-                html_store, datetime.now(), url))
+            sql = """UPDATE ToApi 
+                     SET html="{}", create_time="{}" 
+                     WHERE url="{}";""".format(html_store, datetime.now(), file_name)
+            self.db.query(sql)
             return True
         else:
-            self.db.query("INSERT INTO ToApi (url, html, create_time) VALUES ('{}', '{}', '{}');".format(
+            self.db.query("""INSERT INTO ToApi (url, html, create_time) VALUES ("{}", "{}", "{}");""".format(
                 file_name, html_store, datetime.now()))
             return True
 
@@ -45,14 +50,15 @@ class DBStore:
 
         file_name = hashlib.md5(url.encode()).hexdigest()
         row = self.db.query("SELECT html, create_time FROM ToApi where url='{}';".format(file_name)).first()
-
         try:
             create_time = dict(row).get("create_time")
             if (datetime.now() - create_time).total_seconds() > float(expiration):
                 self.db.query("DELETE FROM ToApi WHERE url='{}';".format(file_name))
                 return default
             origin_data = dict(row).get("html")
-            data = origin_data.replace("toapi%%%###$$$***toapi", "'")
+            data = eval(origin_data).decode("unicode-escape")
+            data = data.replace("toapi###$$$###toapi", "\"").replace("toapi***$$$***toapi", "\'")
+
         except TypeError as e:
             return default
         return data
