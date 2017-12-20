@@ -23,10 +23,8 @@ class Server:
         def index():
             base_url = "{}://{}".format(request.scheme, request.host)
             basic_info = {
-                "cache": "{}/{}".format(base_url, "cache"),
                 "items": "{}/{}".format(base_url, "items"),
-                "status": "{}/{}".format(base_url, "status"),
-                "storage": "{}/{}".format(base_url, "storage")
+                "status": "{}/{}".format(base_url, "status")
             }
             return jsonify(basic_info)
 
