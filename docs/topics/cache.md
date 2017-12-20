@@ -23,6 +23,30 @@ There are two serialization schemes we provide for you:
 !!! Note
     `MemoryCache` can be instantiated directly
 
+## Methods
+
+### .set(self, key, value, ttl=None, **kwargs)
+Set the value at key ``key`` to ``value``
+
+### .get(self, key, default=None, **kwargs)
+Return the value at key ``name``, or None if the key doesn't exist
+
+### .delete(self, key, **kwargs)
+Delete one or more keys specified by ``keys``
+
+### .exists(self, key, **kwargs)
+Returns a boolean indicating whether key ``name`` exists
+
+### .incr(self, key, **kwargs)
+Increments the value of ``key``
+
+### .api_cached(self, ttl=None, **kwargs)
+This decorator provides a caching mechanism for the data
+
+- param cache_class: such as RedisCache MemcachedCache MemoryCache
+- param ttl: int seconds to store the data
+- param serializer: serialize the value
+
 ## Usage
 
 These methods can be used with very convenient, first of all, you just need to add one new class which inheritance the [`Toapi.Settings`](https://github.com/gaojiuli/toapi/blob/master/toapi/settings.py).
