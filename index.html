@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.4">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.2">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.bcabdff3.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application.7a4cdee3.css">
       
         <link rel="stylesheet" href="./assets/stylesheets/application-palette.792431c1.css">
       
@@ -270,6 +270,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#code-snippets" title="Code Snippets:" class="md-nav__link">
+    Code Snippets:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagram" title="Diagram" class="md-nav__link">
+    Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-started" title="Get Started" class="md-nav__link">
     Get Started
   </a>
@@ -374,6 +388,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#multiple-templates-applications" title="Multiple Templates &amp; Applications" class="md-nav__link">
+    Multiple Templates &amp; Applications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#easy-to-deploy" title="Easy to deploy." class="md-nav__link">
     Easy to deploy.
   </a>
@@ -395,6 +416,13 @@
         <li class="md-nav__item">
   <a href="#getting-help" title="Getting help" class="md-nav__link">
     Getting help
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" title="Todo" class="md-nav__link">
+    Todo
   </a>
   
 </li>
@@ -705,6 +733,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#code-snippets" title="Code Snippets:" class="md-nav__link">
+    Code Snippets:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagram" title="Diagram" class="md-nav__link">
+    Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-started" title="Get Started" class="md-nav__link">
     Get Started
   </a>
@@ -809,6 +851,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#multiple-templates-applications" title="Multiple Templates &amp; Applications" class="md-nav__link">
+    Multiple Templates &amp; Applications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#easy-to-deploy" title="Easy to deploy." class="md-nav__link">
     Easy to deploy.
   </a>
@@ -830,6 +879,13 @@
         <li class="md-nav__item">
   <a href="#getting-help" title="Getting help" class="md-nav__link">
     Getting help
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" title="Todo" class="md-nav__link">
+    Todo
   </a>
   
 </li>
@@ -857,13 +913,62 @@
 <a href="https://pypi.python.org/pypi/toapi/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/toapi.svg" /></a>
 <a href="https://pypi.python.org/pypi/toapi/"><img alt="Version" src="https://img.shields.io/pypi/v/toapi.svg" /></a>
 <a href="https://pypi.python.org/pypi/toapi/"><img alt="License" src="https://img.shields.io/pypi/l/toapi.svg" /></a></p>
-<hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
 <p>Toapi is a <strong>clever</strong>, <strong>simple</strong> and <strong>fast</strong> library letting any 
 web site provide APIs. In the past, we crawl data and storage them and create 
 api service to share them maybe we should also update them regularly. 
 This library make things easy. The only thing you should do is defining your data, 
 they would be shared as api service automatically.</p>
+<p>Documentation: <a href="http://www.toapi.org">Toapi Documentation</a></p>
+<h2 id="code-snippets">Code Snippets:<a class="headerlink" href="#code-snippets" title="Permanent link"></a></h2>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">XPath</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Api</span>
+<span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">Settings</span>
+
+<span class="k">class</span> <span class="nc">MySettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;with_ajax&quot;</span><span class="p">:</span> <span class="bp">False</span>
+    <span class="p">}</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="s1">&#39;https://news.ycombinator.com/&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">MySettings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/@href&#39;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//tr[@class=&quot;athing&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="s1">&#39;/news?p=:page&#39;</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="s1">&#39;/news?page=:page&#39;</span>
+
+<span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">next_page</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;morelink&quot;]/@href&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="s1">&#39;/news?p=:page&#39;</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="s1">&#39;/news?page=:page&#39;</span>
+
+    <span class="k">def</span> <span class="nf">clean_next_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_page</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;http://127.0.0.1:5000/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">next_page</span><span class="p">)</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Page</span><span class="p">)</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">serve</span><span class="p">()</span>
+
+<span class="c1"># Visit: http://127.0.0.1:5000</span>
+</pre></div>
+
+
+<h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link"></a></h2>
+<p><a href="https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt"><img alt="asciicast" src="https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png" /></a></p>
+<p><img alt="Toapi" src="./diagram.png" /></p>
+<ul>
+<li>Sending only one request to source web site with the same url.</li>
+<li>Most of the data fetched from cache and storage.</li>
+<li>Getting HTML from storage when the cache expired.</li>
+<li>Getting HTML from source site when the storage expired.</li>
+</ul>
 <h2 id="get-started">Get Started<a class="headerlink" href="#get-started" title="Permanent link"></a></h2>
 <h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link"></a></h3>
 <div class="codehilite"><pre><span></span>$ pip install toapi
@@ -905,24 +1010,31 @@ Checking connectivity... done.
 <p><a href="http://flask.pocoo.org/docs/0.12/deploying/">Deployment Options &#8212; Flask Documentation (0.12)</a></p>
 <h2 id="screenshots">Screenshots<a class="headerlink" href="#screenshots" title="Permanent link"></a></h2>
 <h3 id="running-log">Running Log<a class="headerlink" href="#running-log" title="Permanent link"></a></h3>
-<p><img alt="Running Log" src="./imgs/runinglog.jpg" /></p>
+<p><img alt="Running Log" src="./docs/imgs/runinglog.jpg" /></p>
 <h3 id="running-items">Running Items<a class="headerlink" href="#running-items" title="Permanent link"></a></h3>
-<p><img alt="Running Items" src="./imgs/runningitems.jpg" /></p>
+<p><img alt="Running Items" src="./docs/imgs/runningitems.jpg" /></p>
 <h3 id="running-status">Running Status<a class="headerlink" href="#running-status" title="Permanent link"></a></h3>
-<p><img alt="Running Status" src="./imgs/runningstatus.jpg" /></p>
+<p><img alt="Running Status" src="./docs/imgs/runningstatus.jpg" /></p>
 <h3 id="running-results">Running Results<a class="headerlink" href="#running-results" title="Permanent link"></a></h3>
-<p><img alt="Running Results" src="./imgs/runningresult.jpg" /></p>
+<p><img alt="Running Results" src="./docs/imgs/runningresult.jpg" /></p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link"></a></h2>
 <h3 id="multiple-caching">Multiple caching<a class="headerlink" href="#multiple-caching" title="Permanent link"></a></h3>
 <p>Toapi use cache to prevent repeated parsing and use storage to prevent sending request.</p>
 <h3 id="multiple-sites">Multiple sites<a class="headerlink" href="#multiple-sites" title="Permanent link"></a></h3>
 <p>A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs</p>
+<h3 id="multiple-templates-applications">Multiple Templates &amp; Applications<a class="headerlink" href="#multiple-templates-applications" title="Permanent link"></a></h3>
+<p>Any application created by toapi could be shared to others.</p>
 <h3 id="easy-to-deploy">Easy to deploy.<a class="headerlink" href="#easy-to-deploy" title="Permanent link"></a></h3>
 <p>A toapi app is a standard flask app, so that you can deploy your app as deploying a flask app.</p>
 <h3 id="status-monitor">Status Monitor<a class="headerlink" href="#status-monitor" title="Permanent link"></a></h3>
 <p>A toapi app will automatically count kinds of states of itself and you can visit the states whenever you want.</p>
 <h2 id="getting-help">Getting help<a class="headerlink" href="#getting-help" title="Permanent link"></a></h2>
 <p>To get help with Toapi, please use the <a href="https://github.com/gaojiuli/toapi/issues">GitHub issues</a></p>
+<h2 id="todo">Todo<a class="headerlink" href="#todo" title="Permanent link"></a></h2>
+<ol>
+<li>Checking system every time running the app.</li>
+<li>Collecting all awesome Toapi project.</li>
+</ol>
                 
                   
                 

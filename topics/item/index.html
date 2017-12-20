@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.4">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.2">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.bcabdff3.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -591,21 +591,26 @@
 where is the result. </p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">toapi</span> <span class="kn">import</span> <span class="n">XPath</span><span class="p">,</span> <span class="n">Item</span>
 
-<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/@href&#39;</span><span class="p">)</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//a[@class=&quot;storylink&quot;]/text()&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MovieList</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">__base_url__</span> <span class="o">=</span> <span class="s1">&#39;http://www.dy2018.com&#39;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//b//a[@class=&quot;ulink&quot;]/@href&#39;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//b//a[@class=&quot;ulink&quot;]/text()&#39;</span><span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">source</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//tr[@class=&quot;athing&quot;]&#39;</span><span class="p">)</span>
-        <span class="n">route</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//table[@class=&quot;tbspan&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="s1">&#39;/html/gndy/dyzz/index_:page.html&#39;</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="s1">&#39;/movies/?page=:page&#39;</span>
 </pre></div>
 
 
+<p>When you visit <code>http://127.0.0.1:/movies/?page=2</code>, You could get the item from <code>http://www.dy2018.com/html/gndy/dyzz/index_2.html</code></p>
 <p>As you can see. The fields of item are <a href="../selector">selector instances</a>. 
 And the Meta class determine the basic attributes of item.</p>
 <ul>
 <li>Meta.source: A section of a HTML, which should contains one complete item. It is a <a href="../selector">selector instance</a></li>
 <li>Meta.route: The url path regex expression of source site.</li>
+<li>Meta.alias: Defining the api server route. Determine how to access the item.</li>
 </ul>
 <h2 id="clean-data">Clean Data<a class="headerlink" href="#clean-data" title="Permanent link"></a></h2>
 <p>The <code>clean_{field}</code> method of item instance is for further processing the returned values. For example:</p>
