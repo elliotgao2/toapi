@@ -34,8 +34,8 @@ class MySettings(Settings):
 api = Api('https://news.ycombinator.com/', settings=MySettings)
 
 class Post(Item):
-    url = XPath('//a[@class="storylink"][1]/@href')
-    title = XPath('//a[@class="storylink"][1]/text()')
+    url = XPath('//a[@class="storylink"]/@href')
+    title = XPath('//a[@class="storylink"]/text()')
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
