@@ -28,8 +28,7 @@ class Api:
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
-        item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
-        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.__pattern__, item.__name__))
+        logger.info(Fore.WHITE, 'Register', '<%s:%s:%s>' % (item.Meta.alias, item.Meta.route, item.__name__))
         self.item_classes.append(item)
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
@@ -48,9 +47,11 @@ class Api:
         """Parse items from a url"""
 
         all_items = {}
+
         for index, item in enumerate(self.item_classes):
-            full_path = path[1:] if path.startswith('/http') else item.__base_url__ + path
-            if item.__pattern__.match(full_path):
+            converted_path = self.convert_route_to_alias(path, item.Meta.alias, item.Meta.route)
+            if converted_path:
+                full_path = item.__base_url__ + converted_path
                 all_items[full_path] = all_items.get(full_path, list())
                 all_items[full_path].append(item)
 
@@ -170,6 +171,16 @@ class Api:
             logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result
 
+    def compile_route(self, route):
+        """Compile route to re express
+
+        :param route:
+        :return:
+        """
+        return re.sub(':(?P<params>[a-z_]+)',
+                      lambda m: '.+'.format(m.group('params')),
+                      route)
+
     def convert_route_to_alias(self, path, alias, route):
         """Convert alias to route
 
@@ -194,10 +205,12 @@ class Api:
         if not matched:
             return False
         result_dict = matched.groupdict()
-
-        result = re.sub(':(?P<params>[a-z_]+)',
-                                  lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                  route)
-        print(result)
+        print(result_dict)
+        try:
+            result = re.sub(':(?P<params>[a-z_]+)',
+                            lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                            route)
+            print(result)
+        except Exception:
+            return False
         return result
-

@@ -45,7 +45,7 @@ class Server:
         @app.route('/items/')
         def items():
             result = {
-                item.__name__: "{}://{}/{}".format(request.scheme, request.host, item.__base_url__ + item.Meta.route)
+                item.__name__: "{}://{}{}".format(request.scheme, request.host, item.Meta.alias)
                 for item in api.item_classes
             }
             res = jsonify(result)

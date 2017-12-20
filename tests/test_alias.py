@@ -10,3 +10,8 @@ def test_alias():
     assert api.convert_route_to_alias('/movies/you/?page=2',
                                       '/movies/:fuck/?page=:page',
                                       '/html/gndy/:fuck/index_:page.html') == '/html/gndy/you/index_2.html'
+
+
+def test_compile_route():
+    api = Api()
+    assert api.compile_route('/html/gndy/:fuck/index_:page.html') == '/html/gndy/.+/index_.+.html'
