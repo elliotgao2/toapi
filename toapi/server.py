@@ -19,7 +19,7 @@ class Server:
         app = self.app
         api = self.api
 
-        @app.route('/')
+        @app.route('/_meta')
         def index():
             base_url = "{}://{}".format(request.scheme, request.host)
             basic_info = {
@@ -28,7 +28,7 @@ class Server:
             }
             return jsonify(basic_info)
 
-        @app.route('/status')
+        @app.route('/_meta/status')
         def status():
             status = {
                 'cache_set': api.get_status('_status_cache_set'),
@@ -40,10 +40,10 @@ class Server:
             }
             return jsonify(status)
 
-        @app.route('/items/')
+        @app.route('/_meta/items/')
         def items():
             result = {
-                item.__name__: "{}://{}{}".format(request.scheme, request.host, item.Meta.alias)
+                item.__name__: "{}://{}{}".format(request.scheme, request.host, item.Meta.route)
                 for item in api.item_classes
             }
             res = jsonify(result)

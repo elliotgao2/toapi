@@ -9,8 +9,9 @@ class MovieList(Item):
 
     class Meta:
         source = XPath('//table[@class="tbspan"]')
-        route = '/html/gndy/dyzz/index_:page.html'
-        alias = '/movies/?page=:page'
+        route = {'/movies/?page=1': '/html/gndy/dyzz/',
+                 '/movies/?page=:page': '/html/gndy/dyzz/index_:page.html',
+                 '/movies/': '/html/gndy/dyzz/'}
 
     def clean_url(self, url):
         return '/movies/{}/'.format(url.split('/')[-1].split('.')[0])
@@ -21,8 +22,7 @@ class Movie(Item):
 
     class Meta:
         source = None
-        route = '/i/:id.html'
-        alias = '/movies/:id'
+        route = {'/movies/:id': '/i/:id.html'}
 
 
 api.register(MovieList)

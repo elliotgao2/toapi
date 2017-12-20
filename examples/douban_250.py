@@ -14,7 +14,10 @@ class Post(Item):
 
     class Meta:
         source = Css('div.item', attr='target')
-        route = '/'
+        route = {
+            '/:start': '/?start=:start',
+            '/': '/'
+        }
 
     def clean_title(self, title):
         if isinstance(title, unicode):
@@ -24,7 +27,7 @@ class Post(Item):
 
     def clean_url(self, value):
         return value.replace('https://movie.douban.com', '')
-    
+
 
 api.register(Post)
 
