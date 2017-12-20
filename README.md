@@ -66,7 +66,7 @@ api.serve()
 [![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
 
 
-![Toapi](diagram.png)
+![Toapi](./docs/diagram.png)
 
 
 - Sending only one request to source web site with the same url.

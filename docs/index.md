@@ -63,7 +63,7 @@ api.serve()
 [![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
 
 
-![Toapi](diagram.png)
+![Toapi](./diagram.png)
 
 
 - Sending only one request to source web site with the same url.
@@ -125,19 +125,19 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ### Running Log
 
-![Running Log](./docs/imgs/runinglog.jpg)
+![Running Log](./imgs/runinglog.jpg)
 
 ### Running Items
 
-![Running Items](./docs/imgs/runningitems.jpg)
+![Running Items](./imgs/runningitems.jpg)
 
 ### Running Status
 
-![Running Status](./docs/imgs/runningstatus.jpg)
+![Running Status](./imgs/runningstatus.jpg)
 
 ### Running Results
 
-![Running Results](./docs/imgs/runningresult.jpg)
+![Running Results](./imgs/runningresult.jpg)
 
 ## Features
 
