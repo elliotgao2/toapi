@@ -12,6 +12,3 @@ def test_alias():
                                       '/html/gndy/:fuck/index_:page.html') == '/html/gndy/you/index_2.html'
 
 
-def test_compile_route():
-    api = Api()
-    assert api.compile_route('/html/gndy/:fuck/index_:page.html') == '/html/gndy/.+/index_.+.html'

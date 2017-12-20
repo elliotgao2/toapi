@@ -171,16 +171,6 @@ class Api:
             logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result
 
-    def compile_route(self, route):
-        """Compile route to re express
-
-        :param route:
-        :return:
-        """
-        return re.sub(':(?P<params>[a-z_]+)',
-                      lambda m: '.+'.format(m.group('params')),
-                      route)
-
     def convert_route_to_alias(self, path, alias, route):
         """Convert alias to route
 
