@@ -195,12 +195,10 @@ class Api:
         if not matched:
             return False
         result_dict = matched.groupdict()
-        print(result_dict)
         try:
             result = re.sub(':(?P<params>[a-z_]+)',
                             lambda m: '{}'.format(result_dict.get(m.group('params'))),
                             route)
-            print(result)
         except Exception:
             return False
         return result
