@@ -41,8 +41,6 @@ copyright: Copyright &copy; 2017 <a href="https://github.com/gaojiuli">Jiuli Gao
 
 theme:
   name: 'material'
-  feature:
-    tabs: true
   palette:
     primary: 'blue'
     accent: 'blue'

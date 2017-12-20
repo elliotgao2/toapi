@@ -1,5 +1,5 @@
-from .DBStore import DBStore
-from .DiskStore import DiskStore
+from .db_store import DBStore
+from .disk_store import DiskStore
 
 
 class Storage:

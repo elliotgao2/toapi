@@ -43,7 +43,7 @@ def new(dir_or_project):
         click.echo('')
 
     else:
-        if os.path.exists(dir_or_project):
+        if dir_or_project != '.' and os.path.exists(dir_or_project):
             logger.error('New project', 'Directory already exists.')
             return
 
