@@ -20,11 +20,53 @@ they would be shared as api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
 
-[![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
+## Code Snippets:
+
+```python
+from toapi import XPath, Item, Api
+from toapi import Settings
+
+class MySettings(Settings):
+    web = {
+        "with_ajax": False
+    }
+
+api = Api('https://news.ycombinator.com/', settings=MySettings)
+
+class Post(Item):
+    url = XPath('//a[@class="storylink"]/@href')
+    title = XPath('//a[@class="storylink"]/text()')
+
+    class Meta:
+        source = XPath('//tr[@class="athing"]')
+        route = '/news?p=:page'
+        alias = '/news?page=:page'
+
+class Page(Item):
+    next_page = XPath('//a[@class="morelink"]/@href')
+
+    class Meta:
+        source = None
+        route = '/news?p=:page'
+        alias = '/news?page=:page'
+
+    def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + str(next_page)
+
+api.register(Post)
+api.register(Page)
+
+api.serve()
+
+# Visit: http://127.0.0.1:5000
+```
 
 ## Diagram
 
-![Toapi](diagram.png)
+[![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
+
+
+![Toapi](./docs/diagram.png)
 
 
 - Sending only one request to source web site with the same url.
@@ -130,3 +172,8 @@ To get help with Toapi, please use the [GitHub issues]
 [GitHub project pages]: https://help.github.com/articles/creating-project-pages-manually/
 [pip]: http://pip.readthedocs.io/en/stable/installing/
 [Python]: https://www.python.org/
+
+## Todo
+
+1. Checking system every time running the app.
+2. Collecting all awesome Toapi project.

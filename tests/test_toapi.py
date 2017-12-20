@@ -16,14 +16,16 @@ def test_api_with_ajax():
 
         class Meta:
             source = XPath('//tr[@class="athing"]')
-            route = '/news\?p=\d+'
+            route = '/news?p=:page'
+            alias = '/news?page=:page'
 
     class Page(Item):
         next_page = XPath('//a[@class="morelink"]/@href')
 
         class Meta:
             source = None
-            route = '/news\?p=\d+'
+            route = '/news?p=:page'
+            alias = '/news?page=:page'
 
         def clean_next_page(self, next_page):
             return "http://127.0.0.1:5000/" + str(next_page)

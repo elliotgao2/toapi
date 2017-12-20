@@ -53,4 +53,5 @@ class Item(with_metaclass(ItemType)):
 
     class Meta:
         source = None
-        route = '\.+'
+        route = ''
+        alias = ''
