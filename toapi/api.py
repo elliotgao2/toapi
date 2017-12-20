@@ -169,3 +169,35 @@ class Api:
         else:
             logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result
+
+    def convert_route_to_alias(self, path, alias, route):
+        """Convert alias to route
+
+        Example:
+            $ convert_route_to_alias('/movies/?page=2', '/movies/?page=:page', '/html/gndy/dyzz/index_:page.html')
+            >> /html/gndy/dyzz/index_2.html
+
+        Args:
+            path (str): source path.
+            alias (str): source path expression.
+            route (str): destination path expression.
+
+        Returns:
+            str: The covert result
+        """
+        _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
+                                  lambda m: '(?P<{}>[A-Za-z0-9-]+)'.format(m.group('params')),
+                                  alias.replace('?', '\?'))
+        _alias_re = re.compile(_alias_re_string)
+        matched = _alias_re.match(path)
+
+        if not matched:
+            return False
+        result_dict = matched.groupdict()
+
+        result = re.sub(':(?P<params>[a-z_]+)',
+                                  lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                  route)
+        print(result)
+        return result
+
