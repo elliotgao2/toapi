@@ -12,8 +12,9 @@ class MovieList(Item):
 
     class Meta:
         source = XPath('//table[@class="tbspan"]')
-        route = '/html/gndy/dyzz/index_:page.html'
-        alias = '/movies/?page=:page'
+        route = {'/movies/?page=1': '/html/gndy/dyzz/',
+                 '/movies/?page=:page': '/html/gndy/dyzz/index_:page.html',
+                 '/movies/': '/html/gndy/dyzz/'}
 ```
 
 When you visit `http://127.0.0.1:/movies/?page=2`, You could get the item from `http://www.dy2018.com/html/gndy/dyzz/index_2.html`
@@ -23,7 +24,6 @@ And the Meta class determine the basic attributes of item.
 
 - Meta.source: A section of a HTML, which should contains one complete item. It is a [selector instance](selector)
 - Meta.route: The url path regex expression of source site.
-- Meta.alias: Defining the api server route. Determine how to access the item.
  
 ## Clean Data
 
@@ -38,7 +38,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = {'/':'/'}
         
     def clean_url(self, url):
         return 'http://127.0.0.1%s' % url
