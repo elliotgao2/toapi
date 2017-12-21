@@ -12,3 +12,6 @@ def test_alias():
                                       '/html/gndy/:fuck/index_:page.html') == '/html/gndy/you/index_2.html'
 
 
+    assert api.convert_route_to_alias('/movies/you/?page=2&a=1',
+                                      '/:path',
+                                      '/:path') == '/movies/you/?page=2&a=1'
