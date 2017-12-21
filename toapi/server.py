@@ -23,12 +23,12 @@ class Server:
         def index():
             base_url = "{}://{}".format(request.scheme, request.host)
             basic_info = {
-                "items": "{}/{}".format(base_url, "items"),
-                "status": "{}/{}".format(base_url, "status")
+                "items": "{}/_{}".format(base_url, "items"),
+                "status": "{}/_{}".format(base_url, "status")
             }
             return jsonify(basic_info)
 
-        @app.route('/status')
+        @app.route('/_status')
         def status():
             status = {
                 'cache_set': api.get_status('_status_cache_set'),
@@ -40,14 +40,14 @@ class Server:
             }
             return jsonify(status)
 
-        @app.route('/items/')
+        @app.route('/_items')
         def items():
-            result = {
-                item.__name__: "{}://{}{}".format(request.scheme, request.host, item.Meta.alias)
-                for item in api.item_classes
-            }
-            res = jsonify(result)
-            return res
+            result = {}
+            for item in api.item_classes:
+                for alias,route in item.Meta.route.items():
+                    result[item.__name__]=result.get(item.__name__,list())
+                    result[item.__name__].append("{}://{}{}".format(request.scheme, request.host, alias))
+            return jsonify(result)
 
         @app.errorhandler(404)
         def page_not_found(error):

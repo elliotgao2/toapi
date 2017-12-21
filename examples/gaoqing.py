@@ -18,7 +18,7 @@ class Movie(Item):
 
     class Meta:
         source = XPath('//*[@id="post_container"]/li')
-        route = '/'
+        route = {'/': '/'}
 
 
 api.register(Movie)

@@ -28,7 +28,7 @@ class Api:
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
-        logger.info(Fore.WHITE, 'Register', '<%s:%s:%s>' % (item.Meta.alias, item.Meta.route, item.__name__))
+        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.Meta.route, item.__name__))
         self.item_classes.append(item)
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
@@ -49,11 +49,13 @@ class Api:
         all_items = {}
 
         for index, item in enumerate(self.item_classes):
-            converted_path = self.convert_route_to_alias(path, item.Meta.alias, item.Meta.route)
-            if converted_path:
-                full_path = item.__base_url__ + converted_path
-                all_items[full_path] = all_items.get(full_path, list())
-                all_items[full_path].append(item)
+            for alias, route in item.Meta.route.items():
+                converted_path = self.convert_route_to_alias(path, alias, route)
+                if converted_path:
+                    full_path = item.__base_url__ + converted_path
+                    all_items[full_path] = all_items.get(full_path, list())
+                    all_items[full_path].append(item)
+                    break
 
         results = {}
         for url, items in all_items.items():
@@ -187,11 +189,10 @@ class Api:
             str: The covert result
         """
         _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
-                                  lambda m: '(?P<{}>[A-Za-z0-9-]+)'.format(m.group('params')),
+                                  lambda m: '(?P<{}>[A-Za-z0-9_-]+)'.format(m.group('params')),
                                   alias.replace('?', '\?'))
         _alias_re = re.compile(_alias_re_string)
         matched = _alias_re.match(path)
-
         if not matched:
             return False
         result_dict = matched.groupdict()

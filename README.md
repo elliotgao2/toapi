@@ -39,16 +39,14 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/news?p=:page'
-        alias = '/news?page=:page'
+        route = {'/news?page=:page':'/news?p=:page'}
 
 class Page(Item):
     next_page = XPath('//a[@class="morelink"]/@href')
 
     class Meta:
         source = None
-        route = '/news?p=:page'
-        alias = '/news?page=:page'
+        route = {'/news?page=:page':'/news?p=:page'}
 
     def clean_next_page(self, next_page):
         return "http://127.0.0.1:5000/" + str(next_page)
@@ -58,7 +56,7 @@ api.register(Page)
 
 api.serve()
 
-# Visit: http://127.0.0.1:5000
+# Visit: http://127.0.0.1:5000/_meta
 ```
 
 ## Diagram

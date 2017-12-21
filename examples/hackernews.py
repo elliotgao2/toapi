@@ -1,6 +1,6 @@
 from toapi import XPath, Item, Api
 
-api = Api('https://news.ycombinator.com/')
+api = Api('https://news.ycombinator.com')
 
 
 class Post(Item):
@@ -9,7 +9,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/'
+        route = {'/': '/'}
 
 
 api.register(Post)
