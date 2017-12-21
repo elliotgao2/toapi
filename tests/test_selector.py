@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from lxml import etree
 
-from toapi import Css, XPath
+from toapi import Css, XPath, Regex
 
 HTML = """
 <html>
@@ -50,4 +50,7 @@ def test_xpath():
     assert value == "toapi"
 
 
-test_css()
+def test_regex():
+    field = Regex(rule=r'<title>(.*?)</title>')
+    value = field.parse(html)
+    assert value[0] == "toapi"

@@ -68,4 +68,6 @@ class Regex(Selector):
     """Regex expression"""
 
     def parse(self, html):
+        if isinstance(html, etree._Element):
+            html = str(etree.tostring(html))
         return re.findall(self.rule, html)
