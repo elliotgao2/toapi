@@ -33,12 +33,12 @@ class Css(Selector):
         if is_source:
             return value
         if self.attr:
-            value = value[0].get(self.attr).strip() if len(value) == 1 else value
+            value = value[0].get(self.attr, value) if len(value) == 1 else value
         else:
             if isinstance(value, list) and len(value) == 1 and isinstance(value[0], etree._Element):
                 text = ''
                 for node in value[0].itertext():
-                    text += node.strip()
+                    text += node
                 value = text
         return value
 
@@ -57,7 +57,7 @@ class XPath(Selector):
             if isinstance(value[0], etree._Element):
                 text = ''
                 for node in value[0].itertext():
-                    text += node.strip()
+                    text += node
                 value = text
             if isinstance(value[0], str) or isinstance(value[0], etree._ElementUnicodeResult):
                 value = ''.join(value)
