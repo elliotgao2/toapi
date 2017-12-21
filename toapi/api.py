@@ -190,7 +190,7 @@ class Api:
         """
         _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
                                   lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(m.group('params')),
-                                  alias.replace('?', '\?'))+'$'
+                                  '^' + alias.replace('?', '\?') + '$')
 
         _alias_re = re.compile(_alias_re_string)
         matched = _alias_re.match(path)
