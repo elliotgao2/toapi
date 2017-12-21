@@ -175,3 +175,7 @@ To get help with Toapi, please use the [GitHub issues]
 
 1. Checking system every time running the app.
 2. Collecting all awesome Toapi project.
+
+## Donate
+
+[BTC(0.005)](https://blockchain.info/payment_request?address=18QChGWtGWAQyXKQVmnpKf7pdm7mYxoYTQ&amount=0.005&message=For%20Github%20Projects.)
