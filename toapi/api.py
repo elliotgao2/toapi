@@ -189,8 +189,9 @@ class Api:
             str: The covert result
         """
         _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
-                                  lambda m: '(?P<{}>[A-Za-z0-9_-]+)'.format(m.group('params')),
+                                  lambda m: '(?P<{}>[A-Za-z0-9_?&/=]+)'.format(m.group('params')),
                                   alias.replace('?', '\?'))
+        print(_alias_re_string)
         _alias_re = re.compile(_alias_re_string)
         matched = _alias_re.match(path)
         if not matched:
