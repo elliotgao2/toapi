@@ -9,7 +9,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = {'/': '/'}
+        route = {'/news/': '/'}
 
 
 api.register(Post)
