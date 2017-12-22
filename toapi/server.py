@@ -14,6 +14,7 @@ class Server:
         self.app = app
         self.api = api
         self.settings = settings
+        self.init_route()
 
     def init_route(self):
         app = self.app
@@ -44,8 +45,8 @@ class Server:
         def items():
             result = {}
             for item in api.item_classes:
-                for alias,route in item.Meta.route.items():
-                    result[item.__name__]=result.get(item.__name__,list())
+                for alias, route in item.Meta.route.items():
+                    result[item.__name__] = result.get(item.__name__, list())
                     result[item.__name__].append("{}://{}{}".format(request.scheme, request.host, alias))
             return jsonify(result)
 
