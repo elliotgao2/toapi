@@ -15,3 +15,8 @@ def test_alias():
     assert api.convert_route_to_alias('/movies/you/?page=2&a=1',
                                       '/:path',
                                       '/:path') == '/movies/you/?page=2&a=1'
+
+
+    assert api.convert_route_to_alias('/',
+                                      '/',
+                                      '/') == '/'

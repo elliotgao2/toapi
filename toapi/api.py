@@ -24,11 +24,12 @@ class Api:
         self.server = Server(self, settings=self.settings)
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
+        self.alias_map = {}
 
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
-        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.Meta.route, item.__name__))
+        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         self.item_classes.append(item)
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
@@ -188,11 +189,14 @@ class Api:
         Returns:
             str: The covert result
         """
-        _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
-                                  lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(m.group('params')),
-                                  '^' + alias.replace('?', '\?') + '$')
-
-        _alias_re = re.compile(_alias_re_string)
+        alias = '^' + alias.replace('?', '\?') + '$'
+        _alias_re = self.alias_map.get(alias, None)
+        if _alias_re is None:
+            _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
+                                      lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(m.group('params')),
+                                      alias)
+            _alias_re = re.compile(_alias_re_string)
+            self.alias_map[alias] = _alias_re
         matched = _alias_re.match(path)
         if not matched:
             return False
