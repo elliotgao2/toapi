@@ -37,21 +37,19 @@ class Item(with_metaclass(ItemType)):
     def _parse_item(cls, html):
         item = {}
         for name, selector in cls.__selectors__.items():
+
             try:
                 item[name] = selector.parse(html)
-            except IndexError:
-                item[name] = ''
             except Exception:
                 item[name] = ''
 
             clean_method = getattr(cls, 'clean_%s' % name, None)
 
-            if clean_method:
+            if clean_method is not None:
                 item[name] = clean_method(cls, item[name])
 
         return item
 
     class Meta:
         source = None
-        route = ''
-        alias = ''
+        route = {}
