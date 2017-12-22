@@ -5,7 +5,7 @@ Tips for toapi caches: there are several simple caching schemes we provide for y
     - Use cached decorator
 """
 from toapi.settings import Settings
-from toapi.cache import RedisCache, cached, CacheSetting
+from toapi.cache import RedisCache, cached, CacheSetting, MemoryCache
 
 
 class MySettings(Settings):
