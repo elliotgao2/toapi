@@ -37,7 +37,6 @@ class Api:
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
-            self.server.init_route()
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
             self.server.run(ip, port, **options)
         except Exception as e:
