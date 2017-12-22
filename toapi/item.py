@@ -37,10 +37,9 @@ class Item(with_metaclass(ItemType)):
     def _parse_item(cls, html):
         item = {}
         for name, selector in cls.__selectors__.items():
+
             try:
                 item[name] = selector.parse(html)
-            except IndexError:
-                item[name] = ''
             except Exception:
                 item[name] = ''
 
@@ -53,5 +52,4 @@ class Item(with_metaclass(ItemType)):
 
     class Meta:
         source = None
-        route = ''
-        alias = ''
+        route = {}
