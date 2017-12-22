@@ -14,10 +14,10 @@ class Post(Item):
 
     class Meta:
         source = Css('div.item', attr='target')
-        route = {
-            '/250/?start=:start': '/?start=:start',
-            '/250/': '/'
-        }
+        route = (
+            ('/250/?start=:start', '/?start=:start'),
+            ('/250/', '/')
+        )
 
     def clean_title(self, title):
         if isinstance(title, unicode):

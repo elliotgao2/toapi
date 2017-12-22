@@ -2,6 +2,7 @@ import re
 
 import cchardet
 import requests
+from collections import OrderedDict
 from colorama import Fore
 from selenium import webdriver
 
@@ -49,7 +50,8 @@ class Api:
         all_items = {}
 
         for index, item in enumerate(self.item_classes):
-            for alias, route in item.Meta.route.items():
+            route_dict = OrderedDict(item.Meta.route)
+            for alias, route in route_dict.items():
                 converted_path = self.convert_route_to_alias(path, alias, route)
                 if converted_path:
                     full_path = item.__base_url__ + converted_path
