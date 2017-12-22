@@ -1,8 +1,8 @@
 import re
+from collections import OrderedDict
 
 import cchardet
 import requests
-from collections import OrderedDict
 from colorama import Fore
 from selenium import webdriver
 
@@ -26,12 +26,28 @@ class Api:
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
         self.alias_map = {}
+        self.alias_items_map = {}
+        self.alias_re_map = {}
+        self.alias_route_map = {}
 
     def register(self, item):
         """Register items"""
-        item.__base_url__ = item.__base_url__ or self.base_url
-        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         self.item_classes.append(item)
+        item.__base_url__ = item.__base_url__ or self.base_url
+        for define_alias, define_route in OrderedDict(item.Meta.route.items()).items():
+            alias = '^' + define_alias.replace('?', '\?') + '$'
+            _alias_re = self.alias_re_map.get(alias, None)
+            if _alias_re is None:
+                _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
+                                          lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
+                                              m.group('params')),
+                                          alias)
+                _alias_re = re.compile(_alias_re_string)
+                self.alias_re_map[alias] = _alias_re
+            self.alias_route_map[alias] = item.__base_url__ + define_route
+            self.alias_items_map[alias] = self.alias_items_map.get(alias, list())
+            self.alias_items_map[alias].append(item)
+        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
             self.browser = self.get_browser(settings=self.settings, item_with_ajax=item_with_ajax)
@@ -47,17 +63,7 @@ class Api:
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
 
-        all_items = {}
-
-        for index, item in enumerate(self.item_classes):
-            route_dict = OrderedDict(item.Meta.route)
-            for alias, route in route_dict.items():
-                converted_path = self.convert_route_to_alias(path, alias, route)
-                if converted_path:
-                    full_path = item.__base_url__ + converted_path
-                    all_items[full_path] = all_items.get(full_path, list())
-                    all_items[full_path].append(item)
-                    break
+        all_items = self.prepare_parsing_items(path)
 
         results = {}
         for url, items in all_items.items():
@@ -209,3 +215,25 @@ class Api:
         except Exception:
             return False
         return result
+
+    def prepare_parsing_items(self, path):
+        all_items = {}
+
+        for alias, alias_re in self.alias_re_map.items():
+
+            matched = alias_re.match(path)
+            if not matched:
+                break
+
+            result_dict = matched.groupdict()
+            route = self.alias_route_map.get(alias)
+            try:
+                converted_path = re.sub(':(?P<params>[a-z_]+)',
+                                        lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                        route)
+
+                all_items[converted_path] = self.alias_items_map.get(alias)
+            except Exception:
+                break
+
+        return all_items
