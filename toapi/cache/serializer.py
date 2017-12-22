@@ -14,7 +14,7 @@ except ImportError:
 
 
 class JsonSerializer(BaseSerializer):
-    def dumps(self, value):
+    def dumps(self, value, **kwargs):
         """
         Serialize the value
         :param value: dict
@@ -22,7 +22,7 @@ class JsonSerializer(BaseSerializer):
         """
         return json.dumps(value) if value is not None else ''
 
-    def loads(self, value):
+    def loads(self, value, **kwargs):
         """
         Deserialize the value
         :param value: string
@@ -32,7 +32,7 @@ class JsonSerializer(BaseSerializer):
 
 
 class PickleSerializer(BaseSerializer):
-    def dumps(self, value):
+    def dumps(self, value, **kwargs):
         """
         Serialize the value
         :param value: object
@@ -40,7 +40,7 @@ class PickleSerializer(BaseSerializer):
         """
         return pickle.dumps(value)
 
-    def loads(self, value):
+    def loads(self, value, **kwargs):
         """
         Deserialize the value
         :param value: bytes
