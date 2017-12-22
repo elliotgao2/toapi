@@ -45,7 +45,7 @@ class Item(with_metaclass(ItemType)):
 
             clean_method = getattr(cls, 'clean_%s' % name, None)
 
-            if clean_method:
+            if clean_method is not None:
                 item[name] = clean_method(cls, item[name])
 
         return item
