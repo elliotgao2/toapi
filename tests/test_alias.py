@@ -28,4 +28,8 @@ def test_alias():
                                       '/:path',
                                       '/:path') == '/movies/you/?page=2&a=1'
 
-test_alias()
+
+    assert api.convert_route_to_alias('/',
+                                      '/',
+                                      '/') == '/'
+
