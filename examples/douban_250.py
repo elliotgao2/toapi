@@ -13,6 +13,12 @@ class Post(Item):
     title = Css('span.title')
 
     class Meta:
+        """
+        URL: http://127.0.0.1:5000/250/
+        Des: 豆瓣250电影api
+        Params:
+            start: eg: http://127.0.0.1:5000/250/?start=25
+        """
         source = Css('div.item', attr='target')
         route = (
             ('/250/?start=:start', '/?start=:start'),
