@@ -1,3 +1,4 @@
+from collections import defaultdict
 from signal import signal, SIGINT, SIGTERM
 from time import time
 
@@ -44,13 +45,10 @@ class Server:
         @app.route('/_items')
         def items():
 
-            result = []
-            for alias, items in api.alias_items_map.items():
-                result.append({
-                    'url': request.host_url.strip('/') + api.alias_string_map[alias],
-                    'items': [item.__name__ for item in items]
-                })
-            return jsonify(result)
+            results = defaultdict(list)
+            for index, item in enumerate(api.items):
+                results[item['alias']].append(item['item'].__name__)
+            return jsonify(results)
 
         @app.errorhandler(404)
         def page_not_found(error):

@@ -1,5 +1,5 @@
 import re
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict
 
 import cchardet
 import requests
@@ -25,28 +25,24 @@ class Api:
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
-        self.alias_items_map = defaultdict(list)
-        self.alias_string_map = {}
-        self.alias_re_map = {}
-        self.alias_route_map = {}
+        self.items = []
 
     def register(self, item):
         """Register items"""
         item.__base_url__ = item.__base_url__ or self.base_url
         for define_alias, define_route in OrderedDict(item.Meta.route).items():
             alias = '^' + define_alias.replace('?', '\?') + '$'
-            _alias_re = self.alias_re_map.get(alias, None)
-            if _alias_re is None:
-                _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
+            _alias_re = re.compile(re.sub(':(?P<params>[a-z_]+)',
                                           lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
                                               m.group('params')),
-                                          alias)
-                _alias_re = re.compile(_alias_re_string)
-                self.alias_re_map[alias] = _alias_re
-                self.alias_string_map[alias] = define_alias
+                                          alias))
+            self.items.append({
+                'item': item,
+                'alias_re': _alias_re,
+                'alias': define_alias,
+                'route': item.__base_url__ + define_route
+            })
 
-            self.alias_route_map[alias] = item.__base_url__ + define_route
-            self.alias_items_map[alias].append(item)
         logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
@@ -182,17 +178,18 @@ class Api:
         return result
 
     def prepare_parsing_items(self, path):
-        for alias, alias_re in self.alias_re_map.items():
-            matched = alias_re.match(path)
+        results = []
+        converted_path = None
+        for index, item in enumerate(self.items):
+            matched = item['alias_re'].match(path)
             if not matched:
                 continue
             result_dict = matched.groupdict()
-            route = self.alias_route_map.get(alias)
             try:
-                converted_path = re.sub(':(?P<params>[a-z_]+)',
-                                        lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                        route)
-                return converted_path, self.alias_items_map.get(alias)
-            except Exception:
-                return None, None
-        return None, None
+                converted_path = converted_path or re.sub(':(?P<params>[a-z_]+)',
+                                                          lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                                          item['route'])
+                results.append(item['item'])
+            except:
+                continue
+        return converted_path, results
