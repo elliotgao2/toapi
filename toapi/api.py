@@ -185,11 +185,9 @@ class Api:
 
     def prepare_parsing_items(self, path):
         for alias, alias_re in self.alias_re_map.items():
-
             matched = alias_re.match(path)
             if not matched:
-                return None, None
-
+                continue
             result_dict = matched.groupdict()
             route = self.alias_route_map.get(alias)
             try:
@@ -199,3 +197,4 @@ class Api:
                 return converted_path, self.alias_items_map.get(alias)
             except Exception:
                 return None, None
+        return None, None

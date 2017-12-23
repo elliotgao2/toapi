@@ -43,9 +43,13 @@ class Server:
 
         @app.route('/_items')
         def items():
-            result = {}
+
+            result = []
             for alias, items in api.alias_items_map.items():
-                result[api.alias_string_map[alias]] = [item.__name__ for item in items]
+                result.append({
+                    'url': request.host_url.strip('/') + api.alias_string_map[alias],
+                    'items': [item.__name__ for item in items]
+                })
             return jsonify(result)
 
         @app.errorhandler(404)
