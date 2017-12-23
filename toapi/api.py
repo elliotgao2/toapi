@@ -1,8 +1,8 @@
 import re
+from collections import OrderedDict, defaultdict
 
 import cchardet
 import requests
-from collections import OrderedDict
 from colorama import Fore
 from selenium import webdriver
 
@@ -19,19 +19,37 @@ class Api:
     def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.item_classes = []
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
-        self.alias_map = {}
+
+        self.item_classes = []
+        self.alias_items_map = defaultdict(list)
+        self.alias_string_map = {}
+        self.alias_re_map = {}
+        self.alias_route_map = {}
 
     def register(self, item):
         """Register items"""
-        item.__base_url__ = item.__base_url__ or self.base_url
-        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         self.item_classes.append(item)
+        item.__base_url__ = item.__base_url__ or self.base_url
+        for define_alias, define_route in OrderedDict(item.Meta.route).items():
+            alias = '^' + define_alias.replace('?', '\?') + '$'
+            _alias_re = self.alias_re_map.get(alias, None)
+            if _alias_re is None:
+                _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
+                                          lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
+                                              m.group('params')),
+                                          alias)
+                _alias_re = re.compile(_alias_re_string)
+                self.alias_re_map[alias] = _alias_re
+                self.alias_string_map[alias] = define_alias
+
+            self.alias_route_map[alias] = item.__base_url__ + define_route
+            self.alias_items_map[alias].append(item)
+        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
             self.browser = self.get_browser(settings=self.settings, item_with_ajax=item_with_ajax)
@@ -47,36 +65,26 @@ class Api:
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
 
-        all_items = {}
+        converted_path, items = self.prepare_parsing_items(path)
 
-        for index, item in enumerate(self.item_classes):
-            route_dict = OrderedDict(item.Meta.route)
-            for alias, route in route_dict.items():
-                converted_path = self.convert_route_to_alias(path, alias, route)
-                if converted_path:
-                    full_path = item.__base_url__ + converted_path
-                    all_items[full_path] = all_items.get(full_path, list())
-                    all_items[full_path].append(item)
-                    break
+        if converted_path is None:
+            return None
+
+        cached_item = self.get_cache(converted_path)
+        if cached_item is not None:
+            return cached_item
 
         results = {}
-        for url, items in all_items.items():
-            cached_item = self.get_cache(url)
-            if cached_item is not None:
-                results.update(cached_item)
-            else:
-                caching_item = {}
-                html = None
-                for each_item in items:
-                    html = html or self.get_storage(url) or self.fetch_page_source(url,
-                                                                                   item=each_item,
-                                                                                   params=params,
-                                                                                   **kwargs)
-                    if html is not None:
-                        parsed_item = self.parse_item(html, each_item)
-                        caching_item.update(parsed_item)
-                self.set_cache(url, caching_item)
-                results.update(caching_item)
+        html = None
+        for index, each_item in enumerate(items):
+            html = html or self.get_storage(converted_path) or self.fetch_page_source(converted_path,
+                                                                                      item=each_item,
+                                                                                      params=params,
+                                                                                      **kwargs)
+            if html is not None:
+                parsed_item = self.parse_item(html, each_item)
+                results.update(parsed_item)
+        self.set_cache(converted_path, results)
         return results or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
@@ -175,37 +183,18 @@ class Api:
             logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
         return result
 
-    def convert_route_to_alias(self, path, alias, route):
-        """Convert alias to route
-
-        Example:
-            $ convert_route_to_alias('/movies/?page=2', '/movies/?page=:page', '/html/gndy/dyzz/index_:page.html')
-            >> /html/gndy/dyzz/index_2.html
-
-        Args:
-            path (str): source path.
-            alias (str): source path expression.
-            route (str): destination path expression.
-
-        Returns:
-            str: The covert result
-        """
-        alias = '^' + alias.replace('?', '\?') + '$'
-        _alias_re = self.alias_map.get(alias, None)
-        if _alias_re is None:
-            _alias_re_string = re.sub(':(?P<params>[a-z_]+)',
-                                      lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(m.group('params')),
-                                      alias)
-            _alias_re = re.compile(_alias_re_string)
-            self.alias_map[alias] = _alias_re
-        matched = _alias_re.match(path)
-        if not matched:
-            return False
-        result_dict = matched.groupdict()
-        try:
-            result = re.sub(':(?P<params>[a-z_]+)',
-                            lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                            route)
-        except Exception:
-            return False
-        return result
+    def prepare_parsing_items(self, path):
+        for alias, alias_re in self.alias_re_map.items():
+            matched = alias_re.match(path)
+            if not matched:
+                continue
+            result_dict = matched.groupdict()
+            route = self.alias_route_map.get(alias)
+            try:
+                converted_path = re.sub(':(?P<params>[a-z_]+)',
+                                        lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                        route)
+                return converted_path, self.alias_items_map.get(alias)
+            except Exception:
+                return None, None
+        return None, None
