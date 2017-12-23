@@ -44,10 +44,8 @@ class Server:
         @app.route('/_items')
         def items():
             result = {}
-            for item in api.item_classes:
-                for alias, route in item.Meta.route.items():
-                    result[item.__name__] = result.get(item.__name__, list())
-                    result[item.__name__].append("{}://{}{}".format(request.scheme, request.host, alias))
+            for alias, items in api.alias_items_map.items():
+                result[api.alias_string_map[alias]] = [item.__name__ for item in items]
             return jsonify(result)
 
         @app.errorhandler(404)

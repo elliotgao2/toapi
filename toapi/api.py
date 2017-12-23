@@ -24,9 +24,10 @@ class Api:
         self.server = Server(self, settings=self.settings)
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
-        self.alias_items_map = defaultdict(list)
 
         self.item_classes = []
+        self.alias_items_map = defaultdict(list)
+        self.alias_string_map = {}
         self.alias_re_map = {}
         self.alias_route_map = {}
 
@@ -34,7 +35,7 @@ class Api:
         """Register items"""
         self.item_classes.append(item)
         item.__base_url__ = item.__base_url__ or self.base_url
-        for define_alias, define_route in OrderedDict(item.Meta.route.items()).items():
+        for define_alias, define_route in OrderedDict(item.Meta.route).items():
             alias = '^' + define_alias.replace('?', '\?') + '$'
             _alias_re = self.alias_re_map.get(alias, None)
             if _alias_re is None:
@@ -44,6 +45,8 @@ class Api:
                                           alias)
                 _alias_re = re.compile(_alias_re_string)
                 self.alias_re_map[alias] = _alias_re
+                self.alias_string_map[alias] = define_alias
+
             self.alias_route_map[alias] = item.__base_url__ + define_route
             self.alias_items_map[alias].append(item)
         logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
