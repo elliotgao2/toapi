@@ -13,9 +13,12 @@ class ItemType(type):
                 __selectors__[name] = selector
         dict['__selectors__'] = __selectors__
         dict['__base_url__'] = dict.get('__base_url__', None)
-        for name in __selectors__:
+        for name in __selectors__.keys():
             del dict[name]
-        return type.__new__(cls, what, bases, dict)
+
+        instance = type.__new__(cls, what, bases, dict)
+        instance.__name__ = dict.get('__name__', instance.__name__)
+        return instance
 
 
 class Item(with_metaclass(ItemType)):

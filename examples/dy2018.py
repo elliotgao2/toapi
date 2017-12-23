@@ -4,6 +4,8 @@ api = Api(base_url='http://www.dy2018.com')
 
 
 class MovieList(Item):
+    __name__ = 'movies'
+
     url = XPath('//b//a[@class="ulink"]/@href')
     title = XPath('//b//a[@class="ulink"]/text()')
 
