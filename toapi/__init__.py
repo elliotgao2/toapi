@@ -4,4 +4,4 @@ from toapi.log import logger
 from toapi.selector import XPath, Regex, Css
 from toapi.settings import Settings
 
-__version__ = '0.2.6'
+__version__ = '0.2.7'
