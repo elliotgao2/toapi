@@ -25,7 +25,6 @@ class Api:
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
-        self.item_classes = []
         self.alias_items_map = defaultdict(list)
         self.alias_string_map = {}
         self.alias_re_map = {}
@@ -33,7 +32,6 @@ class Api:
 
     def register(self, item):
         """Register items"""
-        self.item_classes.append(item)
         item.__base_url__ = item.__base_url__ or self.base_url
         for define_alias, define_route in OrderedDict(item.Meta.route).items():
             alias = '^' + define_alias.replace('?', '\?') + '$'
