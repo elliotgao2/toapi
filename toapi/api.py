@@ -62,6 +62,8 @@ class Api:
         """Parse items from a url"""
 
         items = self.prepare_parsing_items(path)
+        if items is None:
+            return None
 
         results = {}
         cached_html = {}
