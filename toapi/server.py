@@ -1,4 +1,3 @@
-from collections import defaultdict
 from signal import signal, SIGINT, SIGTERM
 from time import time
 
@@ -45,9 +44,9 @@ class Server:
         @app.route('/_items')
         def items():
 
-            results = defaultdict(list)
-            for index, item in enumerate(api.items):
-                results[item['alias']].append(item['item'].__name__)
+            results = {}
+            for alias, item in api.items.items():
+                results[alias] = [i['item'].__name__ for i in item]
             return jsonify(results)
 
         @app.errorhandler(404)

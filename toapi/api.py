@@ -1,5 +1,5 @@
 import re
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 import cchardet
 import requests
@@ -25,7 +25,8 @@ class Api:
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
 
-        self.items = []
+        self.items = defaultdict(list)
+        self.alias_re = {}
 
     def register(self, item):
         """Register items"""
@@ -36,7 +37,8 @@ class Api:
                                           lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
                                               m.group('params')),
                                           alias))
-            self.items.append({
+            self.alias_re[define_alias] = _alias_re
+            self.items[define_alias].append({
                 'item': item,
                 'alias_re': _alias_re,
                 'alias': define_alias,
@@ -59,26 +61,22 @@ class Api:
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
 
-        converted_path, items = self.prepare_parsing_items(path)
-
-        if converted_path is None:
-            return None
-
-        cached_item = self.get_cache(converted_path)
-        if cached_item is not None:
-            return cached_item
+        items = self.prepare_parsing_items(path)
 
         results = {}
-        html = None
-        for index, each_item in enumerate(items):
-            html = html or self.get_storage(converted_path) or self.fetch_page_source(converted_path,
-                                                                                      item=each_item,
-                                                                                      params=params,
-                                                                                      **kwargs)
+        cached_html = {}
+        for index, item in enumerate(items):
+            converted_path = item['converted_path']
+
+            html = cached_html.get(converted_path) or self.get_storage(converted_path) or self.fetch_page_source(converted_path,
+                                                                                                                 item=item['item'],
+                                                                                                                 params=params,
+                                                                                                                 **kwargs)
             if html is not None:
-                parsed_item = self.parse_item(html, each_item)
+                cached_html[converted_path] = html
+                parsed_item = self.parse_item(html, item['item'])
                 results.update(parsed_item)
-        self.set_cache(converted_path, results)
+
         return results or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
@@ -179,17 +177,17 @@ class Api:
 
     def prepare_parsing_items(self, path):
         results = []
-        converted_path = None
-        for index, item in enumerate(self.items):
-            matched = item['alias_re'].match(path)
+        for define_alias, alias_re in self.alias_re.items():
+            matched = alias_re.match(path)
             if not matched:
                 continue
             result_dict = matched.groupdict()
-            try:
-                converted_path = converted_path or re.sub(':(?P<params>[a-z_]+)',
-                                                          lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                                          item['route'])
-                results.append(item['item'])
-            except:
-                continue
-        return converted_path, results
+            converted_items = self.items.get(define_alias)
+            converted_path_cache = {}
+            for index, item in enumerate(converted_items):
+                item['converted_path'] = converted_path_cache.get(define_alias) or re.sub(':(?P<params>[a-z_]+)',
+                                                                                          lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                                                                          item['route'])
+                converted_path_cache[define_alias] = item['converted_path']
+                results.append(item)
+            return results
