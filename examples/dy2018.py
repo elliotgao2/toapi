@@ -24,7 +24,7 @@ class Movie(Item):
 
     class Meta:
         source = None
-        route = {'/movies/:id/': '/i/:id.html'}
+        route = {'/movies/:id': '/i/:id.html'}
 
 
 api.register(MovieList)
