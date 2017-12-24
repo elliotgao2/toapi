@@ -125,7 +125,7 @@ class Api:
 
     def get_status(self, key):
         """Get Status"""
-        return int(self.cache.get(key))
+        return int(self.cache.get(key, 0))
 
     def set_cache(self, key, value):
         """Set cache"""
