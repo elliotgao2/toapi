@@ -120,12 +120,11 @@ class Api:
         return webdriver.PhantomJS(service_args=phantom_options)
 
     def update_status(self, key):
-        """Set cache"""
-        self.cache.set(key, str(self.get_status(key) + 1))
+        """Increment Status"""
+        self.cache.incr(key)
 
     def get_status(self, key):
-        if self.cache.get(key) is None:
-            self.cache.set(key, '0')
+        """Get Status"""
         return int(self.cache.get(key))
 
     def set_cache(self, key, value):
@@ -187,9 +186,10 @@ class Api:
             converted_items = self.items.get(define_alias)
             converted_path_cache = {}
             for index, item in enumerate(converted_items):
-                item['converted_path'] = converted_path_cache.get(define_alias) or re.sub(':(?P<params>[a-z_]+)',
-                                                                                          lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                                                                          item['route'])
-                converted_path_cache[define_alias] = item['converted_path']
-                results.append(item)
-            return results
+                if item['item'] not in [i['item'] for i in results]:
+                    item['converted_path'] = converted_path_cache.get(define_alias) or re.sub(':(?P<params>[a-z_]+)',
+                                                                                              lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                                                                              item['route'])
+                    converted_path_cache[define_alias] = item['converted_path']
+                    results.append(item)
+        return results
