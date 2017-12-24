@@ -24,19 +24,11 @@ class Movie(Item):
 
     class Meta:
         source = None
-        route = {'/movies/:id/': '/i/:id.html'}
+        route = {'/movies/:id': '/i/:id.html'}
 
 
 api.register(MovieList)
 api.register(Movie)
 
 if __name__ == '__main__':
-    import time
-
-    start = time.time()
-    # 10000  Time: 3.6778430938720703  Time: 3.0024631023406982
-    # 100000 Time: 40.471128940582275  Time: 31.377354860305786
-    # for i in range(100000):
-    #     api.parse('/movies/?page=2')
-    # print("Time: {}".format(time.time() - start))
     api.serve()
