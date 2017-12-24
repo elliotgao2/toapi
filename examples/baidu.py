@@ -1,39 +1,29 @@
-from toapi import XPath, Item, Api, Settings
+from toapi import XPath, Item, Api
+
+api = Api('https://www.baidu.com')
 
 
-class MySettings(Settings):
-    web = {
-        "with_ajax": True,
-        "request_config": {},
-        "headers": None
-    }
-
-
-api = Api('https://www.baidu.com/', settings=MySettings)
-
-
-class Post(Item):
+class Baidu(Item):
     url = XPath('//a/@href')
     title = XPath('//a/text()')
 
     class Meta:
         source = XPath('//div[@class="result"]')
-        route = '\.+'
+        route = {'/:wd': '/s?wd=:wd'}
 
 
-class Page(Item):
-    next_page = XPath('//div[@id="page"]//a/@href')
+class Bing(Item):
+    __base_url__ = 'https://www.bing.com'
+    url = XPath('//a/@href')
+    title = XPath('//a/text()')
 
     class Meta:
-        source = None
-        route = '\.+'
-
-    def clean_next_page(self, next_page):
-        return "http://127.0.0.1:5000/" + next_page
+        source = XPath('//h2')
+        route = {'/:wd': '/search?q=:wd'}
 
 
-api.register(Post)
-api.register(Page)
+api.register(Baidu)
+api.register(Bing)
 
 api.serve()
 
