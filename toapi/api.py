@@ -26,7 +26,7 @@ class Api:
         self.web = getattr(self.settings, 'web', {})
 
         self.items = defaultdict(list)
-        self.alias_re = {}
+        self.alias_re = []
 
     def register(self, item):
         """Register items"""
@@ -37,7 +37,7 @@ class Api:
                                           lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
                                               m.group('params')),
                                           alias))
-            self.alias_re[define_alias] = _alias_re
+            self.alias_re.append((define_alias, _alias_re))
             self.items[define_alias].append({
                 'item': item,
                 'alias_re': _alias_re,
@@ -179,7 +179,7 @@ class Api:
 
     def prepare_parsing_items(self, path):
         results = []
-        for define_alias, alias_re in self.alias_re.items():
+        for define_alias, alias_re in self.alias_re:
             matched = alias_re.match(path)
             if not matched:
                 continue
