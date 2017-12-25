@@ -184,12 +184,10 @@ class Api:
                 continue
             result_dict = matched.groupdict()
             converted_items = self.items.get(define_alias)
-            converted_path_cache = {}
             for index, item in enumerate(converted_items):
                 if item['item'] not in [i['item'] for i in results]:
-                    item['converted_path'] = converted_path_cache.get(define_alias) or re.sub(':(?P<params>[a-z_]+)',
-                                                                                              lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                                                                              item['route'])
-                    converted_path_cache[define_alias] = item['converted_path']
+                    item['converted_path'] = re.sub(':(?P<params>[a-z_]+)',
+                                                    lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                                    item['route'])
                     results.append(item)
         return results
