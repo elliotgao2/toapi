@@ -32,8 +32,8 @@ class Page(Item):
         return "http://127.0.0.1:5000/" + next_page
 
 
-api.register(Post)
 api.register(Page)
+api.register(Post)
 
 api.serve()
 

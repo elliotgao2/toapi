@@ -24,12 +24,13 @@ class Api:
         self.server = Server(self, settings=self.settings)
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
-
+        self.item_classes = []
         self.items = defaultdict(list)
         self.alias_re = []
 
     def register(self, item):
         """Register items"""
+
         item.__base_url__ = item.__base_url__ or self.base_url
         for define_alias, define_route in OrderedDict(item.Meta.route).items():
             alias = '^' + define_alias.replace('?', '\?') + '$'
@@ -65,20 +66,19 @@ class Api:
         if items is None:
             return None
 
-        results = {}
+        results = OrderedDict()
         cached_html = {}
         for index, item in enumerate(items):
             converted_path = item['converted_path']
-
-            html = cached_html.get(converted_path) or self.get_storage(converted_path) or self.fetch_page_source(converted_path,
-                                                                                                                 item=item['item'],
-                                                                                                                 params=params,
-                                                                                                                 **kwargs)
+            html = cached_html.get(converted_path) or self.get_storage(converted_path) or self.fetch_page_source(
+                converted_path,
+                item=item['item'],
+                params=params,
+                **kwargs)
             if html is not None:
                 cached_html[converted_path] = html
                 parsed_item = self.parse_item(html, item['item'])
-                results.update(parsed_item)
-
+                results[parsed_item['name']] = parsed_item['results']
         return results or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
@@ -168,12 +168,15 @@ class Api:
 
     def parse_item(self, html, item):
         """Parse item from html"""
-        result = {}
-        result[item.__name__] = item.parse(html)
-        if len(result[item.__name__]) == 0:
-            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+
+        result = {
+            'name': item.__name__,
+            'results': item.parse(html)
+        }
+        if len(result['results']) == 0:
+            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result['results'])))
         else:
-            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result['results'])))
         return result
 
     def prepare_parsing_items(self, path):

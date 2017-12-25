@@ -1,3 +1,4 @@
+import json
 from signal import signal, SIGINT, SIGTERM
 from time import time
 
@@ -61,14 +62,19 @@ class Server:
                     logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
                 api.set_cache(path, result)
-                res = jsonify(result)
+                res = json.dumps(result)
+                # print(res.response)
                 api.update_status('_status_received')
                 end_time = time()
                 time_usage = end_time - start_time
                 logger.info(Fore.GREEN, 'Received',
-                            '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+                            '%s %s 200 %.2fms' % (request.url, len(res), time_usage * 1000))
 
-                return res
+                return app.response_class(
+                    response=res,
+                    status=200,
+                    mimetype='application/json'
+                )
             except Exception as e:
                 return str(e)
 
