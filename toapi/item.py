@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from toapi.selector import Selector
 
 
@@ -7,7 +9,7 @@ def with_metaclass(meta):
 
 class ItemType(type):
     def __new__(cls, what, bases=None, dict=None):
-        __selectors__ = {}
+        __selectors__ = OrderedDict()
         for name, selector in dict.items():
             if isinstance(selector, Selector):
                 __selectors__[name] = selector
@@ -38,7 +40,7 @@ class Item(with_metaclass(ItemType)):
 
     @classmethod
     def _parse_item(cls, html):
-        item = {}
+        item = OrderedDict()
         for name, selector in cls.__selectors__.items():
 
             try:
