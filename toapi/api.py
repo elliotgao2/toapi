@@ -30,7 +30,10 @@ class Api:
 
     def register(self, item):
         """Register items"""
-
+        if item in self.item_classes:
+            logger.error('Register', 'Repeat register item <%s>' % (item.__name__))
+            exit()
+        self.item_classes.append(item)
         item.__base_url__ = item.__base_url__ or self.base_url
         for define_alias, define_route in OrderedDict(item.Meta.route).items():
             alias = '^' + define_alias.replace('?', '\?') + '$'
