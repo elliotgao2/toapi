@@ -83,7 +83,7 @@ class Api:
                 cached_html[converted_path] = html
                 parsed_item = self.parse_item(html, item['item'])
                 results[item['item'].__name__] = parsed_item
-        return json.dumps(results) or None
+        return json.dumps(results) if results else None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""
