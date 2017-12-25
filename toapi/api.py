@@ -1,3 +1,4 @@
+import json
 import re
 from collections import OrderedDict, defaultdict
 
@@ -82,7 +83,7 @@ class Api:
                 cached_html[converted_path] = html
                 parsed_item = self.parse_item(html, item['item'])
                 results[item['item'].__name__] = parsed_item
-        return results or None
+        return json.dumps(results) or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""

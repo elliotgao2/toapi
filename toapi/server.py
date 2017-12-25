@@ -1,4 +1,3 @@
-import json
 from signal import signal, SIGINT, SIGTERM
 from time import time
 
@@ -57,12 +56,13 @@ class Server:
             if path.endswith('?'):
                 path = path[:-1]
             try:
-                result = api.get_cache(path) or api.parse(path)
-                if result is None:
+                res = api.get_cache(path)
+                if res is None:
+                    res = api.parse(path)
+                    api.set_cache(path, res)
+                if res is None:
                     logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
-                api.set_cache(path, result)
-                res = json.dumps(result)
                 api.update_status('_status_received')
                 end_time = time()
                 time_usage = end_time - start_time
@@ -75,7 +75,7 @@ class Server:
                     mimetype='application/json'
                 )
             except Exception as e:
-                return str(e)
+                return str(e), 500
 
     def run(self, ip='127.0.0.1', port=5000, **options):
         """Runs the application"""
