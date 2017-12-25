@@ -63,7 +63,6 @@ class Server:
                     return 'Not Found', 404
                 api.set_cache(path, result)
                 res = json.dumps(result)
-                # print(res.response)
                 api.update_status('_status_received')
                 end_time = time()
                 time_usage = end_time - start_time

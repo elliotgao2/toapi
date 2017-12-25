@@ -81,7 +81,7 @@ class Api:
             if html is not None:
                 cached_html[converted_path] = html
                 parsed_item = self.parse_item(html, item['item'])
-                results[parsed_item['name']] = parsed_item['results']
+                results[item['item'].__name__] = parsed_item
         return results or None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
@@ -172,14 +172,11 @@ class Api:
     def parse_item(self, html, item):
         """Parse item from html"""
 
-        result = {
-            'name': item.__name__,
-            'results': item.parse(html)
-        }
-        if len(result['results']) == 0:
-            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result['results'])))
+        result = item.parse(html)
+        if len(result) == 0:
+            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
         else:
-            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result['results'])))
+            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
         return result
 
     def prepare_parsing_items(self, path):
