@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import time
 
-from toapi.cache.serializer import JsonSerializer
+from toapi.cache.serializer import PickleSerializer
 from toapi.cache.base_cache import BaseCache
 
 
@@ -10,7 +10,7 @@ class MemoryCache(BaseCache):
 
     def __init__(self, serializer=None, **kwargs):
         if serializer is None:
-            serializer = JsonSerializer
+            serializer = PickleSerializer
         super().__init__(serializer=serializer, **kwargs)
 
     def set(self, key, value, ttl=None, is_serialize=True, **kwargs):

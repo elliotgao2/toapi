@@ -3,7 +3,7 @@ import redis
 
 from toapi.cache.base_cache import BaseCache
 from toapi.cache.decorator import dec_connector
-from toapi.cache.serializer import JsonSerializer
+from toapi.cache.serializer import PickleSerializer
 
 
 class RedisCache(BaseCache):
@@ -13,7 +13,7 @@ class RedisCache(BaseCache):
     def __init__(self, host="127.0.0.1", port=6379, db=0, password=None, decode_responses=True,
                  serializer=None, **kwargs):
         if serializer is None:
-            serializer = JsonSerializer
+            serializer = PickleSerializer
         super().__init__(serializer=serializer, **kwargs)
         self.host = host
         self.port = port
