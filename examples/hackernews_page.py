@@ -33,7 +33,6 @@ class Page(Item):
 
 
 api.register(Page)
-api.register(Page)
 api.register(Post)
 
 api.serve()
