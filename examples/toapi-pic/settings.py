@@ -1,7 +1,8 @@
 import os
 
-from toapi.cache import RedisCache, PickleSerializer
+from toapi.cache import RedisCache, JsonSerializer
 from toapi.settings import Settings
+
 
 class MySettings(Settings):
     """
@@ -16,12 +17,12 @@ class MySettings(Settings):
             'port': 6379,
             'db': 0
         },
-        'serializer': PickleSerializer,
+        'serializer': JsonSerializer,
         'ttl': 10000
     }
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": None
+        "DB_URL": 'sqlite:///data.sqlite'
     }
     web = {
         "with_ajax": False,

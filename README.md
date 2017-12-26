@@ -18,7 +18,9 @@ api service to share them maybe we should also update them regularly.
 This library make things easy. The only thing you should do is defining your data, 
 they would be shared as api service automatically.
 
-Documentation: [Toapi Documentation](http://www.toapi.org)
+- Documentation: [http://www.toapi.org](http://www.toapi.org)
+- Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
+- Organization: [https://github.com/toapi](https://github.com/toapi)
 
 ## Code Snippets:
 
@@ -126,19 +128,19 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ### Running Log
 
-![Running Log](./docs/imgs/runinglog.jpg)
+![Running Log](./docs/imgs/runinglog.png)
 
 ### Running Items
 
-![Running Items](./docs/imgs/runningitems.jpg)
+![Running Items](./docs/imgs/runningitems.png)
 
 ### Running Status
 
-![Running Status](./docs/imgs/runningstatus.jpg)
+![Running Status](./docs/imgs/runningstatus.png)
 
 ### Running Results
 
-![Running Results](./docs/imgs/runningresult.jpg)
+![Running Results](./docs/imgs/runningresult.png)
 
 ## Features
 
@@ -174,7 +176,6 @@ To get help with Toapi, please use the [GitHub issues]
 ## Todo
 
 1. Checking system every time running the app.
-2. Collecting all awesome Toapi project.
 
 ## Donate
 
