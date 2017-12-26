@@ -153,7 +153,7 @@ toapi run
 
 ### Running Status
 
-> http://127.0.0.1:5000/_items
+> http://127.0.0.1:5000/_status
 
 ``` json
 
