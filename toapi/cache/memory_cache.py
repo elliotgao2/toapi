@@ -13,17 +13,17 @@ class MemoryCache(BaseCache):
             serializer = PickleSerializer
         super().__init__(serializer=serializer, **kwargs)
 
-    def set(self, key, value, ttl=None, is_serialize=True, **kwargs):
+    def set(self, key, value, ttl=None, **kwargs):
         if ttl:
             ttl = int(time.time()) + int(ttl)
-        value = self.serializer.dumps((value, ttl)) if is_serialize else (value, ttl)
+        value = self.serializer.dumps((value, ttl))
         self._cache[key] = value
         return True
 
-    def get(self, key, default=None, is_serialize=True, **kwargs):
-        set_default = self.serializer.dumps((default, None)) if is_serialize else (default, None)
+    def get(self, key, default=None, **kwargs):
+        set_default = self.serializer.dumps((default, None))
         result = self._cache.get(key, set_default)
-        result_list = self.serializer.loads(result) if is_serialize else result
+        result_list = self.serializer.loads(result)
         value = result_list[0]
         if result_list[1] is not None:
             ts = int(time.time())

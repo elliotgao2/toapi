@@ -47,3 +47,21 @@ class PickleSerializer(BaseSerializer):
         :return: object
         """
         return pickle.loads(value) if value is not None else value
+
+
+class StrSerializer(BaseSerializer):
+    def dumps(self, value, **kwargs):
+        """
+        Serialize the value
+        :param value: str
+        :return: str
+        """
+        return value
+
+    def loads(self, value, **kwargs):
+        """
+        Deserialize the value
+        :param value: str
+        :return: str
+        """
+        return value
