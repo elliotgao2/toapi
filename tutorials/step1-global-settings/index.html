@@ -350,9 +350,34 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Step 1 Global Settings
+      </label>
+    
     <a href="./" title="Step 1 Global Settings" class="md-nav__link md-nav__link--active">
       Step 1 Global Settings
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#settings" title="Settings" class="md-nav__link">
+    Settings
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -375,8 +400,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step3-mongodb/" title="Step 3 Using Mongodb" class="md-nav__link">
-      Step 3 Using Mongodb
+    <a href="../step3-sqlite3/" title="Step 3 Using Sqlite" class="md-nav__link">
+      Step 3 Using Sqlite
     </a>
   </li>
 
@@ -399,20 +424,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step5-packagin-apis/" title="Step 5 Packaging The APIs" class="md-nav__link">
-      Step 5 Packaging The APIs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../testing/" title="Bonus: Testing the Application" class="md-nav__link">
-      Bonus: Testing the Application
+    <a href="../step5-deploy/" title="Step 5 Deploy" class="md-nav__link">
+      Step 5 Deploy
     </a>
   </li>
 
@@ -525,6 +538,33 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#settings" title="Settings" class="md-nav__link">
+    Settings
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -535,7 +575,44 @@
                 
                   <h1>Step 1 Global Settings</h1>
                 
-                
+                <h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link"></a></h2>
+<p>Settings allow you config cache, storage, request. In our toapi-pic project.
+You could see the code:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">toapi.cache</span> <span class="kn">import</span> <span class="n">MemoryCache</span>
+<span class="kn">from</span> <span class="nn">toapi.settings</span> <span class="kn">import</span> <span class="n">Settings</span>
+
+<span class="k">class</span> <span class="nc">MySettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create custom configuration</span>
+<span class="sd">    http://www.toapi.org/topics/settings/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;cache_class&#39;</span><span class="p">:</span> <span class="n">MemoryCache</span><span class="p">,</span>
+        <span class="s1">&#39;cache_config&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;serializer&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ttl&#39;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PATH&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+        <span class="s2">&quot;DB_URL&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;with_ajax&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s2">&quot;request_config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>cache: config what kind of cache you use. Default is memory cache</li>
+<li>storage: config what kind of storage you use. Default is local file storage.</li>
+<li>web: config the request headers and if using ajax. Default without ajax.</li>
+</ul>
+<p>You can find more detail describe for theme in <a href="../../topics/settings">topics</a></p>
                 
                   
                 

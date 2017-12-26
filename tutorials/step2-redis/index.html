@@ -362,9 +362,41 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Step 2 Using Redis
+      </label>
+    
     <a href="./" title="Step 2 Using Redis" class="md-nav__link md-nav__link--active">
       Step 2 Using Redis
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-redis" title="Prepare redis" class="md-nav__link">
+    Prepare redis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting" title="Setting" class="md-nav__link">
+    Setting
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -375,8 +407,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step3-mongodb/" title="Step 3 Using Mongodb" class="md-nav__link">
-      Step 3 Using Mongodb
+    <a href="../step3-sqlite3/" title="Step 3 Using Sqlite" class="md-nav__link">
+      Step 3 Using Sqlite
     </a>
   </li>
 
@@ -399,20 +431,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step5-packagin-apis/" title="Step 5 Packaging The APIs" class="md-nav__link">
-      Step 5 Packaging The APIs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../testing/" title="Bonus: Testing the Application" class="md-nav__link">
-      Bonus: Testing the Application
+    <a href="../step5-deploy/" title="Step 5 Deploy" class="md-nav__link">
+      Step 5 Deploy
     </a>
   </li>
 
@@ -525,6 +545,40 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-redis" title="Prepare redis" class="md-nav__link">
+    Prepare redis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting" title="Setting" class="md-nav__link">
+    Setting
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -535,7 +589,50 @@
                 
                   <h1>Step 2 Using Redis</h1>
                 
-                
+                <h2 id="prepare-redis">Prepare redis<a class="headerlink" href="#prepare-redis" title="Permanent link"></a></h2>
+<div class="codehilite"><pre><span></span>$ redis-cli -v                      
+redis-cli 3.0.6
+</pre></div>
+
+
+<p>If you don't have redis, you need to install it.</p>
+<h2 id="setting">Setting<a class="headerlink" href="#setting" title="Permanent link"></a></h2>
+<p>Edit the <code>settings.py</code>, change it to:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">toapi.cache</span> <span class="kn">import</span> <span class="n">RedisCache</span><span class="p">,</span> <span class="n">JsonSerializer</span>
+<span class="kn">from</span> <span class="nn">toapi.settings</span> <span class="kn">import</span> <span class="n">Settings</span>
+
+<span class="k">class</span> <span class="nc">MySettings</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create custom configuration</span>
+<span class="sd">    http://www.toapi.org/topics/settings/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;cache_class&#39;</span><span class="p">:</span> <span class="n">RedisCache</span><span class="p">,</span>
+        <span class="s1">&#39;cache_config&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+            <span class="s1">&#39;db&#39;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;serializer&#39;</span><span class="p">:</span> <span class="n">JsonSerializer</span><span class="p">,</span>
+        <span class="s1">&#39;ttl&#39;</span><span class="p">:</span> <span class="mi">10000</span>
+    <span class="p">}</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PATH&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+        <span class="s2">&quot;DB_URL&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;with_ajax&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s2">&quot;request_config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>Try to run command <code>toapi run</code>. If it works, you do good job. 
+If something wrong, please check the redis and the redis library for python.</p>
                 
                   
                 
@@ -569,13 +666,13 @@
           </a>
         
         
-          <a href="../step3-mongodb/" title="Step 3 Using Mongodb" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../step3-sqlite3/" title="Step 3 Using Sqlite" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Step 3 Using Mongodb
+                Step 3 Using Sqlite
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

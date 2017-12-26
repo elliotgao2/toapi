@@ -338,9 +338,34 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Step 0 Creating New Project
+      </label>
+    
     <a href="./" title="Step 0 Creating New Project" class="md-nav__link md-nav__link--active">
       Step 0 Creating New Project
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#new-project" title="New Project" class="md-nav__link">
+    New Project
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -375,8 +400,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step3-mongodb/" title="Step 3 Using Mongodb" class="md-nav__link">
-      Step 3 Using Mongodb
+    <a href="../step3-sqlite3/" title="Step 3 Using Sqlite" class="md-nav__link">
+      Step 3 Using Sqlite
     </a>
   </li>
 
@@ -399,20 +424,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step5-packagin-apis/" title="Step 5 Packaging The APIs" class="md-nav__link">
-      Step 5 Packaging The APIs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../testing/" title="Bonus: Testing the Application" class="md-nav__link">
-      Bonus: Testing the Application
+    <a href="../step5-deploy/" title="Step 5 Deploy" class="md-nav__link">
+      Step 5 Deploy
     </a>
   </li>
 
@@ -525,6 +538,33 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#new-project" title="New Project" class="md-nav__link">
+    New Project
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -535,7 +575,45 @@
                 
                   <h1>Step 0 Creating New Project</h1>
                 
-                
+                <h2 id="new-project">New Project<a class="headerlink" href="#new-project" title="Permanent link"></a></h2>
+<p>You can run the command 'toapi new' whenever you want to start a new api server.</p>
+<div class="codehilite"><pre><span></span>$ toapi new toapi/toapi-pic
+2017/12/26 11:41:38 [New project] OK Creating project directory &quot;toapi-pic&quot; 
+Cloning into &#39;toapi-pic&#39;...
+remote: Counting objects: 13, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 13 (delta 2), reused 9 (delta 1), pack-reused 0
+Unpacking objects: 100% (13/13), done.
+Checking connectivity... done.
+2017/12/26 11:41:40 [New project] OK Success! 
+
+     cd toapi-pic
+     toapi run
+</pre></div>
+
+
+<p>This command create a new folder named <code>toapi-pic</code>, which include some files:</p>
+<div class="codehilite"><pre><span></span>$ tree .                   
+.
+├── app.py
+├── items
+│   ├── __init__.py
+│   ├── pexels.py
+│   └── pixabay.py
+├── README.md
+├── settings.py
+└── wsgi.py
+
+1 directory, 7 files
+</pre></div>
+
+
+<ul>
+<li>app.py: define the app instance.</li>
+<li>settings.py: global configs.</li>
+<li>items: define items you want to extract.</li>
+<li>wsgi.py: expose interface to gunicorn, uwsgi .etc for serving.</li>
+</ul>
                 
                   
                 

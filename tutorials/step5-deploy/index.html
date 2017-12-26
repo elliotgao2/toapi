@@ -13,7 +13,7 @@
         <meta name="description" content="Every web site provides APIs.">
       
       
-        <link rel="canonical" href="http://www.toapi.org/tutorials/testing/">
+        <link rel="canonical" href="http://www.toapi.org/tutorials/step5-deploy/">
       
       
         <meta name="author" content="Jiuli Gao">
@@ -38,7 +38,7 @@
     
     
       
-        <title>Bonus: Testing the Application - Toapi</title>
+        <title>Step 5 Deploy - Toapi</title>
       
     
     
@@ -100,7 +100,7 @@
                 Toapi
               </span>
               <span class="md-header-nav__topic">
-                Bonus: Testing the Application
+                Step 5 Deploy
               </span>
             
           
@@ -368,8 +368,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../step3-mongodb/" title="Step 3 Using Mongodb" class="md-nav__link">
-      Step 3 Using Mongodb
+    <a href="../step3-sqlite3/" title="Step 3 Using Sqlite" class="md-nav__link">
+      Step 3 Using Sqlite
     </a>
   </li>
 
@@ -390,18 +390,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../step5-packagin-apis/" title="Step 5 Packaging The APIs" class="md-nav__link">
-      Step 5 Packaging The APIs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -410,9 +398,55 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
-    <a href="./" title="Bonus: Testing the Application" class="md-nav__link md-nav__link--active">
-      Bonus: Testing the Application
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Step 5 Deploy
+      </label>
+    
+    <a href="./" title="Step 5 Deploy" class="md-nav__link md-nav__link--active">
+      Step 5 Deploy
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#caddy" title="Caddy" class="md-nav__link">
+    Caddy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gunicorn" title="Gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" title="Run!" class="md-nav__link">
+    Run!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-result-directory-structure" title="The result directory structure:" class="md-nav__link">
+    The result directory structure:
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -525,17 +559,148 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#caddy" title="Caddy" class="md-nav__link">
+    Caddy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gunicorn" title="Gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" title="Run!" class="md-nav__link">
+    Run!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-result-directory-structure" title="The result directory structure:" class="md-nav__link">
+    The result directory structure:
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/gaojiuli/toapi/edit/master/docs/tutorials/testing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/gaojiuli/toapi/edit/master/docs/tutorials/step5-deploy.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Bonus: Testing the Application</h1>
+                  <h1>Step 5 Deploy</h1>
                 
-                
+                <h2 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link"></a></h2>
+<blockquote>
+<p>Caddy is the HTTP/2 web server with automatic HTTPS.</p>
+</blockquote>
+<p><a href="https://caddyserver.com/docs">https://caddyserver.com/docs</a></p>
+<p>Make sure you install caddy:</p>
+<div class="codehilite"><pre><span></span>$ caddy -version
+Caddy 0.10.10 (non-commercial use only)
+</pre></div>
+
+
+<h2 id="gunicorn">Gunicorn<a class="headerlink" href="#gunicorn" title="Permanent link"></a></h2>
+<blockquote>
+<p>Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. 
+It's a pre-fork worker model. 
+The Gunicorn server is broadly compatible with various web frameworks, 
+simply implemented, light on server resources, and fairly speedy.</p>
+</blockquote>
+<p>Make sure you install caddy:</p>
+<div class="codehilite"><pre><span></span>$ gunicorn -v
+gunicorn (version 19.7.1)
+</pre></div>
+
+
+<h2 id="run">Run!<a class="headerlink" href="#run" title="Permanent link"></a></h2>
+<p>Launch gunicorn: gunicorn -b "127.0.0.1:5000" wsgi Usually, 
+you will have your gunicorn script on a supervisor, or something else</p>
+<div class="codehilite"><pre><span></span>$ gunicorn -b &quot;127.0.0.1:5000&quot; wsgi:app 
+[2017-12-26 10:55:18 +0800] [21545] [INFO] Starting gunicorn 19.7.1
+[2017-12-26 10:55:18 +0800] [21545] [INFO] Listening at: http://127.0.0.1:5000 (21545)
+[2017-12-26 10:55:18 +0800] [21545] [INFO] Using worker: sync
+[2017-12-26 10:55:18 +0800] [21548] [INFO] Booting worker with pid: 21548
+2017/12/26 10:55:18 [Register] OK &lt;Pixabay&gt; 
+2017/12/26 10:55:18 [Register] OK &lt;Pexels&gt; 
+</pre></div>
+
+
+<p>Create Caddyfile</p>
+<div class="codehilite"><pre><span></span>$ touch Caddyfile
+</pre></div>
+
+
+<p>Edit the Caddyfile as follows:</p>
+<div class="codehilite"><pre><span></span>:8080 {
+    proxy / localhost:5000 {
+        transparent
+    }
+}
+</pre></div>
+
+
+<p>Next step:</p>
+<div class="codehilite"><pre><span></span>$ caddy
+Activating privacy features... done.
+http://localhost:8080
+</pre></div>
+
+
+<p>Well done! Everything is ok! You can get more information from <code>topics</code> or just 
+go to write your own APIs!</p>
+<h2 id="the-result-directory-structure">The result directory structure:<a class="headerlink" href="#the-result-directory-structure" title="Permanent link"></a></h2>
+<div class="codehilite"><pre><span></span>$ tree .   
+.
+├── app.py
+├── Caddyfile
+├── data.sqlite
+├── items
+│   ├── __init__.py
+│   ├── pexels.py
+│   ├── pixabay.py
+│   └── __pycache__
+│       ├── __init__.cpython-36.pyc
+│       ├── pexels.cpython-36.pyc
+│       └── pixabay.cpython-36.pyc
+├── __pycache__
+│   ├── app.cpython-36.pyc
+│   ├── settings.cpython-36.pyc
+│   └── wsgi.cpython-36.pyc
+├── README.md
+├── settings.py
+└── wsgi.py
+
+3 directories, 15 files
+</pre></div>
                 
                   
                 
@@ -554,7 +719,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../step5-packagin-apis/" title="Step 5 Packaging The APIs" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../step4-defining-items/" title="Step 4 Defining Items" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -563,7 +728,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Step 5 Packaging The APIs
+                Step 4 Defining Items
               </span>
             </div>
           </a>

@@ -207,43 +207,128 @@
         },
         {
             "location": "/tutorials/introducing/",
-            "text": "",
+            "text": "Aim\n\uf0c1\n\n\nOur aim is to build an api server that provides free pictures. Those pictures are fetched from those websites:\n\n\n\n\nhttps://pixabay.com/\n\n\nhttps://www.pexels.com/\n\n\n\n\nYou can find the source code in \nexamples/toapi-pic\n\n\nWhat it look like?\n\uf0c1\n\n\nRunning\n\uf0c1\n\n\n\n\nIndex\n\uf0c1\n\n\n\n\nItems\n\uf0c1\n\n\n\n\nResults\n\uf0c1",
             "title": "Introducing Aim"
         },
         {
-            "location": "/tutorials/step0-creating-new-project/",
+            "location": "/tutorials/introducing/#aim",
+            "text": "Our aim is to build an api server that provides free pictures. Those pictures are fetched from those websites:   https://pixabay.com/  https://www.pexels.com/   You can find the source code in  examples/toapi-pic",
+            "title": "Aim"
+        },
+        {
+            "location": "/tutorials/introducing/#what-it-look-like",
             "text": "",
+            "title": "What it look like?"
+        },
+        {
+            "location": "/tutorials/introducing/#running",
+            "text": "",
+            "title": "Running"
+        },
+        {
+            "location": "/tutorials/introducing/#index",
+            "text": "",
+            "title": "Index"
+        },
+        {
+            "location": "/tutorials/introducing/#items",
+            "text": "",
+            "title": "Items"
+        },
+        {
+            "location": "/tutorials/introducing/#results",
+            "text": "",
+            "title": "Results"
+        },
+        {
+            "location": "/tutorials/step0-creating-new-project/",
+            "text": "New Project\n\uf0c1\n\n\nYou can run the command 'toapi new' whenever you want to start a new api server.\n\n\n$ toapi new toapi/toapi-pic\n2017/12/26 11:41:38 [New project] OK Creating project directory \"toapi-pic\" \nCloning into 'toapi-pic'...\nremote: Counting objects: 13, done.\nremote: Compressing objects: 100% (10/10), done.\nremote: Total 13 (delta 2), reused 9 (delta 1), pack-reused 0\nUnpacking objects: 100% (13/13), done.\nChecking connectivity... done.\n2017/12/26 11:41:40 [New project] OK Success! \n\n     cd toapi-pic\n     toapi run\n\n\n\n\n\nThis command create a new folder named \ntoapi-pic\n, which include some files:\n\n\n$ tree .                   \n.\n\u251c\u2500\u2500 app.py\n\u251c\u2500\u2500 items\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 __init__.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pexels.py\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 pixabay.py\n\u251c\u2500\u2500 README.md\n\u251c\u2500\u2500 settings.py\n\u2514\u2500\u2500 wsgi.py\n\n1 directory, 7 files\n\n\n\n\n\n\n\napp.py: define the app instance.\n\n\nsettings.py: global configs.\n\n\nitems: define items you want to extract.\n\n\nwsgi.py: expose interface to gunicorn, uwsgi .etc for serving.",
             "title": "Step 0 Creating New Project"
         },
         {
+            "location": "/tutorials/step0-creating-new-project/#new-project",
+            "text": "You can run the command 'toapi new' whenever you want to start a new api server.  $ toapi new toapi/toapi-pic\n2017/12/26 11:41:38 [New project] OK Creating project directory \"toapi-pic\" \nCloning into 'toapi-pic'...\nremote: Counting objects: 13, done.\nremote: Compressing objects: 100% (10/10), done.\nremote: Total 13 (delta 2), reused 9 (delta 1), pack-reused 0\nUnpacking objects: 100% (13/13), done.\nChecking connectivity... done.\n2017/12/26 11:41:40 [New project] OK Success! \n\n     cd toapi-pic\n     toapi run  This command create a new folder named  toapi-pic , which include some files:  $ tree .                   \n.\n\u251c\u2500\u2500 app.py\n\u251c\u2500\u2500 items\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 __init__.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pexels.py\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 pixabay.py\n\u251c\u2500\u2500 README.md\n\u251c\u2500\u2500 settings.py\n\u2514\u2500\u2500 wsgi.py\n\n1 directory, 7 files   app.py: define the app instance.  settings.py: global configs.  items: define items you want to extract.  wsgi.py: expose interface to gunicorn, uwsgi .etc for serving.",
+            "title": "New Project"
+        },
+        {
             "location": "/tutorials/step1-global-settings/",
-            "text": "",
+            "text": "Settings\n\uf0c1\n\n\nSettings allow you config cache, storage, request. In our toapi-pic project.\nYou could see the code:\n\n\nimport\n \nos\n\n\n\nfrom\n \ntoapi.cache\n \nimport\n \nMemoryCache\n\n\nfrom\n \ntoapi.settings\n \nimport\n \nSettings\n\n\n\nclass\n \nMySettings\n(\nSettings\n):\n\n    \n\"\"\"\n\n\n    Create custom configuration\n\n\n    http://www.toapi.org/topics/settings/\n\n\n    \"\"\"\n\n\n    \ncache\n \n=\n \n{\n\n        \n'cache_class'\n:\n \nMemoryCache\n,\n\n        \n'cache_config'\n:\n \n{},\n\n        \n'serializer'\n:\n \nNone\n,\n\n        \n'ttl'\n:\n \nNone\n\n    \n}\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \nos\n.\ngetcwd\n(),\n\n        \n\"DB_URL\"\n:\n \nNone\n\n    \n}\n\n    \nweb\n \n=\n \n{\n\n        \n\"with_ajax\"\n:\n \nFalse\n,\n\n        \n\"request_config\"\n:\n \n{},\n\n        \n\"headers\"\n:\n \nNone\n\n    \n}\n\n\n\n\n\n\n\n\ncache: config what kind of cache you use. Default is memory cache\n\n\nstorage: config what kind of storage you use. Default is local file storage.\n\n\nweb: config the request headers and if using ajax. Default without ajax.\n\n\n\n\nYou can find more detail describe for theme in \ntopics",
             "title": "Step 1 Global Settings"
         },
         {
+            "location": "/tutorials/step1-global-settings/#settings",
+            "text": "Settings allow you config cache, storage, request. In our toapi-pic project.\nYou could see the code:  import   os  from   toapi.cache   import   MemoryCache  from   toapi.settings   import   Settings  class   MySettings ( Settings ): \n     \"\"\"      Create custom configuration      http://www.toapi.org/topics/settings/      \"\"\" \n\n     cache   =   { \n         'cache_class' :   MemoryCache , \n         'cache_config' :   {}, \n         'serializer' :   None , \n         'ttl' :   None \n     } \n     storage   =   { \n         \"PATH\" :   os . getcwd (), \n         \"DB_URL\" :   None \n     } \n     web   =   { \n         \"with_ajax\" :   False , \n         \"request_config\" :   {}, \n         \"headers\" :   None \n     }    cache: config what kind of cache you use. Default is memory cache  storage: config what kind of storage you use. Default is local file storage.  web: config the request headers and if using ajax. Default without ajax.   You can find more detail describe for theme in  topics",
+            "title": "Settings"
+        },
+        {
             "location": "/tutorials/step2-redis/",
-            "text": "",
+            "text": "Prepare redis\n\uf0c1\n\n\n$ redis-cli -v                      \nredis-cli 3.0.6\n\n\n\n\n\nIf you don't have redis, you need to install it.\n\n\nSetting\n\uf0c1\n\n\nEdit the \nsettings.py\n, change it to:\n\n\nimport\n \nos\n\n\n\nfrom\n \ntoapi.cache\n \nimport\n \nRedisCache\n,\n \nJsonSerializer\n\n\nfrom\n \ntoapi.settings\n \nimport\n \nSettings\n\n\n\nclass\n \nMySettings\n(\nSettings\n):\n\n    \n\"\"\"\n\n\n    Create custom configuration\n\n\n    http://www.toapi.org/topics/settings/\n\n\n    \"\"\"\n\n\n    \ncache\n \n=\n \n{\n\n        \n'cache_class'\n:\n \nRedisCache\n,\n\n        \n'cache_config'\n:\n \n{\n\n            \n'host'\n:\n \n'127.0.0.1'\n,\n\n            \n'port'\n:\n \n6379\n,\n\n            \n'db'\n:\n \n0\n\n        \n},\n\n        \n'serializer'\n:\n \nJsonSerializer\n,\n\n        \n'ttl'\n:\n \n10000\n\n    \n}\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \nos\n.\ngetcwd\n(),\n\n        \n\"DB_URL\"\n:\n \nNone\n\n    \n}\n\n    \nweb\n \n=\n \n{\n\n        \n\"with_ajax\"\n:\n \nFalse\n,\n\n        \n\"request_config\"\n:\n \n{},\n\n        \n\"headers\"\n:\n \nNone\n\n    \n}\n\n\n\n\n\n\nTry to run command \ntoapi run\n. If it works, you do good job. \nIf something wrong, please check the redis and the redis library for python.",
             "title": "Step 2 Using Redis"
         },
         {
-            "location": "/tutorials/step3-mongodb/",
-            "text": "",
-            "title": "Step 3 Using Mongodb"
+            "location": "/tutorials/step2-redis/#prepare-redis",
+            "text": "$ redis-cli -v                      \nredis-cli 3.0.6  If you don't have redis, you need to install it.",
+            "title": "Prepare redis"
+        },
+        {
+            "location": "/tutorials/step2-redis/#setting",
+            "text": "Edit the  settings.py , change it to:  import   os  from   toapi.cache   import   RedisCache ,   JsonSerializer  from   toapi.settings   import   Settings  class   MySettings ( Settings ): \n     \"\"\"      Create custom configuration      http://www.toapi.org/topics/settings/      \"\"\" \n\n     cache   =   { \n         'cache_class' :   RedisCache , \n         'cache_config' :   { \n             'host' :   '127.0.0.1' , \n             'port' :   6379 , \n             'db' :   0 \n         }, \n         'serializer' :   JsonSerializer , \n         'ttl' :   10000 \n     } \n     storage   =   { \n         \"PATH\" :   os . getcwd (), \n         \"DB_URL\" :   None \n     } \n     web   =   { \n         \"with_ajax\" :   False , \n         \"request_config\" :   {}, \n         \"headers\" :   None \n     }   Try to run command  toapi run . If it works, you do good job. \nIf something wrong, please check the redis and the redis library for python.",
+            "title": "Setting"
+        },
+        {
+            "location": "/tutorials/step3-sqlite3/",
+            "text": "Prepare Sqlite3\n\uf0c1\n\n\n$ sqlite3 --version                     \n3.11.0 2016-02-15 17:29:24 3d862f207e3adc00f78066799ac5a8c282430a5f\n\n\n\n\n\nIf you don't have sqlite3, you need to install it.\n\n\nSetting\n\uf0c1\n\n\nEdit the \nsettings.py\n, change it to:\n\n\nimport\n \nos\n\n\n\nfrom\n \ntoapi.cache\n \nimport\n \nRedisCache\n\n\nfrom\n \ntoapi.settings\n \nimport\n \nSettings\n\n\n\n\nclass\n \nMySettings\n(\nSettings\n):\n\n    \n\"\"\"\n\n\n    Create custom configuration\n\n\n    http://www.toapi.org/topics/settings/\n\n\n    \"\"\"\n\n\n    \ncache\n \n=\n \n{\n\n        \n'cache_class'\n:\n \nRedisCache\n,\n\n        \n'cache_config'\n:\n \n{\n\n            \n'host'\n:\n \n'127.0.0.1'\n,\n\n            \n'port'\n:\n \n6379\n,\n\n            \n'db'\n:\n \n0\n\n        \n},\n\n        \n'ttl'\n:\n \n10000\n\n    \n}\n\n    \nstorage\n \n=\n \n{\n\n        \n\"PATH\"\n:\n \nos\n.\ngetcwd\n(),\n\n        \n\"DB_URL\"\n:\n \n'sqlite:///data.sqlite'\n\n    \n}\n\n    \nweb\n \n=\n \n{\n\n        \n\"with_ajax\"\n:\n \nFalse\n,\n\n        \n\"request_config\"\n:\n \n{},\n\n        \n\"headers\"\n:\n \nNone\n\n    \n}\n\n\n\n\n\n\nTry to run command \ntoapi run\n. If it works, you do good job. \nIn the root directory there should be a \ndata.sqlite\n file.\nIf something wrong, please check the sqlite3 and the sqlite3 library for python.",
+            "title": "Step 3 Using Sqlite"
+        },
+        {
+            "location": "/tutorials/step3-sqlite3/#prepare-sqlite3",
+            "text": "$ sqlite3 --version                     \n3.11.0 2016-02-15 17:29:24 3d862f207e3adc00f78066799ac5a8c282430a5f  If you don't have sqlite3, you need to install it.",
+            "title": "Prepare Sqlite3"
+        },
+        {
+            "location": "/tutorials/step3-sqlite3/#setting",
+            "text": "Edit the  settings.py , change it to:  import   os  from   toapi.cache   import   RedisCache  from   toapi.settings   import   Settings  class   MySettings ( Settings ): \n     \"\"\"      Create custom configuration      http://www.toapi.org/topics/settings/      \"\"\" \n\n     cache   =   { \n         'cache_class' :   RedisCache , \n         'cache_config' :   { \n             'host' :   '127.0.0.1' , \n             'port' :   6379 , \n             'db' :   0 \n         }, \n         'ttl' :   10000 \n     } \n     storage   =   { \n         \"PATH\" :   os . getcwd (), \n         \"DB_URL\" :   'sqlite:///data.sqlite' \n     } \n     web   =   { \n         \"with_ajax\" :   False , \n         \"request_config\" :   {}, \n         \"headers\" :   None \n     }   Try to run command  toapi run . If it works, you do good job. \nIn the root directory there should be a  data.sqlite  file.\nIf something wrong, please check the sqlite3 and the sqlite3 library for python.",
+            "title": "Setting"
         },
         {
             "location": "/tutorials/step4-defining-items/",
-            "text": "",
+            "text": "Focus on the item directory\n\uf0c1\n\n\npexels.py\n:\n\n\nfrom\n \ntoapi\n \nimport\n \nItem\n,\n \nXPath\n\n\n\n\nclass\n \nPexels\n(\nItem\n):\n\n    \n__base_url__\n \n=\n \n'https://www.pexels.com'\n\n    \nimg\n \n=\n \nXPath\n(\n'//a//img/@src'\n)\n\n\n    \nclass\n \nMeta\n:\n\n        \nsource\n \n=\n \nXPath\n(\n'//article[@class=\"photo-item\"]'\n)\n\n        \nroute\n \n=\n \n{\n'/pic/?q=:key'\n:\n \n'/search/:key/'\n}\n\n\n\n\n\n\npixabay.py\n:\n\n\nfrom\n \ntoapi\n \nimport\n \nItem\n,\n \nXPath\n\n\n\n\nclass\n \nPixabay\n(\nItem\n):\n\n    \n__base_url__\n \n=\n \n'https://pixabay.com/'\n\n    \nimg\n \n=\n \nXPath\n(\n'//a//img/@src'\n)\n\n\n    \nclass\n \nMeta\n:\n\n        \nsource\n \n=\n \nXPath\n(\n'//div[@class=\"item\"]'\n)\n\n        \nroute\n \n=\n \n{\n'/pic/?q=:key'\n:\n \n'/zh/photos/?q=:key'\n}\n\n\n\n\n\n\nPretty simple.\n\n\n\n\nDefine the section you want to parse. (Meta.source)\n\n\nDefine the fileds relative to section.\n\n\nDefine the map of expose route of our api server and the routes of source website.\n\n\n\n\nRegister\n\uf0c1\n\n\nWhen you defined your items, you have to register theme to app. So that the app\ncould know how to work.\n\n\nIn the file \napp.py\n:\n\n\nfrom\n \ntoapi\n \nimport\n \nApi\n\n\n\nfrom\n \nitems.pexels\n \nimport\n \nPexels\n\n\nfrom\n \nitems.pixabay\n \nimport\n \nPixabay\n\n\nfrom\n \nsettings\n \nimport\n \nMySettings\n\n\n\napi\n \n=\n \nApi\n(\nsettings\n=\nMySettings\n)\n\n\napi\n.\nregister\n(\nPixabay\n)\n\n\napi\n.\nregister\n(\nPexels\n)\n\n\n\nif\n \n__name__\n \n==\n \n'__main__'\n:\n\n    \napi\n.\nserve\n()",
             "title": "Step 4 Defining Items"
         },
         {
-            "location": "/tutorials/step5-packagin-apis/",
-            "text": "",
-            "title": "Step 5 Packaging The APIs"
+            "location": "/tutorials/step4-defining-items/#focus-on-the-item-directory",
+            "text": "pexels.py :  from   toapi   import   Item ,   XPath  class   Pexels ( Item ): \n     __base_url__   =   'https://www.pexels.com' \n     img   =   XPath ( '//a//img/@src' ) \n\n     class   Meta : \n         source   =   XPath ( '//article[@class=\"photo-item\"]' ) \n         route   =   { '/pic/?q=:key' :   '/search/:key/' }   pixabay.py :  from   toapi   import   Item ,   XPath  class   Pixabay ( Item ): \n     __base_url__   =   'https://pixabay.com/' \n     img   =   XPath ( '//a//img/@src' ) \n\n     class   Meta : \n         source   =   XPath ( '//div[@class=\"item\"]' ) \n         route   =   { '/pic/?q=:key' :   '/zh/photos/?q=:key' }   Pretty simple.   Define the section you want to parse. (Meta.source)  Define the fileds relative to section.  Define the map of expose route of our api server and the routes of source website.",
+            "title": "Focus on the item directory"
         },
         {
-            "location": "/tutorials/testing/",
-            "text": "",
-            "title": "Bonus: Testing the Application"
+            "location": "/tutorials/step4-defining-items/#register",
+            "text": "When you defined your items, you have to register theme to app. So that the app\ncould know how to work.  In the file  app.py :  from   toapi   import   Api  from   items.pexels   import   Pexels  from   items.pixabay   import   Pixabay  from   settings   import   MySettings  api   =   Api ( settings = MySettings )  api . register ( Pixabay )  api . register ( Pexels )  if   __name__   ==   '__main__' : \n     api . serve ()",
+            "title": "Register"
+        },
+        {
+            "location": "/tutorials/step5-deploy/",
+            "text": "Caddy\n\uf0c1\n\n\n\n\nCaddy is the HTTP/2 web server with automatic HTTPS.\n\n\n\n\nhttps://caddyserver.com/docs\n\n\nMake sure you install caddy:\n\n\n$ caddy -version\nCaddy 0.10.10 (non-commercial use only)\n\n\n\n\n\nGunicorn\n\uf0c1\n\n\n\n\nGunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. \nIt's a pre-fork worker model. \nThe Gunicorn server is broadly compatible with various web frameworks, \nsimply implemented, light on server resources, and fairly speedy.\n\n\n\n\nMake sure you install caddy:\n\n\n$ gunicorn -v\ngunicorn (version 19.7.1)\n\n\n\n\n\nRun!\n\uf0c1\n\n\nLaunch gunicorn: gunicorn -b \"127.0.0.1:5000\" wsgi Usually, \nyou will have your gunicorn script on a supervisor, or something else\n\n\n$ gunicorn -b \"127.0.0.1:5000\" wsgi:app \n[2017-12-26 10:55:18 +0800] [21545] [INFO] Starting gunicorn 19.7.1\n[2017-12-26 10:55:18 +0800] [21545] [INFO] Listening at: http://127.0.0.1:5000 (21545)\n[2017-12-26 10:55:18 +0800] [21545] [INFO] Using worker: sync\n[2017-12-26 10:55:18 +0800] [21548] [INFO] Booting worker with pid: 21548\n2017/12/26 10:55:18 [Register] OK <Pixabay> \n2017/12/26 10:55:18 [Register] OK <Pexels> \n\n\n\n\n\nCreate Caddyfile\n\n\n$ touch Caddyfile\n\n\n\n\n\nEdit the Caddyfile as follows:\n\n\n:8080 {\n    proxy / localhost:5000 {\n        transparent\n    }\n}\n\n\n\n\n\nNext step:\n\n\n$ caddy\nActivating privacy features... done.\nhttp://localhost:8080\n\n\n\n\n\nWell done! Everything is ok! You can get more information from \ntopics\n or just \ngo to write your own APIs!\n\n\nThe result directory structure:\n\uf0c1\n\n\n$ tree .   \n.\n\u251c\u2500\u2500 app.py\n\u251c\u2500\u2500 Caddyfile\n\u251c\u2500\u2500 data.sqlite\n\u251c\u2500\u2500 items\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 __init__.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pexels.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pixabay.py\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 __pycache__\n\u2502\u00a0\u00a0     \u251c\u2500\u2500 __init__.cpython-36.pyc\n\u2502\u00a0\u00a0     \u251c\u2500\u2500 pexels.cpython-36.pyc\n\u2502\u00a0\u00a0     \u2514\u2500\u2500 pixabay.cpython-36.pyc\n\u251c\u2500\u2500 __pycache__\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 app.cpython-36.pyc\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 settings.cpython-36.pyc\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 wsgi.cpython-36.pyc\n\u251c\u2500\u2500 README.md\n\u251c\u2500\u2500 settings.py\n\u2514\u2500\u2500 wsgi.py\n\n3 directories, 15 files",
+            "title": "Step 5 Deploy"
+        },
+        {
+            "location": "/tutorials/step5-deploy/#caddy",
+            "text": "Caddy is the HTTP/2 web server with automatic HTTPS.   https://caddyserver.com/docs  Make sure you install caddy:  $ caddy -version\nCaddy 0.10.10 (non-commercial use only)",
+            "title": "Caddy"
+        },
+        {
+            "location": "/tutorials/step5-deploy/#gunicorn",
+            "text": "Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. \nIt's a pre-fork worker model. \nThe Gunicorn server is broadly compatible with various web frameworks, \nsimply implemented, light on server resources, and fairly speedy.   Make sure you install caddy:  $ gunicorn -v\ngunicorn (version 19.7.1)",
+            "title": "Gunicorn"
+        },
+        {
+            "location": "/tutorials/step5-deploy/#run",
+            "text": "Launch gunicorn: gunicorn -b \"127.0.0.1:5000\" wsgi Usually, \nyou will have your gunicorn script on a supervisor, or something else  $ gunicorn -b \"127.0.0.1:5000\" wsgi:app \n[2017-12-26 10:55:18 +0800] [21545] [INFO] Starting gunicorn 19.7.1\n[2017-12-26 10:55:18 +0800] [21545] [INFO] Listening at: http://127.0.0.1:5000 (21545)\n[2017-12-26 10:55:18 +0800] [21545] [INFO] Using worker: sync\n[2017-12-26 10:55:18 +0800] [21548] [INFO] Booting worker with pid: 21548\n2017/12/26 10:55:18 [Register] OK <Pixabay> \n2017/12/26 10:55:18 [Register] OK <Pexels>   Create Caddyfile  $ touch Caddyfile  Edit the Caddyfile as follows:  :8080 {\n    proxy / localhost:5000 {\n        transparent\n    }\n}  Next step:  $ caddy\nActivating privacy features... done.\nhttp://localhost:8080  Well done! Everything is ok! You can get more information from  topics  or just \ngo to write your own APIs!",
+            "title": "Run!"
+        },
+        {
+            "location": "/tutorials/step5-deploy/#the-result-directory-structure",
+            "text": "$ tree .   \n.\n\u251c\u2500\u2500 app.py\n\u251c\u2500\u2500 Caddyfile\n\u251c\u2500\u2500 data.sqlite\n\u251c\u2500\u2500 items\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 __init__.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pexels.py\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 pixabay.py\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 __pycache__\n\u2502\u00a0\u00a0     \u251c\u2500\u2500 __init__.cpython-36.pyc\n\u2502\u00a0\u00a0     \u251c\u2500\u2500 pexels.cpython-36.pyc\n\u2502\u00a0\u00a0     \u2514\u2500\u2500 pixabay.cpython-36.pyc\n\u251c\u2500\u2500 __pycache__\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 app.cpython-36.pyc\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 settings.cpython-36.pyc\n\u2502\u00a0\u00a0 \u2514\u2500\u2500 wsgi.cpython-36.pyc\n\u251c\u2500\u2500 README.md\n\u251c\u2500\u2500 settings.py\n\u2514\u2500\u2500 wsgi.py\n\n3 directories, 15 files",
+            "title": "The result directory structure:"
         },
         {
             "location": "/topics/api/",
