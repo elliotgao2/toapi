@@ -18,9 +18,9 @@ api service to share them maybe we should also update them regularly.
 This library make things easy. The only thing you should do is defining your data, 
 they would be shared as api service automatically.
 
-Documentation: [Toapi Documentation](http://www.toapi.org)
-Awesome Toapi: [Awesome Toapi](https://github.com/toapi/awesome-toapi)
-Organization: [Toapi Organization](https://github.com/toapi)
+- Documentation: [http://www.toapi.org](http://www.toapi.org)
+- Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
+- Organization: [https://github.com/toapi](https://github.com/toapi)
 
 ## Code Snippets:
 
