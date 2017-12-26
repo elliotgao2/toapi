@@ -13,7 +13,7 @@ setup(
     name='toapi',
     version=version,
     description='Every web site provides APIs.',
-    author='Gaojiuli',
+    author='Jiuli Gao',
     author_email='gaojiuli@gmail.com',
     url='https://github.com/gaojiuli/toapi',
     classifiers=[
