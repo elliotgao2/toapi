@@ -126,6 +126,12 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ## Screenshots
 
+```python
+toapi new toapi-pic
+cd toapi-pic
+toapi run
+```
+
 ### Running Log
 
 ![Running Log](./docs/imgs/runinglog.png)
