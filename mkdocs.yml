@@ -18,10 +18,9 @@ pages:
         - Step 0 Creating New Project: tutorials/step0-creating-new-project.md
         - Step 1 Global Settings: tutorials/step1-global-settings.md
         - Step 2 Using Redis: tutorials/step2-redis.md
-        - Step 3 Using Mongodb: tutorials/step3-mongodb.md
+        - Step 3 Using Sqlite: tutorials/step3-sqlite3.md
         - Step 4 Defining Items: tutorials/step4-defining-items.md
-        - Step 5 Packaging The APIs: tutorials/step5-packagin-apis.md
-        - "Bonus: Testing the Application": tutorials/testing.md
+        - Step 5 Deploy With Canddy And Gunicorn: tutorials/step5-packagin-apis.md
     - Topics:
         - Api: topics/api.md
         - Item: topics/item.md
