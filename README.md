@@ -19,7 +19,9 @@ This library make things easy. The only thing you should do is defining your dat
 they would be shared as api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
-A
+Awesome Toapi: [Awesome Toapi](https://github.com/toapi/awesome-toapi)
+Organization: [Toapi Organization](https://github.com/toapi)
+
 ## Code Snippets:
 
 ```python
