@@ -102,3 +102,4 @@ ENV/
 # mypy
 .mypy_cache/
 /tests/data.sqlite
+/examples/toapi-pic/data.sqlite
