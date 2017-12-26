@@ -139,7 +139,7 @@ $ toapi run
 ### Running Items
 
 ``` json
-// http://127.0.0.1:5000/_items
+# http://127.0.0.1:5000/_items
 
 {
     "/pic/?q=:key": [
@@ -154,7 +154,7 @@ $ toapi run
 
 
 ``` json
-// http://127.0.0.1:5000/_status
+# http://127.0.0.1:5000/_status
 
 {
     "cache_get": 2,
@@ -170,7 +170,7 @@ $ toapi run
 ### Running Results
 
 ``` json
-// http://127.0.0.1:5000/pic/?q=coffee
+# http://127.0.0.1:5000/pic/?q=coffee
 
 {
     "Pixabay": [
