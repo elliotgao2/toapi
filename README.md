@@ -19,7 +19,7 @@ This library make things easy. The only thing you should do is defining your dat
 they would be shared as api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
-
+A
 ## Code Snippets:
 
 ```python
@@ -126,19 +126,19 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ### Running Log
 
-![Running Log](./docs/imgs/runinglog.jpg)
+![Running Log](./docs/imgs/runinglog.png)
 
 ### Running Items
 
-![Running Items](./docs/imgs/runningitems.jpg)
+![Running Items](./docs/imgs/runningitems.png)
 
 ### Running Status
 
-![Running Status](./docs/imgs/runningstatus.jpg)
+![Running Status](./docs/imgs/runningstatus.png)
 
 ### Running Results
 
-![Running Results](./docs/imgs/runningresult.jpg)
+![Running Results](./docs/imgs/runningresult.png)
 
 ## Features
 

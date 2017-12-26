@@ -123,19 +123,19 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ### Running Log
 
-![Running Log](./imgs/runinglog.jpg)
+![Running Log](./imgs/runinglog.png)
 
 ### Running Items
 
-![Running Items](./imgs/runningitems.jpg)
+![Running Items](./imgs/runningitems.png)
 
 ### Running Status
 
-![Running Status](./imgs/runningstatus.jpg)
+![Running Status](./imgs/runningstatus.png)
 
 ### Running Results
 
-![Running Results](./imgs/runningresult.jpg)
+![Running Results](./imgs/runningresult.png)
 
 ## Features
 
