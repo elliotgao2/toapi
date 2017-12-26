@@ -995,14 +995,67 @@ Checking connectivity... done.
 </blockquote>
 <p><a href="http://flask.pocoo.org/docs/0.12/deploying/">Deployment Options &#8212; Flask Documentation (0.12)</a></p>
 <h2 id="screenshots">Screenshots<a class="headerlink" href="#screenshots" title="Permanent link"></a></h2>
+<div class="codehilite"><pre><span></span><span class="n">toapi</span> <span class="n">new</span> <span class="n">toapi</span><span class="o">-</span><span class="n">pic</span>
+<span class="n">cd</span> <span class="n">toapi</span><span class="o">-</span><span class="n">pic</span>
+<span class="n">toapi</span> <span class="n">run</span>
+</pre></div>
+
+
 <h3 id="running-log">Running Log<a class="headerlink" href="#running-log" title="Permanent link"></a></h3>
 <p><img alt="Running Log" src="./imgs/runinglog.png" /></p>
 <h3 id="running-items">Running Items<a class="headerlink" href="#running-items" title="Permanent link"></a></h3>
-<p><img alt="Running Items" src="./imgs/runningitems.png" /></p>
+<blockquote>
+<p>http://127.0.0.1:5000/_items</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;/pic/?q=:key&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Pixabay&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pexels&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="running-status">Running Status<a class="headerlink" href="#running-status" title="Permanent link"></a></h3>
-<p><img alt="Running Status" src="./imgs/runningstatus.png" /></p>
+<blockquote>
+<p>http://127.0.0.1:5000/_items</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;cache_get&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;cache_set&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;received&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;sent&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;storage_get&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;storage_set&quot;</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="running-results">Running Results<a class="headerlink" href="#running-results" title="Permanent link"></a></h3>
-<p><img alt="Running Results" src="./imgs/runningresult.png" /></p>
+<blockquote>
+<p>http://127.0.0.1:5000/pic/?q=coffee</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Pixabay&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cdn.pixabay.com/photo/2017/06/21/05/28/coffee-2426110__340.png&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;/static/img/blank.gif&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;Pexels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?h=350&amp;auto=compress&amp;cs=tinysrgb&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;https://images.pexels.com/photos/34085/pexels-photo.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link"></a></h2>
 <h3 id="multiple-caching">Multiple caching<a class="headerlink" href="#multiple-caching" title="Permanent link"></a></h3>
 <p>Toapi use cache to prevent repeated parsing and use storage to prevent sending request.</p>
@@ -1019,7 +1072,6 @@ Checking connectivity... done.
 <h2 id="todo">Todo<a class="headerlink" href="#todo" title="Permanent link"></a></h2>
 <ol>
 <li>Checking system every time running the app.</li>
-<li>Collecting all awesome Toapi project.</li>
 </ol>
                 
                   
