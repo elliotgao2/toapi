@@ -132,15 +132,62 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ### Running Items
 
-![Running Items](./docs/imgs/runningitems.png)
+> http://127.0.0.1:5000/_items
+
+``` json
+
+{
+    "/pic/?q=:key": [
+        "Pixabay",
+        "Pexels"
+    ]
+}
+
+```
 
 ### Running Status
 
-![Running Status](./docs/imgs/runningstatus.png)
+> http://127.0.0.1:5000/_items
+
+``` json
+
+{
+    "cache_get": 2,
+    "cache_set": 2,
+    "received": 4,
+    "sent": 2,
+    "storage_get": 1,
+    "storage_set": 2
+}
+
+```
 
 ### Running Results
 
-![Running Results](./docs/imgs/runningresult.png)
+> http://127.0.0.1:5000/pic/?q=coffee
+
+``` json
+
+{
+    "Pixabay": [
+        {
+            "img": "https://cdn.pixabay.com/photo/2017/06/21/05/28/coffee-2426110__340.png"
+        },
+        {
+            "img": "/static/img/blank.gif"
+        }
+    ],
+    "Pexels": [
+        {
+            "img": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?h=350&auto=compress&cs=tinysrgb"
+        },
+        {
+            "img": "https://images.pexels.com/photos/34085/pexels-photo.jpg?h=350&auto=compress&cs=tinysrgb"
+        }
+    ]
+}
+
+```
 
 ## Features
 
