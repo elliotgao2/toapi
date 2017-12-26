@@ -1,6 +1,6 @@
 import os
 
-from toapi.cache import MemoryCache, PickleSerializer
+from toapi.cache import MemoryCache, StrSerializer
 
 
 class Settings:
@@ -8,7 +8,7 @@ class Settings:
     cache = {
         'cache_class': MemoryCache,
         'cache_config': {},
-        'serializer': PickleSerializer,
+        'serializer': StrSerializer,
         'ttl': None
     }
     storage = {
