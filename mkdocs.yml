@@ -28,6 +28,8 @@ pages:
         - Settings: topics/settings.md
         - Cache: topics/cache.md
         - Storage: topics/storage.md
+    - Articles:
+        - Toapi released: articles/release.md
 
 markdown_extensions:
     - toc:
