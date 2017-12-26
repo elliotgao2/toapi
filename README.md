@@ -126,10 +126,10 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ## Screenshots
 
-```python
-toapi new toapi-pic
-cd toapi-pic
-toapi run
+```text
+$ toapi new toapi-pic
+$ cd toapi-pic
+$ toapi run
 ```
 
 ### Running Log
@@ -138,9 +138,8 @@ toapi run
 
 ### Running Items
 
-> http://127.0.0.1:5000/_items
-
 ``` json
+// http://127.0.0.1:5000/_items
 
 {
     "/pic/?q=:key": [
@@ -153,9 +152,9 @@ toapi run
 
 ### Running Status
 
-> http://127.0.0.1:5000/_status
 
 ``` json
+// http://127.0.0.1:5000/_status
 
 {
     "cache_get": 2,
@@ -170,9 +169,8 @@ toapi run
 
 ### Running Results
 
-> http://127.0.0.1:5000/pic/?q=coffee
-
 ``` json
+// http://127.0.0.1:5000/pic/?q=coffee
 
 {
     "Pixabay": [
