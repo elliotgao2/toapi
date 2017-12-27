@@ -1,13 +1,20 @@
-## Toapi released! You will never lack of data source!
+## Toapi released! You will never lack of data sources!
 
 #### Brief Introduction
 
-Do you have such a demand, have a good idea,
-but do not have a good source of data,
-it is not easy to find a relevant data sources website,
-but found no API (yes but there may be fees),
+Toapi is a framework for converting a website to an api service.
 
-What it looks like?
+Whenever I want to start an app or website, I always have a problem with no data sources.
+No APi, no database. But I often found the data I need on the website. I need the data.
+
+So I write [Toapi](https://github.com/gaojiuli/toapi) for converting website to api service.
+The [Toapi](https://github.com/gaojiuli/toapi) could help me fetch any data I want.
+
+- Project: [https://github.com/gaojiuli/toapi](https://github.com/gaojiuli/toapi)
+- Organization (welcome to join us): [https://github.com/toapi](https://github.com/toapi)
+- Document: [http://www.toapi.org/](http://www.toapi.org/)
+
+What the result looks like?
 
 ```json
 // http://127.0.0.1:5000/pic/?q=coffee
@@ -32,36 +39,8 @@ What it looks like?
 }
 ```
 
+#### How
 
-Now I can tell you, [Toapi](https://github.com/gaojiuli/toapi) provides a good solution for this.
-It can:
-
-- Short development cycle: a website can be built into your own API service with a small amount of code
-- Robust Service Support: You only have to build and use it quickly, and the rest is peace of mind to [Toapi](https://github.com/gaojiuli/toapi)
-  - Automatic **data cache**, provides `MemoryCache RedisCache MemcachedCache` three caching solutions
-  - Local persistence of source files, providing local and database support
-  - Incremental update
-  - Custom routing
-  - Custom multi-station assembly API
-- A variety of template: every [Toapi](https://github.com/gaojiuli/toapi) service can be installed by other users, you do not need to write code, 
-
-you can install other services, and then combined into their own services. 
-Official maintenance of a template list - [awesome-toapi] (https://github.com/toapi/awesome-toapi)
-
-[Toapi](https://github.com/gaojiuli/toapi) is an open source project written by `python`, 
-you can customize if you hava special functional requirements.
-We provide complete ecology for you:
-
-- project website: [https://github.com/gaojiuli/toapi](https://github.com/gaojiuli/toapi)
-- project organization (welcome to join us):
-[https://github.com/toapi](https://github.com/toapi)
-- doc website:
-[http://www.toapi.org/](http://www.toapi.org/)
-
-#### Use Toapi
-
-Take a look at a simple example  below - just a demo 
-target website is [hackernews](https://news.ycombinator.com)：
 ``` python
 from toapi import XPath, Item, Api, Settings
 
@@ -100,28 +79,18 @@ api.serve()
 # Visit http://127.0.0.1:5000/news?p=1
 ```
 
-Less than forty lines of code,
-you have aleady have API service of [hackernews](https://news.ycombinator.com).
-Introduce current templates provided by official:
+As you can see. The only thing you should to is writing very little code that is necessary.
+Then you finish the APIs of [hackernews](https://news.ycombinator.com).
+
+There are some templates:
 
 - [toapi-search](https://github.com/toapi/toapi-search): Baidu, Bing, Google, Sogou aggregation API
-- [toapi-one](https://github.com/toapi/toapi-one) API of One app <http://wufazhuce.com/>
-- [toapi-ebooks](https://github.com/toapi/toapi-ebooks): API of IT e-book source
-- [toapi-instagram](https://github.com/toapi/toapi-instagram): API of Instagram <https://www.instagram.com/>
-- [toapi-pic](https://github.com/toapi/toapi-pic): API of HD photos website collection
-- e.g.
+- [toapi-one](https://github.com/toapi/toapi-one) API service of One app <http://wufazhuce.com/>
+- [toapi-ebooks](https://github.com/toapi/toapi-ebooks): API service of IT e-book source
+- [toapi-instagram](https://github.com/toapi/toapi-instagram): API service of Instagram <https://www.instagram.com/>
+- [toapi-pic](https://github.com/toapi/toapi-pic): API service of HD photos website
+- etc.
 
-### At last
-
-[Toapi](https://github.com/gaojiuli/toapi) will not stop making progress. 
-From the primitive version of the first edition to the fully functional version now, 
-we have nearly 400 commits in a month, of which hard work is unnecessary to say.
-
-We sincerely hope developer use [Toapi](https://github.com/gaojiuli/toapi) to build server, 
-and feedback your valuable opinion. 
-
-Getting started [Toapi](https://github.com/gaojiuli/toapi) is a trivial matter and we would 
-like to see [Toapi](https://github.com/gaojiuli/toapi) make a contribution 
-to open source community, for you to reduce the trouble of building an API.
+### What else
 
 Toapi development team([@gaojiuli](https://github.com/gaojiuli/), [@howie6879](https://github.com/howie6879/), [@wuqiangroy](https://github.com/wuqiangroy/))
