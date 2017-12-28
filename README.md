@@ -12,11 +12,15 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi is a **clever**, **simple** and **fast** library letting any 
-web site provide APIs. In the past, we crawl data and storage them and create 
-api service to share them maybe we should also update them regularly. 
-This library make things easy. The only thing you should do is defining your data, 
-they would be shared as api service automatically.
+Toapi is a **clever**, **simple** and **fast** flask library that enable any website to provide API services. For many occasions, websites do not provide API
+services for you to download data from them. You have to crawl some data, store
+them and build an API service, and eventually, you get your
+data after a tough struggle. And that's not an end, for you might have to
+update them regularly.
+
+Toapi turns these matters into a piece of cake. All you need to do is to
+define the data you want, and you've made it. The process is fully
+automated, and data can be accessed through API in seconds!
 
 - Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
@@ -61,7 +65,7 @@ api.serve()
 # Visit: http://127.0.0.1:5000/
 ```
 
-## Diagram
+## A Glimpse of Toapi
 
 [![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
 
@@ -69,10 +73,10 @@ api.serve()
 ![Toapi](./docs/diagram.png)
 
 
-- Sending only one request to source web site with the same url.
-- Most of the data fetched from cache and storage.
-- Getting HTML from storage when the cache expired.
-- Getting HTML from source site when the storage expired.
+- Send a single request to source web site with the same url.
+- Fetch most of the data fetched from cache and storage.
+- Get HTML from storage when the cache expired.
+- Get HTML from source site when the storage expired.
 
 ## Get Started
 
@@ -84,7 +88,7 @@ $ toapi -v
 toapi, version 0.1.12
 ```
 
-### New Project
+### Create Your First Project
 
 ```text
 $ toapi new api
@@ -104,19 +108,18 @@ Checking connectivity... done.
 
 ### Run
 
-In the directory of 'api' created above. Run the command line as follows.
+Turn to the directory 'api' which you've just created. Run the following command:
 
 ```text
 $ toapi run
 2017/12/14 09:27:18 [Serving ] OK http://127.0.0.1:5000
 ```
 
-Then, everything is done. Visit http://127.0.0.1:5000 in your browser!
+Now everything is done. Open http://127.0.0.1:5000 in your browser to have a look!
 
-### Deploy
+### Deployment
 
-A Toapi app is a flask app. So you can deploy it as follows:
-
+A Toapi app is a flask app. For deployment of Toapi, refer to Flask documentaion: 
 
 > While lightweight and easy to use, Flask’s built-in server is not suitable for production as it doesn’t scale well and by default serves only one request at a time. Some of the options available for properly running Flask in production are documented here.
 
