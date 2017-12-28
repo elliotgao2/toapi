@@ -12,8 +12,15 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi is a **clever**, **simple** and **fast** flask library that enable any website to provide API services. In the past, you crawl data, store them, build API services, and eventually, you share your data. And that's not an end, for you might have to update them regularly. 
-Toapi turns these matters into a piece of cake. All you need to do is to define the data, and you've made it! The progess is fully automated. Data on web sites can now be accessed through APIs!
+Toapi is a **clever**, **simple** and **fast** flask library that enable any website to provide API services. For many occasions, websites do not provide API
+services for you to download data from them. You have to crawl some data, store
+them and build an API service, and eventually, you get your
+data after a tough struggle. And that's not an end, for you might have to
+update them regularly.
+
+Toapi turns these matters into a piece of cake. All you need to do is to
+define the data you want, and you've made it. The process is fully
+automated, and data can be accessed through API in seconds!
 
 - Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
@@ -66,11 +73,10 @@ api.serve()
 ![Toapi](./docs/diagram.png)
 
 
-See what Toapi do:
 - Send a single request to source web site with the same url.
 - Fetch most of the data fetched from cache and storage.
-- Getting HTML from storage when the cache expired.
-- Getting HTML from source site when the storage expired.
+- Get HTML from storage when the cache expired.
+- Get HTML from source site when the storage expired.
 
 ## Get Started
 
