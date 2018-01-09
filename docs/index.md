@@ -9,11 +9,12 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi is a **clever**, **simple** and **fast** library letting any 
-web site provide APIs. In the past, we crawl data and storage them and create 
-api service to share them maybe we should also update them regularly. 
-This library make things easy. The only thing you should do is defining your data, 
-they would be shared as api service automatically.
+Toapi is a **clever**, **simple** and **fast** library letting any web site provide APIs.
+In the past, we would crawl a website and store the data to build an API around it.
+What's more we then had to manage updating the data.
+
+This library make things easy. The only thing you need to do is defining your data structures 
+that will be shared as an api service automatically.
 
 Documentation: [Toapi Documentation](http://www.toapi.org)
 
