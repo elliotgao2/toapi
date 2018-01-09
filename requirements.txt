@@ -10,7 +10,6 @@ redis
 pymemcache
 pycrypto
 colorama
-records
 mkdocs
 cchardet
 mkdocs-material
