@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from toapi.selector import Selector
 
 
@@ -7,15 +9,18 @@ def with_metaclass(meta):
 
 class ItemType(type):
     def __new__(cls, what, bases=None, dict=None):
-        __selectors__ = {}
+        __selectors__ = OrderedDict()
         for name, selector in dict.items():
             if isinstance(selector, Selector):
                 __selectors__[name] = selector
         dict['__selectors__'] = __selectors__
         dict['__base_url__'] = dict.get('__base_url__', None)
-        for name in __selectors__:
+        for name in __selectors__.keys():
             del dict[name]
-        return type.__new__(cls, what, bases, dict)
+
+        instance = type.__new__(cls, what, bases, dict)
+        instance.__name__ = dict.get('__name__', instance.__name__)
+        return instance
 
 
 class Item(with_metaclass(ItemType)):
@@ -35,22 +40,21 @@ class Item(with_metaclass(ItemType)):
 
     @classmethod
     def _parse_item(cls, html):
-        item = {}
+        item = OrderedDict()
         for name, selector in cls.__selectors__.items():
+
             try:
                 item[name] = selector.parse(html)
-            except IndexError:
-                item[name] = ''
             except Exception:
                 item[name] = ''
 
             clean_method = getattr(cls, 'clean_%s' % name, None)
 
-            if clean_method:
+            if clean_method is not None:
                 item[name] = clean_method(cls, item[name])
 
         return item
 
     class Meta:
         source = None
-        route = '\.+'
+        route = {}

@@ -1,8 +1,8 @@
 from toapi import Settings
+from toapi import XPath, Item, Api
 
 
-def test_api_with_ajax():
-    from toapi import XPath, Item, Api
+def test_api():
     class MySettings(Settings):
         web = {
             "with_ajax": False
@@ -16,14 +16,14 @@ def test_api_with_ajax():
 
         class Meta:
             source = XPath('//tr[@class="athing"]')
-            route = '/news\?p=\d+'
+            route = {'/all?page=:page': '/news?p=:page'}
 
     class Page(Item):
         next_page = XPath('//a[@class="morelink"]/@href')
 
         class Meta:
             source = None
-            route = '/news\?p=\d+'
+            route = {'/all?page=:page': '/news?p=:page'}
 
         def clean_next_page(self, next_page):
             return "http://127.0.0.1:5000/" + str(next_page)
@@ -32,3 +32,23 @@ def test_api_with_ajax():
     api.register(Page)
 
     api.parse('/news?p=1')
+
+
+def test_cache():
+    api = Api()
+    assert api.get_cache('a') is None
+    api.set_cache('a', '1')
+    assert api.get_cache('a') == '1'
+
+
+def test_storage():
+    api = Api()
+    api.set_storage('a', '1')
+    assert api.get_storage('a') == '1'
+
+
+def test_status():
+    api = Api()
+    assert api.get_status('a') == 1
+    api.update_status('a')
+    assert api.get_status('a') == 2

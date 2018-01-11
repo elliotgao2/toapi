@@ -10,11 +10,11 @@ with open('toapi/__init__.py', 'rb') as f:
         f.read().decode('utf-8')).group(1)))
 
 setup(
-    name="toapi",
+    name='toapi',
     version=version,
-    description="Every web site provides APIs.",
-    author="Gaojiuli",
-    author_email="gaojiuli@gmail.com",
+    description='Every web site provides APIs.',
+    author='Jiuli Gao',
+    author_email='gaojiuli@gmail.com',
     url='https://github.com/gaojiuli/toapi',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

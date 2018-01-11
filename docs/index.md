@@ -7,16 +7,68 @@ Every web site provides APIs.
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-
----
-
 ## Overview
 
-Toapi is a **clever**, **simple** and **fast** library letting any 
-web site provide APIs. In the past, we crawl data and storage them and create 
-api service to share them maybe we should also update them regularly. 
-This library make things easy. The only thing you should do is defining your data, 
-they would be shared as api service automatically.
+Toapi is a **clever**, **simple** and **fast** library letting any web site provide APIs.
+In the past, we would crawl a website and store the data to build an API around it.
+What's more we then had to manage updating the data.
+
+This library make things easy. The only thing you need to do is defining your data structures 
+that will be shared as an api service automatically.
+
+Documentation: [Toapi Documentation](http://www.toapi.org)
+
+## Code Snippets:
+
+```python
+from toapi import XPath, Item, Api
+from toapi import Settings
+
+class MySettings(Settings):
+    web = {
+        "with_ajax": False
+    }
+
+api = Api('https://news.ycombinator.com/', settings=MySettings)
+
+class Post(Item):
+    url = XPath('//a[@class="storylink"]/@href')
+    title = XPath('//a[@class="storylink"]/text()')
+
+    class Meta:
+        source = XPath('//tr[@class="athing"]')
+        route = {'/news?page=:page':'/news?p=:page'}
+
+class Page(Item):
+    next_page = XPath('//a[@class="morelink"]/@href')
+
+    class Meta:
+        source = None
+        route = {'/news?page=:page':'/news?p=:page'}
+
+    def clean_next_page(self, next_page):
+        return "http://127.0.0.1:5000/" + str(next_page)
+
+api.register(Post)
+api.register(Page)
+
+api.serve()
+
+# Visit: http://127.0.0.1:5000/
+```
+
+## Diagram
+
+[![asciicast](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt.png)](https://asciinema.org/a/shet2Ba9d4muCbZ6C3f56EbAt)
+
+
+![Toapi](./diagram.png)
+
+
+- Sending only one request to source web site with the same url.
+- Most of the data fetched from cache and storage.
+- Getting HTML from storage when the cache expired.
+- Getting HTML from source site when the storage expired.
 
 ## Get Started
 
@@ -70,21 +122,74 @@ A Toapi app is a flask app. So you can deploy it as follows:
 
 ## Screenshots
 
+```python
+toapi new toapi/toapi-pic
+cd toapi-pic
+toapi run
+```
+
 ### Running Log
 
-![Running Log](./imgs/runinglog.jpg)
+![Running Log](./imgs/runinglog.png)
 
 ### Running Items
 
-![Running Items](./imgs/runningitems.jpg)
+> http://127.0.0.1:5000/_items
+
+``` json
+
+{
+    "/pic/?q=:key": [
+        "Pixabay",
+        "Pexels"
+    ]
+}
+
+```
 
 ### Running Status
 
-![Running Status](./imgs/runningstatus.jpg)
+> http://127.0.0.1:5000/_status
+
+``` json
+
+{
+    "cache_get": 2,
+    "cache_set": 2,
+    "received": 4,
+    "sent": 2,
+    "storage_get": 1,
+    "storage_set": 2
+}
+
+```
 
 ### Running Results
 
-![Running Results](./imgs/runningresult.jpg)
+> http://127.0.0.1:5000/pic/?q=coffee
+
+``` json
+
+{
+    "Pixabay": [
+        {
+            "img": "https://cdn.pixabay.com/photo/2017/06/21/05/28/coffee-2426110__340.png"
+        },
+        {
+            "img": "/static/img/blank.gif"
+        }
+    ],
+    "Pexels": [
+        {
+            "img": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?h=350&auto=compress&cs=tinysrgb"
+        },
+        {
+            "img": "https://images.pexels.com/photos/34085/pexels-photo.jpg?h=350&auto=compress&cs=tinysrgb"
+        }
+    ]
+}
+
+```
 
 ## Features
 
@@ -95,6 +200,10 @@ Toapi use cache to prevent repeated parsing and use storage to prevent sending r
 ### Multiple sites
 
 A toapi app has an ability to gather pages of multiple websites and convert them to easy to use APIs
+
+### Multiple Templates & Applications
+
+Any application created by toapi could be shared to others.
 
 ### Easy to deploy.
 
@@ -112,3 +221,7 @@ To get help with Toapi, please use the [GitHub issues]
 [GitHub project pages]: https://help.github.com/articles/creating-project-pages-manually/
 [pip]: http://pip.readthedocs.io/en/stable/installing/
 [Python]: https://www.python.org/
+
+## Todo
+
+1. Checking system every time running the app.

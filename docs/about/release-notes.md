@@ -20,9 +20,13 @@ toapi, version 1.0.0
 
 ## Maintenance team
 
-* [@gaojiuli](https://github.com/gaojiuli/)
-* [@howie6879](https://github.com/howie6879/)
-* [@wuqiangroy](https://github.com/wuqiangroy/)
+- [@gaojiuli](https://github.com/gaojiuli/)
+- [@howie6879](https://github.com/howie6879/)
+- [@wuqiangroy](https://github.com/wuqiangroy/)
 
 
+## Changelog
 
+### 1.0.0 (2017-12-26)
+
+- Initial release

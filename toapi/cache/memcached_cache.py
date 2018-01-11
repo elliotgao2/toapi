@@ -3,7 +3,7 @@ from pymemcache.client.base import Client
 
 from toapi.cache.base_cache import BaseCache
 from toapi.cache.decorator import dec_connector
-from toapi.cache.serializer import JsonSerializer
+from toapi.cache.serializer import PickleSerializer
 
 
 class MemcachedCache(BaseCache):
@@ -12,7 +12,7 @@ class MemcachedCache(BaseCache):
     def __init__(self, host="127.0.0.1", port=11211, connect_timeout=20, timeout=15, serializer=None,
                  **kwargs):
         if serializer is None:
-            serializer = JsonSerializer
+            serializer = PickleSerializer
         super().__init__(serializer=serializer, **kwargs)
         self.host = host
         self.port = port
@@ -29,7 +29,7 @@ class MemcachedCache(BaseCache):
     @dec_connector
     def get(self, key, default=None, **kwargs):
         result = self._cache_conn.get(key)
-        if result:
+        if result and not isinstance(self.serializer, PickleSerializer):
             if isinstance(result, bytes):
                 result = bytes.decode(result)
         return self.serializer.loads(result) if result is not None else default

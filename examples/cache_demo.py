@@ -32,5 +32,6 @@ def parse(url, params=None, **kwargs):
 if __name__ == '__main__':
     url = '/toapi'
     result = parse(url=url, dynamic_key=url)
-    cache_ins = CacheSetting(MySettings)
-    print(cache_ins.get(url))
+    cache_ins = CacheSetting(Settings)
+    cache_ins.set('hello', 'world')
+    print(cache_ins.get('hello'))

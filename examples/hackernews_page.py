@@ -18,7 +18,7 @@ class Post(Item):
 
     class Meta:
         source = XPath('//tr[@class="athing"]')
-        route = '/news\?p=\d+'
+        route = {'/news?p=:page': '/news?p=:page'}
 
 
 class Page(Item):
@@ -26,14 +26,14 @@ class Page(Item):
 
     class Meta:
         source = None
-        route = '/news\?p=\d+'
+        route = {'/news?p=:page': '/news?p=:page'}
 
     def clean_next_page(self, next_page):
         return "http://127.0.0.1:5000/" + next_page
 
 
-api.register(Post)
 api.register(Page)
+api.register(Post)
 
 api.serve()
 

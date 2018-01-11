@@ -1,4 +1,6 @@
+import json
 import re
+from collections import OrderedDict, defaultdict
 
 import cchardet
 import requests
@@ -18,26 +20,43 @@ class Api:
     def __init__(self, base_url=None, settings=None, *args, **kwargs):
         self.base_url = base_url
         self.settings = settings or Settings
-        self.item_classes = []
         self.storage = Storage(settings=self.settings)
         self.cache = CacheSetting(settings=self.settings)
         self.server = Server(self, settings=self.settings)
         self.browser = self.get_browser(settings=self.settings)
         self.web = getattr(self.settings, 'web', {})
+        self.item_classes = []
+        self.items = defaultdict(list)
+        self.alias_re = []
 
     def register(self, item):
         """Register items"""
-        item.__base_url__ = item.__base_url__ or self.base_url
-        item.__pattern__ = re.compile(item.__base_url__ + item.Meta.route)
-        logger.info(Fore.WHITE, 'Register', '<%s:%s>' % (item.__pattern__, item.__name__))
+        if item in self.item_classes:
+            logger.error('Register', 'Repeat register item <%s>' % (item.__name__))
+            exit()
         self.item_classes.append(item)
+        item.__base_url__ = item.__base_url__ or self.base_url
+        for define_alias, define_route in OrderedDict(item.Meta.route).items():
+            alias = '^' + define_alias.replace('?', '\?') + '$'
+            _alias_re = re.compile(re.sub(':(?P<params>[a-z_]+)',
+                                          lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
+                                              m.group('params')),
+                                          alias))
+            self.alias_re.append((define_alias, _alias_re))
+            self.items[define_alias].append({
+                'item': item,
+                'alias_re': _alias_re,
+                'alias': define_alias,
+                'route': item.__base_url__ + define_route
+            })
+
+        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
         item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
         if self.browser is None and item_with_ajax:
             self.browser = self.get_browser(settings=self.settings, item_with_ajax=item_with_ajax)
 
     def serve(self, ip='127.0.0.1', port=5000, **options):
         try:
-            self.server.init_route()
             logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
             self.server.run(ip, port, **options)
         except Exception as e:
@@ -47,32 +66,24 @@ class Api:
     def parse(self, path, params=None, **kwargs):
         """Parse items from a url"""
 
-        all_items = {}
-        for index, item in enumerate(self.item_classes):
-            full_path = path[1:] if path.startswith('/http') else item.__base_url__ + path
-            if item.__pattern__.match(full_path):
-                all_items[full_path] = all_items.get(full_path, list())
-                all_items[full_path].append(item)
+        items = self.prepare_parsing_items(path)
+        if items is None:
+            return None
 
-        results = {}
-        for url, items in all_items.items():
-            cached_item = self.get_cache(url)
-            if cached_item is not None:
-                results.update(cached_item)
-            else:
-                caching_item = {}
-                html = None
-                for each_item in items:
-                    html = html or self.get_storage(url) or self.fetch_page_source(url,
-                                                                                   item=each_item,
-                                                                                   params=params,
-                                                                                   **kwargs)
-                    if html is not None:
-                        parsed_item = self.parse_item(html, each_item)
-                        caching_item.update(parsed_item)
-                self.set_cache(url, caching_item)
-                results.update(caching_item)
-        return results or None
+        results = OrderedDict()
+        cached_html = {}
+        for index, item in enumerate(items):
+            converted_path = item['converted_path']
+            html = cached_html.get(converted_path) or self.get_storage(converted_path) or self.fetch_page_source(
+                converted_path,
+                item=item['item'],
+                params=params,
+                **kwargs)
+            if html is not None:
+                cached_html[converted_path] = html
+                parsed_item = self.parse_item(html, item['item'])
+                results[item['item'].__name__] = parsed_item
+        return json.dumps(results) if results else None
 
     def fetch_page_source(self, url, item, params=None, **kwargs):
         """Fetch the html of given url"""
@@ -113,13 +124,12 @@ class Api:
         return webdriver.PhantomJS(service_args=phantom_options)
 
     def update_status(self, key):
-        """Set cache"""
-        self.cache.set(key, str(self.get_status(key) + 1))
+        """Increment Status"""
+        self.cache.incr(key)
 
     def get_status(self, key):
-        if self.cache.get(key) is None:
-            self.cache.set(key, '0')
-        return int(self.cache.get(key))
+        """Get Status"""
+        return int(self.cache.get(key, 0))
 
     def set_cache(self, key, value):
         """Set cache"""
@@ -162,10 +172,26 @@ class Api:
 
     def parse_item(self, html, item):
         """Parse item from html"""
-        result = {}
-        result[item.__name__] = item.parse(html)
-        if len(result[item.__name__]) == 0:
-            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+
+        result = item.parse(html)
+        if len(result) == 0:
+            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
         else:
-            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result[item.__name__])))
+            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
         return result
+
+    def prepare_parsing_items(self, path):
+        results = []
+        for define_alias, alias_re in self.alias_re:
+            matched = alias_re.match(path)
+            if not matched:
+                continue
+            result_dict = matched.groupdict()
+            converted_items = self.items.get(define_alias)
+            for index, item in enumerate(converted_items):
+                if item['item'] not in [i['item'] for i in results]:
+                    item['converted_path'] = re.sub(':(?P<params>[a-z_]+)',
+                                                    lambda m: '{}'.format(result_dict.get(m.group('params'))),
+                                                    item['route'])
+                    results.append(item)
+        return results

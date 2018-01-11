@@ -10,6 +10,10 @@ ways, a few examples are:
 - Documentation improvements
 - Bug reports and patch reviews
 
+## Donate
+
+[BTC(0.005)](https://blockchain.info/payment_request?address=18QChGWtGWAQyXKQVmnpKf7pdm7mYxoYTQ&amount=0.005&message=For%20Github%20Projects.)
+
 ## Code of Conduct
 
 Everyone interacting in the Toapi project's codebases, issue trackers, chat

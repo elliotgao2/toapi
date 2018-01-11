@@ -14,6 +14,7 @@ class Server:
         self.app = app
         self.api = api
         self.settings = settings
+        self.init_route()
 
     def init_route(self):
         app = self.app
@@ -23,14 +24,12 @@ class Server:
         def index():
             base_url = "{}://{}".format(request.scheme, request.host)
             basic_info = {
-                "cache": "{}/{}".format(base_url, "cache"),
-                "items": "{}/{}".format(base_url, "items"),
-                "status": "{}/{}".format(base_url, "status"),
-                "storage": "{}/{}".format(base_url, "storage")
+                "items": "{}/_{}".format(base_url, "items"),
+                "status": "{}/_{}".format(base_url, "status")
             }
             return jsonify(basic_info)
 
-        @app.route('/status')
+        @app.route('/_status')
         def status():
             status = {
                 'cache_set': api.get_status('_status_cache_set'),
@@ -42,14 +41,13 @@ class Server:
             }
             return jsonify(status)
 
-        @app.route('/items/')
+        @app.route('/_items')
         def items():
-            result = {
-                item.__name__: "{}://{}/{}".format(request.scheme, request.host, item.__base_url__ + item.Meta.route)
-                for item in api.item_classes
-            }
-            res = jsonify(result)
-            return res
+
+            results = {}
+            for alias, item in api.items.items():
+                results[alias] = [i['item'].__name__ for i in item]
+            return jsonify(results)
 
         @app.errorhandler(404)
         def page_not_found(error):
@@ -58,21 +56,26 @@ class Server:
             if path.endswith('?'):
                 path = path[:-1]
             try:
-                result = api.get_cache(path) or api.parse(path)
-                if result is None:
+                res = api.get_cache(path)
+                if res is None:
+                    res = api.parse(path)
+                    api.set_cache(path, res)
+                if res is None:
                     logger.error('Received', '%s 404' % request.url)
                     return 'Not Found', 404
-                api.set_cache(path, result)
-                res = jsonify(result)
                 api.update_status('_status_received')
                 end_time = time()
                 time_usage = end_time - start_time
                 logger.info(Fore.GREEN, 'Received',
-                            '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+                            '%s %s 200 %.2fms' % (request.url, len(res), time_usage * 1000))
 
-                return res
+                return app.response_class(
+                    response=res,
+                    status=200,
+                    mimetype='application/json'
+                )
             except Exception as e:
-                return str(e)
+                return str(e), 500
 
     def run(self, ip='127.0.0.1', port=5000, **options):
         """Runs the application"""
