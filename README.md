@@ -230,6 +230,7 @@ To get help with Toapi, please use the [GitHub issues]
 ## Todo
 
 1. Checking system every time running the app.
+2. Force-refresh settings, which means no cache.
 
 ## Donate
 
