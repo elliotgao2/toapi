@@ -13,7 +13,8 @@ class Settings:
     }
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": None
+        "DB_URL": None,
+        "EXPIRATION": None
     }
     web = {
         "with_ajax": False,

@@ -8,10 +8,12 @@ class Storage:
     about param settings:
     settings = {
         "PATH": "/User/ToApi,
-        "DB_URL": None
+        "DB_URL": None,
+        "EXPIRATION" : None
     }
     PATH: the path of local file stores, default path is current running file path
     DB_URL: store url source in db, ignoring local store if this param give
+    EXPIRATION: the expiration you set for stored file, the units is seconds
     """
 
     def __init__(self, settings):
@@ -20,6 +22,7 @@ class Storage:
         if not self.path:
             self.path = "./"
         self.db_url = self.storage.get("DB_URL")
+        self.expiration = self.storage.get("EXPIRATION")
 
         self.db_store = DBStore(self.db_url) if self.db_url else None
         self.disk_store = DiskStore(self.path) if not self.db_store else None
@@ -30,8 +33,10 @@ class Storage:
             return self.disk_store.save(url, html)
         return self.db_store.save(url, html)
 
-    def get(self, url, expiration="inf"):
+    def get(self, url):
 
+        # get expiration from setting, expiration is infinity if expiration is none
+        expiration = self.expiration if self.expiration else "inf"
         if not self.db_store:
             return self.disk_store.get(url=url, expiration=expiration)
         return self.db_store.get(url=url, expiration=expiration)
