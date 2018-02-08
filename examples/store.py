@@ -16,7 +16,8 @@ class Settings:
     """Global Settings"""
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": None
+        "DB_URL": None,
+        "EXPIRATION": 5
     }
 
 
@@ -24,7 +25,8 @@ class Settings2:
     """Global Settings"""
     storage = {
         "PATH": os.getcwd(),
-        "DB_URL": "mysql://thys:123456@localhost/order_system"
+        "DB_URL": "mysql://thys:123456@localhost/order_system",
+        "EXPIRATION": 5
     }
 
 
@@ -54,20 +56,22 @@ def disk_test():
     html = "<p>你好世界</p>\n<h1>this is a b'ig problem</h1'>"
     store = Storage(settings=Settings)
     n = 1
-    while n < 3:
-        store.save(url, html)
-        sleep(10)
-        print("times: {}".format(n))
-        n += 1
-    # print(store.get(url, expiration=5))
+    # while n < 3:
+    #     store.save(url, html)
+    #     sleep(10)
+    #     print("times: {}".format(n))
+    #     n += 1
+    store.save(url, html)
+    sleep(6)
+    print(store.get(url))
 
 
 def db_store():
     url = "测试中文"
     html = "中文测试<a>add html</a><p>add a\'</p>"
-
     store = Storage(Settings2)
     store.save(url, html)
+    sleep(6)
     print(store.get(url))
 
 
