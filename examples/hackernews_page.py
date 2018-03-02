@@ -2,17 +2,20 @@ from htmlparsing import Attr, Text
 
 from toapi import Api, Item
 
-api = Api('https://news.ycombinator.com/')
+api = Api()
 
 
 @api.list('.athing')
+@api.site('https://news.ycombinator.com/')
 @api.route('/posts?page={page}', '/news?p={page}')
+@api.route('/posts', '/news?p=1')
 class Post(Item):
     url = Attr('.storylink', 'href')
     title = Text('.storylink')
 
-
+@api.site('https://news.ycombinator.com/')
 @api.route('/posts?page={page}', '/news?p={page}')
+@api.route('/posts', '/news?p=1')
 class Page(Item):
     next_page = Attr('.morelink', 'href')
 

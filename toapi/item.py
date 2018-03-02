@@ -10,11 +10,14 @@ class ItemType(type):
                 __fields__[name] = selector
 
         attrdict['__fields__'] = __fields__
-        attrdict['_list'] = False
+
         for name in __fields__.keys():
             del attrdict[name]
-
-        return type.__new__(cls, what, bases, attrdict)
+        instance = type.__new__(cls, what, bases, attrdict)
+        instance._list = None
+        instance._base_url = None
+        instance._selector = None
+        return instance
 
     def __repr__(self):
         return 'Item<{}>'.format(self.__name__)
