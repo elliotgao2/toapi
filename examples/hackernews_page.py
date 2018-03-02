@@ -5,11 +5,11 @@ from toapi import Api, Item
 api = Api('https://news.ycombinator.com/')
 
 
-@api.list('tr.athing')
+@api.list('.athing')
 @api.route(['/post?p={page}', '/news?p={page}'])
 class Post(Item):
     url = Attr('.storylink', 'href')
-    title = Text('storylink')
+    title = Text('.storylink')
 
 
 @api.route(['/post?p={page}', '/news?p={page}'])
