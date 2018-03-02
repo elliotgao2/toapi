@@ -8,8 +8,8 @@ class Api:
 
     def __init__(self, base_url: str):
         self.base_url = base_url.strip('/')
+        self.routes: list = []
         self.app: Flask = None
-        self.url_map = []
         self.__init_server()
 
     def __init_server(self):
@@ -20,7 +20,7 @@ class Api:
         def handler(path):
             results = {}
             fetched_url = {}
-            for url, target_url, item in self.url_map:
+            for url, target_url, item in self.routes:
                 parsed_words = parse(url, request.full_path)
                 if parsed_words:
                     target_url = target_url.format(**parsed_words.named)
@@ -32,23 +32,22 @@ class Api:
                     results.update({item.__name__: result})
             return jsonify(results)
 
-    def absolute_url(self, url: str):
+    def absolute_url(self, url: str) -> str:
         return '{}/{}'.format(self.base_url, url.lstrip('/'))
 
-    def fetch(self, url):
+    def fetch(self, url: str) -> str:
         r = requests.get(url)
         r.encoding = None
         return r.text
 
-    def route(self, url_map: list):
+    def route(self, url: str, target_url: str) -> callable:
         def fn(item):
-            url_map.append(item)
-            self.url_map.append(url_map)
+            self.routes.append([url, target_url, item])
             return item
 
         return fn
 
-    def list(self, selector: str):
+    def list(self, selector: str) -> callable:
         def fn(item):
             item._list = True
             item._selector = selector

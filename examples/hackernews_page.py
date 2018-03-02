@@ -6,13 +6,13 @@ api = Api('https://news.ycombinator.com/')
 
 
 @api.list('.athing')
-@api.route(['/posts?page={page}', '/news?p={page}'])
+@api.route('/posts?page={page}', '/news?p={page}')
 class Post(Item):
     url = Attr('.storylink', 'href')
     title = Text('.storylink')
 
 
-@api.route(['/posts?page={page}', '/news?p={page}'])
+@api.route('/posts?page={page}', '/news?p={page}')
 class Page(Item):
     next_page = Attr('.morelink', 'href')
 
