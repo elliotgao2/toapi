@@ -21,7 +21,8 @@ class ItemType(type):
         instance = type.__new__(cls, what, bases, dict)
         instance.__name__ = dict.get('__name__', instance.__name__)
         return instance
-
+    def __repr__(self):
+        return 'Item<{}>'.format(self.__name__)
 
 class Item(with_metaclass(ItemType)):
     """Parse item from html"""

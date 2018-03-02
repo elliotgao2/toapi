@@ -1,40 +1,20 @@
-from toapi import XPath, Item, Api, Settings
+from htmlparsing import Attr, Text
+
+from toapi import Api, Item
+
+api = Api('https://news.ycombinator.com/')
 
 
-class MySettings(Settings):
-    web = {
-        "with_ajax": True,
-        "request_config": {},
-        "headers": None
-    }
-
-
-api = Api('https://news.ycombinator.com', settings=MySettings)
-
-
+@api.list('tr.athing')
+@api.route(['/post?p={page}', '/news?p={page}'])
 class Post(Item):
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
-
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = {'/news?p=:page': '/news?p=:page'}
+    url = Attr('.storylink', 'href')
+    title = Text('storylink')
 
 
+@api.route(['/post?p={page}', '/news?p={page}'])
 class Page(Item):
-    next_page = XPath('//a[@class="morelink"]/@href')
-
-    class Meta:
-        source = None
-        route = {'/news?p=:page': '/news?p=:page'}
-
-    def clean_next_page(self, next_page):
-        return "http://127.0.0.1:5000/" + next_page
+    next_page = Attr('.morelink', 'href')
 
 
-api.register(Page)
-api.register(Post)
-
-api.serve()
-
-# Visit http://127.0.0.1:5000/news?p=1
+api.app.run(debug=True, host='0.0.0.0', port=5000)
