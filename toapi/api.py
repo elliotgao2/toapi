@@ -1,5 +1,6 @@
 import requests
-from flask import Flask, logging, request
+from flask import Flask, logging, request, jsonify
+from htmlparsing import HTMLParsing
 from parse import parse
 
 
@@ -17,12 +18,16 @@ class Api:
 
         @self.app.route('/<path:path>')
         def handler(path):
-            print(self.url_map)
             for url, target_url, item in self.url_map:
                 parsed_words = parse(url, request.full_path)
                 if parsed_words:
                     target_url = target_url.format(**parsed_words.named)
-                    return self.fetch(self.absolute_url(target_url))
+                    html = self.fetch(self.absolute_url(target_url))
+                    if item._list:
+                        result = HTMLParsing(html).list(item._selector, item.__fields__)
+                    else:
+                        result = HTMLParsing(html).detail(item.__fields__)
+                    return jsonify(result)
             return 'Not Found'
 
     def absolute_url(self, url: str):
@@ -43,7 +48,8 @@ class Api:
 
     def list(self, selector: str):
         def fn(item):
-            item.__selector = selector
+            item._list = True
+            item._selector = selector
             return item
 
         return fn
