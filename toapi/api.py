@@ -18,17 +18,19 @@ class Api:
 
         @self.app.route('/<path:path>')
         def handler(path):
+            results = {}
+            fetched_url = {}
             for url, target_url, item in self.url_map:
                 parsed_words = parse(url, request.full_path)
                 if parsed_words:
                     target_url = target_url.format(**parsed_words.named)
-                    html = self.fetch(self.absolute_url(target_url))
+                    html = fetched_url.get(target_url) or self.fetch(self.absolute_url(target_url))
                     if item._list:
                         result = HTMLParsing(html).list(item._selector, item.__fields__)
                     else:
                         result = HTMLParsing(html).detail(item.__fields__)
-                    return jsonify(result)
-            return 'Not Found'
+                    results.update({item.__name__: result})
+            return jsonify(results)
 
     def absolute_url(self, url: str):
         return '{}/{}'.format(self.base_url, url.lstrip('/'))

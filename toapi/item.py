@@ -10,6 +10,7 @@ class ItemType(type):
                 __fields__[name] = selector
 
         attrdict['__fields__'] = __fields__
+        attrdict['_list'] = False
         for name in __fields__.keys():
             del attrdict[name]
 
