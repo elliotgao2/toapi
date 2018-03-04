@@ -1,6 +1,7 @@
 # Toapi
 
 [![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
+[![Coverage](https://codecov.io/gh/gaojiuli/toapi/branch/master/graph/badge.svg)](https://codecov.io/gh/gaojiuli/toapi)
 [![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
