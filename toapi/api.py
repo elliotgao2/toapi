@@ -42,6 +42,7 @@ class Api:
     def parse_url(self, full_path: str) -> dict:
         results = self._cache.get(full_path)
         if results is not None:
+            logger.info(Fore.YELLOW, 'Cache', f'Get<{full_path}>')
             return results
 
         results = {}
@@ -52,21 +53,27 @@ class Api:
                 full_url = self.absolute_url(item._site, parsed_path)
                 html = self.fetch(full_url)
                 result = item.parse(html)
+                logger.info(Fore.CYAN, 'Parsed', f'Item<{item.__name__}[{len(result)}]>')
                 results.update({item.__name__: result})
 
         self._cache[full_path] = results
+        logger.info(Fore.YELLOW, 'Cache', f'Set<{full_path}>')
+
         return results
 
     def fetch(self, url: str) -> str:
         html = self._storage.get(url)
         if html is not None:
+            logger.info(Fore.BLUE, 'Storage', f'Get<{url}>')
             return html
 
         r = requests.get(url)
         content = r.content
         charset = cchardet.detect(content)
         html = content.decode(charset['encoding'] or 'utf-8')
+        logger.info(Fore.GREEN, 'Sent', f'{url} {len(html)} {r.status_code}')
         self._storage[url] = html
+        logger.info(Fore.BLUE, 'Storage', f'Set<{url}>')
         return html
 
     def route(self, url: str, target_url: str) -> callable:
