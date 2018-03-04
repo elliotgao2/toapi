@@ -25,17 +25,9 @@ setup(
     ],
     install_requires=[
         'colorama',
-        'lxml',
-        'cssselect',
-        'selenium',
         'cchardet',
         'requests',
         'flask',
-        'records',
-        'ujson',
-        'redis',
-        'pymemcache',
-        'pycrypto',
         'click'
     ],
     license='Apache 2.0',

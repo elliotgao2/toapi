@@ -12,13 +12,13 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi v2.0.0. 
+Toapi v2.0.0.
 
 Completely rewrote. 
 
 More beautiful.
 
-- Documentation: [http://www.toapi.org](http://www.toapi.org)
+- v1.0.0 Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
 - Organization: [https://github.com/toapi](https://github.com/toapi)
 
