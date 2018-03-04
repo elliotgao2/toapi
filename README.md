@@ -12,7 +12,11 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi v2.0.0. New usage, more simple.
+Toapi v2.0.0. 
+
+Completely rewrote. 
+
+More beautiful.
 
 - Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
@@ -26,7 +30,7 @@ Toapi v2.0.0. New usage, more simple.
 ```text
 $ pip install toapi
 $ toapi -v
-toapi, version 0.1.12
+toapi, version 2.0.0
 ```
 
 ### Usage
@@ -36,22 +40,26 @@ from htmlparsing import Attr, Text
 
 from toapi import Api, Item
 
-api = Api('https://news.ycombinator.com/')
+api = Api()
 
 
-@api.list('tr.athing')
-@api.route(['/post?p={page}', '/news?p={page}'])
+@api.site('https://news.ycombinator.com/')
+@api.list('.athing')
+@api.route('/posts?page={page}', '/news?p={page}')
+@api.route('/posts', '/news?p=1')
 class Post(Item):
     url = Attr('.storylink', 'href')
-    title = Text('storylink')
+    title = Text('.storylink')
 
 
-@api.route(['/post?p={page}', '/news?p={page}'])
+@api.site('https://news.ycombinator.com/')
+@api.route('/posts?page={page}', '/news?p={page}')
+@api.route('/posts', '/news?p=1')
 class Page(Item):
     next_page = Attr('.morelink', 'href')
 
 
-api.app.run(debug=True, host='0.0.0.0', port=5000)
+api.run(debug=True, host='0.0.0.0', port=5000)
 ```
 
 

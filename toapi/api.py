@@ -36,7 +36,7 @@ class Api:
                 print(traceback.print_exc())
                 return jsonify({'msg': 'System Error', 'code': -1}), 500
 
-    def serve(self, host='127.0.0.1', port=5000, **options):
+    def run(self, host='127.0.0.1', port=5000, **options):
         try:
             logger.info(Fore.GREEN, 'Serving', f'http://{host}:{port}')
             self.app.run(host, port, **options)
