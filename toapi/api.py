@@ -2,10 +2,7 @@ from collections import defaultdict
 
 import requests
 from flask import Flask, logging, request, jsonify
-from htmlparsing import HTMLParsing
 from parse import parse
-
-from .item import Item
 
 
 class Api:
@@ -43,18 +40,11 @@ class Api:
                 parsed_path = target_url.format(**parsed_words.named)
                 full_url = self.absolute_url(item._site, parsed_path)
                 html = self.fetch(full_url)
-                result = self.parse_html(html, item)
+                result = item.parse(html)
                 results.update({item.__name__: result})
 
         self._cache[full_path] = results
         return results
-
-    def parse_html(self, html: str, item: Item):
-        if item._list:
-            result = HTMLParsing(html).list(item._selector, item.__fields__)
-        else:
-            result = HTMLParsing(html).detail(item.__fields__)
-        return result
 
     def fetch(self, url: str) -> str:
         html = self._storage.get(url)
