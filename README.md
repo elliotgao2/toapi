@@ -1,7 +1,5 @@
 # Toapi
 
-Every web site provides APIs.
-
 [![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
 [![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
@@ -12,16 +10,22 @@ Every web site provides APIs.
 
 ## Overview
 
-Toapi v2.0.0.
+Toapi give you the ability to make every web site provides APIs.
 
-Completely rewrote. 
+Version v2.0.0, Completely rewrote. 
 
-More beautiful.
+More elegant. More pythonic
 
 - v1.0.0 Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
 - Organization: [https://github.com/toapi](https://github.com/toapi)
 
+## Features
+
+- Automatic converting HTML web site to API service.
+- Automatic caching every page of source site.
+- Automatic caching every request.
+- Support merging multiple web sites into one API service. 
 
 ## Get Started
 
