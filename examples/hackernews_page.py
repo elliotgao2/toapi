@@ -22,7 +22,6 @@ class Page(Item):
     next_page = Attr('.morelink', 'href')
 
     def clean_next_page(self, value):
-        print(request.host_url)
         return api.convert_string('/' + value, '/news?p={page}', request.host_url.strip('/') + '/posts?page={page}')
 
 
