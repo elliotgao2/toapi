@@ -1,5 +1,6 @@
 import traceback
 from collections import defaultdict
+from time import time
 
 import cchardet
 import requests
@@ -25,12 +26,15 @@ class Api:
 
         @self.app.route('/<path:path>')
         def handler(path):
-            logger.info(Fore.GREEN, 'Received', f'{request.url}')
-
             try:
+                start_time = time()
                 full_path = request.full_path.strip('?')
                 results = self.parse_url(full_path)
-                return jsonify(results)
+                end_time = time()
+                time_usage = end_time - start_time
+                res = jsonify(results)
+                logger.info(Fore.GREEN, 'Received', '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+                return res
             except Exception as e:
                 logger.error('Serving', f'{e}')
                 print(traceback.print_exc())
@@ -48,6 +52,13 @@ class Api:
     def absolute_url(self, base_url, url: str) -> str:
         return '{}/{}'.format(base_url, url.lstrip('/'))
 
+    def convert_string(self, source_string, source_format, target_format):
+        parsed_words = parse(source_format, source_string)
+        if parsed_words is not None:
+            target_string = target_format.format(**parsed_words.named)
+            return target_string
+        return None
+
     def parse_url(self, full_path: str) -> dict:
         results = self._cache.get(full_path)
         if results is not None:
@@ -55,10 +66,9 @@ class Api:
             return results
 
         results = {}
-        for url, target_url, item in self._routes:
-            parsed_words = parse(url, full_path)
-            if parsed_words is not None:
-                parsed_path = target_url.format(**parsed_words.named)
+        for source_format, target_format, item in self._routes:
+            parsed_path = self.convert_string(full_path, source_format, target_format)
+            if parsed_path is not None:
                 full_url = self.absolute_url(item._site, parsed_path)
                 html = self.fetch(full_url)
                 result = item.parse(html)
@@ -85,11 +95,11 @@ class Api:
         logger.info(Fore.BLUE, 'Storage', f'Set<{url}>')
         return html
 
-    def route(self, url: str, target_url: str) -> callable:
+    def route(self, source_format: str, target_format: str) -> callable:
 
         def fn(item):
-            self._routes.append([url, target_url, item])
-            logger.info(Fore.GREEN, 'Register', f'<{item.__name__}: {url} {target_url}>')
+            self._routes.append([source_format, target_format, item])
+            logger.info(Fore.GREEN, 'Register', f'<{item.__name__}: {source_format} {target_format}>')
 
             return item
 

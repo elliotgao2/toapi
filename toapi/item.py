@@ -21,9 +21,6 @@ class ItemType(type):
         instance.__fields__ = __fields__
         return instance
 
-    def __repr__(self):
-        return 'Item<{}>'.format(self.__name__)
-
 
 class Item(metaclass=ItemType):
 
