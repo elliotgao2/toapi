@@ -37,7 +37,7 @@ class Api:
                 return res
             except Exception as e:
                 logger.error('Serving', f'{e}')
-                print(traceback.print_exc())
+                logger.error('Serving', '%s' % str(traceback.format_exc()))
                 return jsonify({'msg': 'System Error', 'code': -1}), 500
 
     def run(self, host='127.0.0.1', port=5000, **options):
@@ -46,7 +46,7 @@ class Api:
             self.app.run(host, port, **options)
         except Exception as e:
             logger.error('Serving', '%s' % str(e))
-            print(traceback.print_exc())
+            logger.error('Serving', '%s' % str(traceback.format_exc()))
             exit()
 
     def absolute_url(self, base_url, url: str) -> str:

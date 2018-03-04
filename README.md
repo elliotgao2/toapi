@@ -41,7 +41,6 @@ toapi, version 2.0.0
 
 ```python
 from htmlparsing import Attr, Text
-
 from toapi import Api, Item
 
 api = Api()
@@ -65,5 +64,3 @@ class Page(Item):
 
 api.run(debug=True, host='0.0.0.0', port=5000)
 ```
-
-
