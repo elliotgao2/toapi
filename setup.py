@@ -27,6 +27,7 @@ setup(
         'colorama',
         'cchardet',
         'requests',
+        'htmlparsing',
         'flask',
         'click'
     ],
