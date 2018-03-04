@@ -1,3 +1,4 @@
+import traceback
 from collections import defaultdict
 
 import cchardet
@@ -24,16 +25,24 @@ class Api:
 
         @self.app.route('/<path:path>')
         def handler(path):
-            full_path = request.full_path.strip('?')
-            results = self.parse_url(full_path)
-            return jsonify(results)
+            logger.info(Fore.GREEN, 'Received', f'{request.url}')
+
+            try:
+                full_path = request.full_path.strip('?')
+                results = self.parse_url(full_path)
+                return jsonify(results)
+            except Exception as e:
+                logger.error('Serving', f'{e}')
+                print(traceback.print_exc())
+                return jsonify({'msg': 'System Error', 'code': -1}), 500
 
     def serve(self, host='127.0.0.1', port=5000, **options):
         try:
-            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (host, port))
+            logger.info(Fore.GREEN, 'Serving', f'http://{host}:{port}')
             self.app.run(host, port, **options)
         except Exception as e:
             logger.error('Serving', '%s' % str(e))
+            print(traceback.print_exc())
             exit()
 
     def absolute_url(self, base_url, url: str) -> str:
@@ -80,6 +89,8 @@ class Api:
 
         def fn(item):
             self._routes.append([url, target_url, item])
+            logger.info(Fore.GREEN, 'Register', f'<{item.__name__}: {url} {target_url}>')
+
             return item
 
         return fn
