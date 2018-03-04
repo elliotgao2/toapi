@@ -6,7 +6,7 @@ __pycache__/
 .html/
 # C extensions
 *.so
-
+.pytest_cache/
 # Distribution / packaging
 .Python
 env/

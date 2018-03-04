@@ -24,22 +24,10 @@ class Logger:
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
 
-    def debug(self, message):
-        self.logger.debug(message)
-
     def info(self, color, type, message):
         self.logger.info(color + '[%-8s] %-2s %s' % (type, 'OK', message) + Style.RESET_ALL)
 
-    def warning(self, message):
-        self.logger.info(message)
-
     def error(self, type, message):
-        self.logger.error(Fore.RED + '[%-8s] %-4s %s' % (type, 'FAIL', message) + Style.RESET_ALL)
-
-    def critical(self, message):
-        self.logger.info(message)
-
-    def exception(self, type, message):
         self.logger.error(Fore.RED + '[%-8s] %-4s %s' % (type, 'FAIL', message) + Style.RESET_ALL)
 
 

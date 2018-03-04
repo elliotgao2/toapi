@@ -1,54 +1,51 @@
-from toapi import Settings
-from toapi import XPath, Item, Api
+import pytest
+from flask import request
+from htmlparsing import Attr, Text
+from webtest import TestApp as App
+
+from toapi import Item, Api
+from toapi.cli import cli
 
 
 def test_api():
-    class MySettings(Settings):
-        web = {
-            "with_ajax": False
-        }
+    api = Api()
 
-    api = Api('https://news.ycombinator.com/', settings=MySettings)
-
+    @api.site('https://news.ycombinator.com')
+    @api.list('.athing')
+    @api.route('/posts?page={page}', '/news?p={page}')
+    @api.route('/posts', '/news?p=1')
     class Post(Item):
-        url = XPath('//a[@class="storylink"][1]/@href')
-        title = XPath('//a[@class="storylink"][1]/text()')
+        url = Attr('.storylink', 'href')
+        title = Text('.storylink')
 
-        class Meta:
-            source = XPath('//tr[@class="athing"]')
-            route = {'/all?page=:page': '/news?p=:page'}
-
+    @api.site('https://news.ycombinator.com')
+    @api.route('/posts?page={page}', '/news?p={page}')
+    @api.route('/posts', '/news?p=1')
     class Page(Item):
-        next_page = XPath('//a[@class="morelink"]/@href')
+        next_page = Attr('.morelink', 'href')
 
-        class Meta:
-            source = None
-            route = {'/all?page=:page': '/news?p=:page'}
+        def clean_next_page(self, value):
+            return api.convert_string('/' + value, '/news?p={page}', request.host_url.strip('/') + '/posts?page={page}')
 
-        def clean_next_page(self, next_page):
-            return "http://127.0.0.1:5000/" + str(next_page)
-
-    api.register(Post)
-    api.register(Page)
-
-    api.parse('/news?p=1')
+    app = App(api.app)
+    with pytest.raises(SystemExit):
+        api.run(port=-1)
+    app.get('/posts?page=1')
+    app.get('/posts?page=1')
+    print(cli.__dict__)
 
 
-def test_cache():
+def test_error():
     api = Api()
-    assert api.get_cache('a') is None
-    api.set_cache('a', '1')
-    assert api.get_cache('a') == '1'
 
+    @api.site('https://news.ycombinator.com')
+    @api.list('.athing')
+    @api.route('/posts?page={page}', '/news?p={page}')
+    @api.route('/posts', '/news?p=1')
+    class Post(Item):
+        url = Attr('.storylink', 'no this attribute')
+        title = Text('.storylink')
 
-def test_storage():
-    api = Api()
-    api.set_storage('a', '1')
-    assert api.get_storage('a') == '1'
-
-
-def test_status():
-    api = Api()
-    assert api.get_status('a') == 1
-    api.update_status('a')
-    assert api.get_status('a') == 2
+    app = App(api.app)
+    with pytest.raises(Exception):
+        app.get('/posts?page=1')

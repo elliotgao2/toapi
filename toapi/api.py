@@ -1,197 +1,124 @@
-import json
-import re
-from collections import OrderedDict, defaultdict
+import traceback
+from collections import defaultdict
+from time import time
 
 import cchardet
 import requests
 from colorama import Fore
-from selenium import webdriver
+from flask import Flask, logging, request, jsonify
+from parse import parse
 
-from toapi.cache import CacheSetting
 from toapi.log import logger
-from toapi.server import Server
-from toapi.settings import Settings
-from toapi.storage import Storage
 
 
 class Api:
-    """Api handle the routes dispatch"""
 
-    def __init__(self, base_url=None, settings=None, *args, **kwargs):
-        self.base_url = base_url
-        self.settings = settings or Settings
-        self.storage = Storage(settings=self.settings)
-        self.cache = CacheSetting(settings=self.settings)
-        self.server = Server(self, settings=self.settings)
-        self.browser = self.get_browser(settings=self.settings)
-        self.web = getattr(self.settings, 'web', {})
-        self.item_classes = []
-        self.items = defaultdict(list)
-        self.alias_re = []
+    def __init__(self, site: str = '') -> None:
+        self.app: Flask = Flask(__name__)
+        self._site = site.strip('/')
+        self._routes: list = []
+        self._cache = defaultdict(dict)
+        self._storage = defaultdict(str)
+        self.__init_server()
 
-    def register(self, item):
-        """Register items"""
-        if item in self.item_classes:
-            logger.error('Register', 'Repeat register item <%s>' % (item.__name__))
-            exit()
-        self.item_classes.append(item)
-        item.__base_url__ = item.__base_url__ or self.base_url
-        for define_alias, define_route in OrderedDict(item.Meta.route).items():
-            alias = '^' + define_alias.replace('?', '\?') + '$'
-            _alias_re = re.compile(re.sub(':(?P<params>[a-z_]+)',
-                                          lambda m: '(?P<{}>[A-Za-z0-9_?&/=\s\-\u4e00-\u9fa5]+)'.format(
-                                              m.group('params')),
-                                          alias))
-            self.alias_re.append((define_alias, _alias_re))
-            self.items[define_alias].append({
-                'item': item,
-                'alias_re': _alias_re,
-                'alias': define_alias,
-                'route': item.__base_url__ + define_route
-            })
+    def __init_server(self) -> None:
+        self.app.logger.setLevel(logging.ERROR)
 
-        logger.info(Fore.GREEN, 'Register', '<%s>' % (item.__name__))
-        item_with_ajax = getattr(item.Meta, 'web', {}).get('with_ajax', False)
-        if self.browser is None and item_with_ajax:
-            self.browser = self.get_browser(settings=self.settings, item_with_ajax=item_with_ajax)
+        @self.app.route('/<path:path>')
+        def handler(path):
+            try:
+                start_time = time()
+                full_path = request.full_path.strip('?')
+                results = self.parse_url(full_path)
+                end_time = time()
+                time_usage = end_time - start_time
+                res = jsonify(results)
+                logger.info(Fore.GREEN, 'Received', '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+                return res
+            except Exception as e:
+                logger.error('Serving', f'{e}')
+                print(traceback.print_exc())
+                return jsonify({'msg': 'System Error', 'code': -1}), 500
 
-    def serve(self, ip='127.0.0.1', port=5000, **options):
+    def run(self, host='127.0.0.1', port=5000, **options):
         try:
-            logger.info(Fore.WHITE, 'Serving', 'http://%s:%s' % (ip, port))
-            self.server.run(ip, port, **options)
+            logger.info(Fore.GREEN, 'Serving', f'http://{host}:{port}')
+            self.app.run(host, port, **options)
         except Exception as e:
             logger.error('Serving', '%s' % str(e))
+            print(traceback.print_exc())
             exit()
 
-    def parse(self, path, params=None, **kwargs):
-        """Parse items from a url"""
+    def absolute_url(self, base_url, url: str) -> str:
+        return '{}/{}'.format(base_url, url.lstrip('/'))
 
-        items = self.prepare_parsing_items(path)
-        if items is None:
-            return None
+    def convert_string(self, source_string, source_format, target_format):
+        parsed_words = parse(source_format, source_string)
+        if parsed_words is not None:
+            target_string = target_format.format(**parsed_words.named)
+            return target_string
+        return None
 
-        results = OrderedDict()
-        cached_html = {}
-        for index, item in enumerate(items):
-            converted_path = item['converted_path']
-            html = cached_html.get(converted_path) or self.get_storage(converted_path) or self.fetch_page_source(
-                converted_path,
-                item=item['item'],
-                params=params,
-                **kwargs)
-            if html is not None:
-                cached_html[converted_path] = html
-                parsed_item = self.parse_item(html, item['item'])
-                results[item['item'].__name__] = parsed_item
-        return json.dumps(results) if results else None
+    def parse_url(self, full_path: str) -> dict:
+        results = self._cache.get(full_path)
+        if results is not None:
+            logger.info(Fore.YELLOW, 'Cache', f'Get<{full_path}>')
+            return results
 
-    def fetch_page_source(self, url, item, params=None, **kwargs):
-        """Fetch the html of given url"""
-        self.update_status('_status_sent')
-        if getattr(item.Meta, 'web', {}).get('with_ajax', False) and self.browser is not None:
-            self.browser.get(url)
-            text = self.browser.page_source
-            if text != '':
-                logger.info(Fore.GREEN, 'Sent', '%s %s 200' % (url, len(text)))
-            else:
-                logger.error('Sent', '%s %s' % (url, len(text)))
-            result = text
-        else:
-            request_config = getattr(item.Meta, 'web', {}).get('request_config', {}) or self.web.get(
-                'request_config', {})
-            response = requests.get(url, params=params, timeout=15, **request_config)
-            content = response.content
-            charset = cchardet.detect(content)
-            text = content.decode(charset['encoding'] or 'utf-8')
-            if response.status_code != 200:
-                logger.error('Sent', '%s %s %s' % (url, len(text), response.status_code))
-            else:
-                logger.info(Fore.GREEN, 'Sent', '%s %s %s' % (url, len(text), response.status_code))
-            result = text
-        self.set_storage(url, result)
-        return result
+        results = {}
+        for source_format, target_format, item in self._routes:
+            parsed_path = self.convert_string(full_path, source_format, target_format)
+            if parsed_path is not None:
+                full_url = self.absolute_url(item._site, parsed_path)
+                html = self.fetch(full_url)
+                result = item.parse(html)
+                logger.info(Fore.CYAN, 'Parsed', f'Item<{item.__name__}[{len(result)}]>')
+                results.update({item.__name__: result})
 
-    def get_browser(self, settings, item_with_ajax=False):
-        """Get browser"""
-        if not getattr(self.settings, 'web', {}).get('with_ajax', False) and not item_with_ajax:
-            return None
-        if getattr(settings, 'headers', None) is not None:
-            for key, value in settings.headers.items():
-                capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
-                webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
-        phantom_options = []
-        phantom_options.append('--load-images=false')
-        return webdriver.PhantomJS(service_args=phantom_options)
+        self._cache[full_path] = results
+        logger.info(Fore.YELLOW, 'Cache', f'Set<{full_path}>')
 
-    def update_status(self, key):
-        """Increment Status"""
-        self.cache.incr(key)
-
-    def get_status(self, key):
-        """Get Status"""
-        return int(self.cache.get(key, 0))
-
-    def set_cache(self, key, value):
-        """Set cache"""
-        if self.cache.get(key) is None and self.cache.set(key, value):
-            logger.info(Fore.YELLOW, 'Cache', 'Set<%s>' % key)
-            self.update_status('_status_cache_set')
-            return True
-        return False
-
-    def get_cache(self, key, default=None):
-        """Set cache"""
-        result = self.cache.get(key)
-        if result is not None:
-            logger.info(Fore.YELLOW, 'Cache', 'Get<%s>' % key)
-            self.update_status('_status_cache_get')
-            return result
-        return default
-
-    def set_storage(self, key, value):
-        """Set storage"""
-
-        try:
-            if self.storage.get(key) is None and self.storage.save(key, value):
-                logger.info(Fore.BLUE, 'Storage', 'Set<%s>' % key)
-                self.update_status('_status_storage_set')
-                return True
-            return False
-        except Exception as e:
-            logger.error('Storage', 'Set<{}>'.format(str(e)))
-            return False
-
-    def get_storage(self, key, default=None):
-        """Set storage"""
-        result = self.storage.get(key)
-        if result is not None:
-            logger.info(Fore.BLUE, 'Storage', 'Get<%s>' % key)
-            self.update_status('_status_storage_get')
-            return result
-        return default
-
-    def parse_item(self, html, item):
-        """Parse item from html"""
-
-        result = item.parse(html)
-        if len(result) == 0:
-            logger.error('Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
-        else:
-            logger.info(Fore.CYAN, 'Parsed', 'Item<%s[%s]>' % (item.__name__.title(), len(result)))
-        return result
-
-    def prepare_parsing_items(self, path):
-        results = []
-        for define_alias, alias_re in self.alias_re:
-            matched = alias_re.match(path)
-            if not matched:
-                continue
-            result_dict = matched.groupdict()
-            converted_items = self.items.get(define_alias)
-            for index, item in enumerate(converted_items):
-                if item['item'] not in [i['item'] for i in results]:
-                    item['converted_path'] = re.sub(':(?P<params>[a-z_]+)',
-                                                    lambda m: '{}'.format(result_dict.get(m.group('params'))),
-                                                    item['route'])
-                    results.append(item)
         return results
+
+    def fetch(self, url: str) -> str:
+        html = self._storage.get(url)
+        if html is not None:
+            logger.info(Fore.BLUE, 'Storage', f'Get<{url}>')
+            return html
+
+        r = requests.get(url)
+        content = r.content
+        charset = cchardet.detect(content)
+        html = content.decode(charset['encoding'] or 'utf-8')
+        logger.info(Fore.GREEN, 'Sent', f'{url} {len(html)} {r.status_code}')
+        self._storage[url] = html
+        logger.info(Fore.BLUE, 'Storage', f'Set<{url}>')
+        return html
+
+    def route(self, source_format: str, target_format: str) -> callable:
+
+        def fn(item):
+            self._routes.append([source_format, target_format, item])
+            logger.info(Fore.GREEN, 'Register', f'<{item.__name__}: {source_format} {target_format}>')
+
+            return item
+
+        return fn
+
+    def list(self, selector: str) -> callable:
+
+        def fn(item):
+            item._list = True
+            item._selector = selector
+            return item
+
+        return fn
+
+    def site(self, site: str) -> callable:
+
+        def fn(item):
+            item._site = site or self._site
+            item._site = item._site.strip('/')
+            return item
+
+        return fn
