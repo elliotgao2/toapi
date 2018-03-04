@@ -5,7 +5,7 @@ python:
 install:
   - pip install .
   - pip install -r requirements.txt
-script: pytest --cov toapi --cov-report term-missing
+script: coverage run --source=toapi -m pytest && coverage report
 
 after_success:
   - codecov
