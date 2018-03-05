@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    #global_header {
+        width: 100%;
+        background-color: chocolate;
+        height: 50px;
+        position: fixed;
+        z-index: 1000;
+        text-align: center;
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    #global_content {
+        padding-top: 50px;
+        position: relative;
+        height: 100%;
+    }
+
+    html {
+        cursor: pointer;
+    }
+
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box; /* Firefox */
+        -webkit-box-sizing: border-box; /* Safari */
+    }
+
+    .hover_bordered {
+        outline: 3px solid #e11;
+        outline-offset: -3px;
+    }
+
+    .choose_bordered {
+        outline: 3px solid #FF5A5A
+    }
+</style>
+<body>
+<div id="global_header">
+    选择元素
+</div>
+<div id="global_content">
+    {{ html |safe}}
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+  $('*').removeAttr('onclick').unbind('click').mouseenter(function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    $(this).addClass('hover_bordered')
+    $(this).parents().removeClass('hover_bordered')
+  }).mouseleave(function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    $(this).removeClass('hover_bordered')
+  }).click(function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log($(this))
+    $(this).attr('class')
+    $(this).toggleClass('choose_bordered')
+  })
+
+</script>
+</body>
+</html>

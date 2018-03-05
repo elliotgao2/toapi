@@ -3,7 +3,7 @@ from htmlparsing import Attr, Text
 
 from toapi import Api, Item
 
-api = Api()
+api = Api(browser='/home/bug/桌面/geckodriver')
 
 
 @api.site('https://news.ycombinator.com')

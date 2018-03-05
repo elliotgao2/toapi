@@ -6,6 +6,7 @@ import cchardet
 import requests
 from colorama import Fore
 from flask import Flask, logging, request, jsonify
+from htmlfetcher import HTMLFetcher
 from parse import parse
 
 from toapi.log import logger
@@ -13,8 +14,9 @@ from toapi.log import logger
 
 class Api:
 
-    def __init__(self, site: str = '') -> None:
+    def __init__(self, site: str = '', browser: str = None) -> None:
         self.app: Flask = Flask(__name__)
+        self.browser = browser and HTMLFetcher(browser=browser)
         self._site = site.strip('/')
         self._routes: list = []
         self._cache = defaultdict(dict)
@@ -33,7 +35,8 @@ class Api:
                 end_time = time()
                 time_usage = end_time - start_time
                 res = jsonify(results)
-                logger.info(Fore.GREEN, 'Received', '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
+                logger.info(Fore.GREEN, 'Received',
+                            '%s %s 200 %.2fms' % (request.url, len(res.response), time_usage * 1000))
                 return res
             except Exception as e:
                 logger.error('Serving', f'{e}')
@@ -85,12 +88,14 @@ class Api:
         if html is not None:
             logger.info(Fore.BLUE, 'Storage', f'Get<{url}>')
             return html
-
-        r = requests.get(url)
-        content = r.content
-        charset = cchardet.detect(content)
-        html = content.decode(charset['encoding'] or 'utf-8')
-        logger.info(Fore.GREEN, 'Sent', f'{url} {len(html)} {r.status_code}')
+        if self.browser is not None:
+            html = self.browser.get(url)
+        else:
+            r = requests.get(url)
+            content = r.content
+            charset = cchardet.detect(content)
+            html = content.decode(charset['encoding'] or 'utf-8')
+        logger.info(Fore.GREEN, 'Sent', f'{url} {len(html)}')
         self._storage[url] = html
         logger.info(Fore.BLUE, 'Storage', f'Set<{url}>')
         return html
