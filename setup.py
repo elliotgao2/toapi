@@ -27,6 +27,7 @@ setup(
         'cchardet',
         'requests',
         'htmlparsing',
+        'htmlfetcher',
         'flask',
         'click'
     ],
