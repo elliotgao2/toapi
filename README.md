@@ -11,9 +11,9 @@
 
 ## Overview
 
-Toapi give you the ability to make every web site provides APIs.
+Toapi gives you the ability to make every web site provide APIs.
 
-Version v2.0.0, Completely rewrote. 
+Version v2.0.0, Completely rewritten. 
 
 More elegant. More pythonic
 
@@ -23,7 +23,7 @@ More elegant. More pythonic
 
 ## Features
 
-- Automatic converting HTML web site to API service.
+- Automatic conversion of HTML web sites into API services.
 - Automatic caching every page of source site.
 - Automatic caching every request.
 - Support merging multiple web sites into one API service. 
@@ -102,7 +102,7 @@ you will get the result like:
 
 ## Contributing
 
-Write code and test code and pull request.
+Write code and test code, then submit a pull request.
 
 
 
