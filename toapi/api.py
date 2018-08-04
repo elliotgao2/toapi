@@ -5,7 +5,10 @@ from time import time
 import cchardet
 import requests
 from colorama import Fore
-from flask import Flask, logging, request, jsonify
+
+import logging
+from flask import Flask, request, jsonify
+
 from htmlfetcher import HTMLFetcher
 from parse import parse
 
