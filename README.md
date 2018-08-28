@@ -1,4 +1,4 @@
-# Toapi
+s# Toapi
 
 [![Build](https://travis-ci.org/gaojiuli/toapi.svg?branch=master)](https://travis-ci.org/gaojiuli/toapi)
 [![Coverage](https://codecov.io/gh/gaojiuli/toapi/branch/master/graph/badge.svg)](https://codecov.io/gh/gaojiuli/toapi)
@@ -11,7 +11,7 @@
 
 ## Overview
 
-Toapi give you the ability to make every web site provides APIs.
+Toapi gives you the ability to make every web site provide an API.
 
 Version v2.0.0, Completely rewrote. 
 
@@ -23,9 +23,9 @@ More elegant. More pythonic
 
 ## Features
 
-- Automatic converting HTML web site to API service.
-- Automatic caching every page of source site.
-- Automatic caching every request.
+- Automatic conversion of HTML to API service.
+- Automatic caching for every page of source site.
+- Automatic caching for each request.
 - Support merging multiple web sites into one API service. 
 
 ## Get Started
@@ -74,9 +74,9 @@ api.run(debug=True, host='0.0.0.0', port=5000)
 
 run `python app.py`
 
-then open your browser and visit `http://127.0.0.1:5000/posts?page=1` 
+Then open your browser and visit `http://127.0.0.1:5000/posts?page=1` 
 
-you will get the result like:
+You will get a result like the following:
 
 ```json
 {
@@ -102,7 +102,7 @@ you will get the result like:
 
 ## Contributing
 
-Write code and test code and pull request.
+Write code, test code, and pull request.
 
 
 
