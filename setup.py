@@ -29,7 +29,8 @@ setup(
         'htmlparsing',
         'htmlfetcher',
         'flask',
-        'click'
+        'click',
+        'cssselect'
     ],
     license='Apache 2.0',
     packages=find_packages(),
