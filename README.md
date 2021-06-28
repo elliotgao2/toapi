@@ -6,16 +6,9 @@
 [![Version](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
-
-![Toapi](docs/logo.png)
-
 ## Overview
 
 Toapi give you the ability to make every web site provides APIs.
-
-Version v2.0.0, Completely rewrote. 
-
-More elegant. More pythonic
 
 - v1.0.0 Documentation: [http://www.toapi.org](http://www.toapi.org)
 - Awesome: [https://github.com/toapi/awesome-toapi](https://github.com/toapi/awesome-toapi)
@@ -96,9 +89,6 @@ you will get the result like:
 }
 ```
 
-## Todo
-
-1. Visualization. Create toapi project in a web page by drag and drop.
 
 ## Contributing
 
