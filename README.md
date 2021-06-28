@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.python.org/pypi/toapi/)
 
 
-![Toapi](logo.png)
+![Toapi](docs/logo.png)
 
 ## Overview
 

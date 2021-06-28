@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from htmlparsing import Selector, HTMLParsing
+from htmlparsing import HTMLParsing, Selector
 
 
 class ItemType(type):
@@ -23,7 +23,6 @@ class ItemType(type):
 
 
 class Item(metaclass=ItemType):
-
     @classmethod
     def parse(cls, html: str):
         if cls._list:
@@ -37,7 +36,7 @@ class Item(metaclass=ItemType):
     @classmethod
     def _clean(cls, item):
         for name, selector in cls.__fields__.items():
-            clean_method = getattr(cls, 'clean_%s' % name, None)
+            clean_method = getattr(cls, "clean_%s" % name, None)
             if clean_method is not None:
                 item[name] = clean_method(cls, item[name])
         return item
