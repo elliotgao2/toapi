@@ -27,8 +27,6 @@ Toapi give you the ability to make every web site provides APIs.
 
 ```text
 $ pip install toapi
-$ toapi -v
-toapi, version 2.0.0
 ```
 
 ### Usage
