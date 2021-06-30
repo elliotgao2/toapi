@@ -3,7 +3,7 @@ Storage provides 2 ways to you to store your data -- local disk and database.
 ## How to configure them
 
 ### Local Disk
-Your data will be stored in a hidden file called .html which will be created in where programe running.  
+Your data will be stored in a hidden file called .html which will be created where the program is running.  
 You can still input the path you want to store in Settings.  
 
 ```python
