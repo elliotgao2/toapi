@@ -24,7 +24,7 @@ pytest-cov = "^2.12.1"
 webtest = "^2.0.35"
 codecov = "^2.1.11"
 mkdocs-material = "^7.1.9"
-ujson = "^4.0.2"
+ujson = "^5.1.0"
 pre-commit = "^2.13.0"
 
 [build-system]

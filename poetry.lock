@@ -6,11 +6,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "atomicwrites"
 version = "1.4.0"
@@ -18,11 +13,6 @@ description = "Atomic file writes."
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "attrs"
@@ -37,11 +27,6 @@ dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", 
 docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
 tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface"]
 tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "beautifulsoup4"
@@ -58,11 +43,6 @@ soupsieve = {version = ">1.2", markers = "python_version >= \"3.0\""}
 html5lib = ["html5lib"]
 lxml = ["lxml"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "cchardet"
 version = "2.1.7"
@@ -70,11 +50,6 @@ description = "cChardet is high speed universal character encoding detector."
 category = "main"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "certifi"
@@ -84,11 +59,6 @@ category = "main"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "cfgv"
 version = "3.3.0"
@@ -97,11 +67,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6.1"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "chardet"
 version = "4.0.0"
@@ -109,11 +74,6 @@ description = "Universal encoding detector for Python 2 and 3"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "click"
@@ -125,11 +85,6 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "codecov"
@@ -143,11 +98,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 coverage = "*"
 requests = ">=2.7.9"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "colorama"
 version = "0.4.4"
@@ -155,11 +105,6 @@ description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "coverage"
@@ -172,11 +117,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 [package.extras]
 toml = ["toml"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "cssselect"
 version = "1.1.0"
@@ -185,11 +125,6 @@ category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "distlib"
 version = "0.3.2"
@@ -197,11 +132,6 @@ description = "Distribution utilities"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "execnet"
@@ -214,11 +144,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 [package.extras]
 testing = ["pre-commit"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "filelock"
 version = "3.0.12"
@@ -226,11 +151,6 @@ description = "A platform independent file lock."
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "flask"
@@ -250,11 +170,6 @@ Werkzeug = ">=2.0"
 async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "ghp-import"
 version = "2.0.1"
@@ -267,12 +182,7 @@ python-versions = "*"
 python-dateutil = ">=2.8.1"
 
 [package.extras]
-dev = ["twine", "markdown", "flake8"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
+dev = ["twine", "markdown", "flake8", "wheel"]
 
 [[package]]
 name = "html2text"
@@ -281,11 +191,6 @@ description = "Turn HTML into equivalent Markdown-structured text."
 category = "main"
 optional = false
 python-versions = ">=3.5"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "htmlfetcher"
@@ -297,11 +202,6 @@ python-versions = "*"
 
 [package.dependencies]
 selenium = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "htmlparsing"
@@ -316,11 +216,6 @@ html2text = "*"
 lxml = "*"
 parse = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "identify"
 version = "2.2.10"
@@ -332,11 +227,6 @@ python-versions = ">=3.6.1"
 [package.extras]
 license = ["editdistance-s"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "idna"
 version = "2.10"
@@ -344,11 +234,6 @@ description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "importlib-metadata"
@@ -366,11 +251,6 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 perf = ["ipython"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "packaging", "pep517", "pyfakefs", "flufl.flake8", "pytest-perf (>=0.9.2)", "pytest-black (>=0.3.7)", "pytest-mypy", "importlib-resources (>=1.3)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "iniconfig"
 version = "1.1.1"
@@ -379,11 +259,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "itsdangerous"
 version = "2.0.1"
@@ -391,11 +266,6 @@ description = "Safely pass data to untrusted environments and back."
 category = "main"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "jinja2"
@@ -411,11 +281,6 @@ MarkupSafe = ">=2.0"
 [package.extras]
 i18n = ["Babel (>=2.7)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "lxml"
 version = "4.6.3"
@@ -430,11 +295,6 @@ html5 = ["html5lib"]
 htmlsoup = ["beautifulsoup4"]
 source = ["Cython (>=0.29.7)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "markdown"
 version = "3.3.4"
@@ -446,11 +306,6 @@ python-versions = ">=3.6"
 [package.extras]
 testing = ["coverage", "pyyaml"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "markupsafe"
 version = "2.0.1"
@@ -459,11 +314,6 @@ category = "main"
 optional = false
 python-versions = ">=3.6"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "mergedeep"
 version = "1.3.4"
@@ -471,11 +321,6 @@ description = "A deep merge function for 🐍."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "mkdocs"
@@ -500,11 +345,6 @@ watchdog = ">=2.0"
 [package.extras]
 i18n = ["babel (>=2.9.0)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "mkdocs-material"
 version = "7.1.9"
@@ -520,11 +360,6 @@ mkdocs-material-extensions = ">=1.0"
 Pygments = ">=2.4"
 pymdown-extensions = ">=7.0"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "mkdocs-material-extensions"
 version = "1.0.1"
@@ -536,11 +371,6 @@ python-versions = ">=3.5"
 [package.dependencies]
 mkdocs-material = ">=5.0.0"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "nodeenv"
 version = "1.6.0"
@@ -548,11 +378,6 @@ description = "Node.js virtual environment builder"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "packaging"
@@ -565,11 +390,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 [package.dependencies]
 pyparsing = ">=2.0.2"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "parse"
 version = "1.19.0"
@@ -578,11 +398,6 @@ category = "main"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pep8"
 version = "1.7.1"
@@ -590,11 +405,6 @@ description = "Python style guide checker"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "pluggy"
@@ -606,11 +416,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "pre-commit"
@@ -628,11 +433,6 @@ pyyaml = ">=5.1"
 toml = "*"
 virtualenv = ">=20.0.8"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "py"
 version = "1.10.0"
@@ -641,11 +441,6 @@ category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pygments"
 version = "2.9.0"
@@ -653,11 +448,6 @@ description = "Pygments is a syntax highlighting package written in Python."
 category = "dev"
 optional = false
 python-versions = ">=3.5"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "pymdown-extensions"
@@ -670,11 +460,6 @@ python-versions = ">=3.6"
 [package.dependencies]
 Markdown = ">=3.2"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pyparsing"
 version = "2.4.7"
@@ -682,11 +467,6 @@ description = "Python parsing module"
 category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "pytest"
@@ -709,11 +489,6 @@ toml = "*"
 [package.extras]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pytest-cache"
 version = "1.0"
@@ -725,11 +500,6 @@ python-versions = "*"
 [package.dependencies]
 execnet = ">=1.1.dev1"
 pytest = ">=2.2"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "pytest-cov"
@@ -747,11 +517,6 @@ toml = "*"
 [package.extras]
 testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtualenv"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pytest-pep8"
 version = "1.0.6"
@@ -765,11 +530,6 @@ pep8 = ">=1.3"
 pytest = ">=2.4.2"
 pytest-cache = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "python-dateutil"
 version = "2.8.1"
@@ -781,11 +541,6 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 [package.dependencies]
 six = ">=1.5"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pyyaml"
 version = "5.4.1"
@@ -794,26 +549,16 @@ category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "pyyaml-env-tag"
 version = "0.1"
-description = "A custom YAML tag for referencing environment variables in YAML files."
+description = "A custom YAML tag for referencing environment variables in YAML files. "
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
 pyyaml = "*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "requests"
@@ -833,11 +578,6 @@ urllib3 = ">=1.21.1,<1.27"
 security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "selenium"
 version = "3.141.0"
@@ -849,11 +589,6 @@ python-versions = "*"
 [package.dependencies]
 urllib3 = "*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "six"
 version = "1.16.0"
@@ -861,11 +596,6 @@ description = "Python 2 and 3 compatibility utilities"
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "soupsieve"
@@ -875,11 +605,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "toml"
 version = "0.10.2"
@@ -888,23 +613,13 @@ category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "ujson"
-version = "4.0.2"
+version = "5.1.0"
 description = "Ultra fast JSON encoder and decoder for Python"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
+python-versions = ">=3.7"
 
 [[package]]
 name = "urllib3"
@@ -918,11 +633,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 brotli = ["brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "virtualenv"
@@ -942,11 +652,6 @@ six = ">=1.9.0,<2"
 docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=19.9.0rc1)"]
 testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)", "xonsh (>=0.9.16)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "waitress"
 version = "2.0.0"
@@ -959,11 +664,6 @@ python-versions = ">=3.6.0"
 docs = ["Sphinx (>=1.8.1)", "docutils", "pylons-sphinx-themes (>=1.0.9)"]
 testing = ["pytest", "pytest-cover", "coverage (>=5.0)"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "watchdog"
 version = "2.1.3"
@@ -974,11 +674,6 @@ python-versions = ">=3.6"
 
 [package.extras]
 watchmedo = ["PyYAML (>=3.10)", "argh (>=0.24.1)"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "webob"
@@ -991,11 +686,6 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*"
 [package.extras]
 docs = ["Sphinx (>=1.7.5)", "pylons-sphinx-themes"]
 testing = ["pytest (>=3.1.0)", "coverage", "pytest-cov", "pytest-xdist"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "webtest"
@@ -1015,11 +705,6 @@ WebOb = ">=1.2"
 docs = ["Sphinx (>=1.8.1)", "docutils", "pylons-sphinx-themes (>=1.0.8)"]
 tests = ["nose (<1.3.0)", "coverage", "mock", "pastedeploy", "wsgiproxy2", "pyquery"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [[package]]
 name = "werkzeug"
 version = "2.0.1"
@@ -1030,11 +715,6 @@ python-versions = ">=3.6"
 
 [package.extras]
 watchdog = ["watchdog"]
-
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
 
 [[package]]
 name = "zipp"
@@ -1048,15 +728,10 @@ python-versions = ">=3.6"
 docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
-[package.source]
-type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "89f8d652f628c35ee821d1241dc91923b928719d3d3bd38d61caa9f476016c4b"
+content-hash = "f3b64ea3baed0a86e8f8f5d554a86754b59e54a58c796ea19f4e04bdc8059114"
 
 [metadata.files]
 appdirs = [
@@ -1125,6 +800,7 @@ click = [
 ]
 codecov = [
     {file = "codecov-2.1.11-py2.py3-none-any.whl", hash = "sha256:ba8553a82942ce37d4da92b70ffd6d54cf635fc1793ab0a7dc3fecd6ebfb3df8"},
+    {file = "codecov-2.1.11-py3.8.egg", hash = "sha256:e95901d4350e99fc39c8353efa450050d2446c55bac91d90fcfd2354e19a6aef"},
     {file = "codecov-2.1.11.tar.gz", hash = "sha256:6cde272454009d27355f9434f4e49f238c0273b216beda8472a65dc4957f473b"},
 ]
 colorama = [
@@ -1207,6 +883,7 @@ flask = [
 ]
 ghp-import = [
     {file = "ghp-import-2.0.1.tar.gz", hash = "sha256:753de2eace6e0f7d4edfb3cce5e3c3b98cd52aadb80163303d1d036bda7b4483"},
+    {file = "ghp_import-2.0.1-py3-none-any.whl", hash = "sha256:8241a8e9f8dd3c1fafe9696e6e081b57a208ef907e9939c44e7415e407ab40ea"},
 ]
 html2text = [
     {file = "html2text-2020.1.16-py3-none-any.whl", hash = "sha256:c7c629882da0cf377d66f073329ccf34a12ed2adf0169b9285ae4e63ef54c82b"},
@@ -1250,6 +927,8 @@ lxml = [
     {file = "lxml-4.6.3-cp27-cp27m-win_amd64.whl", hash = "sha256:8157dadbb09a34a6bd95a50690595e1fa0af1a99445e2744110e3dca7831c4ee"},
     {file = "lxml-4.6.3-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:7728e05c35412ba36d3e9795ae8995e3c86958179c9770e65558ec3fdfd3724f"},
     {file = "lxml-4.6.3-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:4bff24dfeea62f2e56f5bab929b4428ae6caba2d1eea0c2d6eb618e30a71e6d4"},
+    {file = "lxml-4.6.3-cp310-cp310-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl", hash = "sha256:64812391546a18896adaa86c77c59a4998f33c24788cadc35789e55b727a37f4"},
+    {file = "lxml-4.6.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:c1a40c06fd5ba37ad39caa0b3144eb3772e813b5fb5b084198a985431c2f1e8d"},
     {file = "lxml-4.6.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:74f7d8d439b18fa4c385f3f5dfd11144bb87c1da034a466c5b5577d23a1d9b51"},
     {file = "lxml-4.6.3-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:f90ba11136bfdd25cae3951af8da2e95121c9b9b93727b1b896e3fa105b2f586"},
     {file = "lxml-4.6.3-cp35-cp35m-manylinux2010_i686.whl", hash = "sha256:4c61b3a0db43a1607d6264166b230438f85bfed02e8cff20c22e564d0faff354"},
@@ -1295,12 +974,28 @@ markdown = [
     {file = "Markdown-3.3.4.tar.gz", hash = "sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49"},
 ]
 markupsafe = [
+    {file = "MarkupSafe-2.0.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d8446c54dc28c01e5a2dbac5a25f071f6653e6e40f3a8818e8b45d790fe6ef53"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:36bc903cbb393720fad60fc28c10de6acf10dc6cc883f3e24ee4012371399a38"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2d7d807855b419fc2ed3e631034685db6079889a1f01d5d9dac950f764da3dad"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:add36cb2dbb8b736611303cd3bfcee00afd96471b09cda130da3581cbdc56a6d"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:168cd0a3642de83558a5153c8bd34f175a9a6e7f6dc6384b9655d2697312a646"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:4dc8f9fb58f7364b63fd9f85013b780ef83c11857ae79f2feda41e270468dd9b"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:20dca64a3ef2d6e4d5d615a3fd418ad3bde77a47ec8a23d984a12b5b4c74491a"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:cdfba22ea2f0029c9261a4bd07e830a8da012291fbe44dc794e488b6c9bb353a"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-win32.whl", hash = "sha256:99df47edb6bda1249d3e80fdabb1dab8c08ef3975f69aed437cb69d0a5de1e28"},
+    {file = "MarkupSafe-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:e0f138900af21926a02425cf736db95be9f4af72ba1bb21453432a07f6082134"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f9081981fe268bd86831e5c75f7de206ef275defcb82bc70740ae6dc507aee51"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:0955295dd5eec6cb6cc2fe1698f4c6d84af2e92de33fbcac4111913cd100a6ff"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:0446679737af14f45767963a1a9ef7620189912317d095f2d9ffa183a4d25d2b"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux2010_i686.whl", hash = "sha256:f826e31d18b516f653fe296d967d700fddad5901ae07c622bb3705955e1faa94"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:fa130dd50c57d53368c9d59395cb5526eda596d3ffe36666cd81a44d56e48872"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:905fec760bd2fa1388bb5b489ee8ee5f7291d692638ea5f67982d968366bef9f"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bf5d821ffabf0ef3533c39c518f3357b171a1651c1ff6827325e4489b0e46c3c"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:0d4b31cc67ab36e3392bbf3862cfbadac3db12bdd8b02a2731f509ed5b829724"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:baa1a4e8f868845af802979fcdbf0bb11f94f1cb7ced4c4b8a351bb60d108145"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-musllinux_1_1_aarch64.whl", hash = "sha256:deb993cacb280823246a026e3b2d81c493c53de6acfd5e6bfe31ab3402bb37dd"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-musllinux_1_1_i686.whl", hash = "sha256:63f3268ba69ace99cab4e3e3b5840b03340efed0948ab8f78d2fd87ee5442a4f"},
+    {file = "MarkupSafe-2.0.1-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:8d206346619592c6200148b01a2142798c989edcb9c896f9ac9722a99d4e77e6"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-win32.whl", hash = "sha256:6c4ca60fa24e85fe25b912b01e62cb969d69a23a5d5867682dd3e80b5b02581d"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-win_amd64.whl", hash = "sha256:b2f4bf27480f5e5e8ce285a8c8fd176c0b03e93dcc6646477d4630e83440c6a9"},
     {file = "MarkupSafe-2.0.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:0717a7390a68be14b8c793ba258e075c6f4ca819f15edfc2a3a027c823718567"},
@@ -1309,14 +1004,27 @@ markupsafe = [
     {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux2010_i686.whl", hash = "sha256:d7f9850398e85aba693bb640262d3611788b1f29a79f0c93c565694658f4071f"},
     {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux2010_x86_64.whl", hash = "sha256:6a7fae0dd14cf60ad5ff42baa2e95727c3d81ded453457771d02b7d2b3f9c0c2"},
     {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:b7f2d075102dc8c794cbde1947378051c4e5180d52d276987b8d28a3bd58c17d"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e9936f0b261d4df76ad22f8fee3ae83b60d7c3e871292cd42f40b81b70afae85"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:2a7d351cbd8cfeb19ca00de495e224dea7e7d919659c2841bbb7f420ad03e2d6"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:60bf42e36abfaf9aff1f50f52644b336d4f0a3fd6d8a60ca0d054ac9f713a864"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-musllinux_1_1_aarch64.whl", hash = "sha256:d6c7ebd4e944c85e2c3421e612a7057a2f48d478d79e61800d81468a8d842207"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-musllinux_1_1_i686.whl", hash = "sha256:f0567c4dc99f264f49fe27da5f735f414c4e7e7dd850cfd8e69f0862d7c74ea9"},
+    {file = "MarkupSafe-2.0.1-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:89c687013cb1cd489a0f0ac24febe8c7a666e6e221b783e53ac50ebf68e45d86"},
     {file = "MarkupSafe-2.0.1-cp37-cp37m-win32.whl", hash = "sha256:a30e67a65b53ea0a5e62fe23682cfe22712e01f453b95233b25502f7c61cb415"},
     {file = "MarkupSafe-2.0.1-cp37-cp37m-win_amd64.whl", hash = "sha256:611d1ad9a4288cf3e3c16014564df047fe08410e628f89805e475368bd304914"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:5bb28c636d87e840583ee3adeb78172efc47c8b26127267f54a9c0ec251d41a9"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:be98f628055368795d818ebf93da628541e10b75b41c559fdf36d104c5787066"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:1d609f577dc6e1aa17d746f8bd3c31aa4d258f4070d61b2aa5c4166c1539de35"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:7d91275b0245b1da4d4cfa07e0faedd5b0812efc15b702576d103293e252af1b"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux2010_i686.whl", hash = "sha256:01a9b8ea66f1658938f65b93a85ebe8bc016e6769611be228d797c9d998dd298"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux2010_x86_64.whl", hash = "sha256:47ab1e7b91c098ab893b828deafa1203de86d0bc6ab587b160f78fe6c4011f75"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:97383d78eb34da7e1fa37dd273c20ad4320929af65d156e35a5e2d89566d9dfb"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6fcf051089389abe060c9cd7caa212c707e58153afa2c649f00346ce6d260f1b"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:5855f8438a7d1d458206a2466bf82b0f104a3724bf96a1c781ab731e4201731a"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:3dd007d54ee88b46be476e293f48c85048603f5f516008bee124ddd891398ed6"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:aca6377c0cb8a8253e493c6b451565ac77e98c2951c45f913e0b52facdcff83f"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:04635854b943835a6ea959e948d19dcd311762c5c0c6e1f0e16ee57022669194"},
+    {file = "MarkupSafe-2.0.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:6300b8454aa6930a24b9618fbb54b5a68135092bc666f7b06901f897fa5c2fee"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-win32.whl", hash = "sha256:023cb26ec21ece8dc3907c0e8320058b2e0cb3c55cf9564da612bc325bed5e64"},
     {file = "MarkupSafe-2.0.1-cp38-cp38-win_amd64.whl", hash = "sha256:984d76483eb32f1bcb536dc27e4ad56bba4baa70be32fa87152832cdd9db0833"},
     {file = "MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:2ef54abee730b502252bcdf31b10dacb0a416229b72c18b19e24a4509f273d26"},
@@ -1326,6 +1034,12 @@ markupsafe = [
     {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux2010_i686.whl", hash = "sha256:4efca8f86c54b22348a5467704e3fec767b2db12fc39c6d963168ab1d3fc9135"},
     {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux2010_x86_64.whl", hash = "sha256:ab3ef638ace319fa26553db0624c4699e31a28bb2a835c5faca8f8acf6a5a902"},
     {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:f8ba0e8349a38d3001fae7eadded3f6606f0da5d748ee53cc1dab1d6527b9509"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c47adbc92fc1bb2b3274c4b3a43ae0e4573d9fbff4f54cd484555edbf030baf1"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:37205cac2a79194e3750b0af2a5720d95f786a55ce7df90c3af697bfa100eaac"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:1f2ade76b9903f39aa442b4aadd2177decb66525062db244b35d71d0ee8599b6"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:4296f2b1ce8c86a6aea78613c34bb1a672ea0e3de9c6ba08a960efe0b0a09047"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:9f02365d4e99430a12647f09b6cc8bab61a6564363f313126f775eb4f6ef798e"},
+    {file = "MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:5b6d930f030f8ed98e3e6c98ffa0652bdb82601e7a016ec2ab5d7ff23baa78d1"},
     {file = "MarkupSafe-2.0.1-cp39-cp39-win32.whl", hash = "sha256:10f82115e21dc0dfec9ab5c0223652f7197feb168c940f3ef61563fc2d6beb74"},
     {file = "MarkupSafe-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:693ce3f9e70a6cf7d2fb9e6c9d8b204b6b39897a2c4a1aa65728d5ac97dcc1d8"},
     {file = "MarkupSafe-2.0.1.tar.gz", hash = "sha256:594c67807fb16238b30c44bdf74f36c02cdf22d1c8cda91ef8a0ed8dabf5620a"},
@@ -1459,27 +1173,56 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 ujson = [
-    {file = "ujson-4.0.2-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:e390df0dcc7897ffb98e17eae1f4c442c39c91814c298ad84d935a3c5c7a32fa"},
-    {file = "ujson-4.0.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:84b1dca0d53b0a8d58835f72ea2894e4d6cf7a5dd8f520ab4cbd698c81e49737"},
-    {file = "ujson-4.0.2-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:91396a585ba51f84dc71c8da60cdc86de6b60ba0272c389b6482020a1fac9394"},
-    {file = "ujson-4.0.2-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:eb6b25a7670c7537a5998e695fa62ff13c7f9c33faf82927adf4daa460d5f62e"},
-    {file = "ujson-4.0.2-cp36-cp36m-win_amd64.whl", hash = "sha256:f8aded54c2bc554ce20b397f72101737dd61ee7b81c771684a7dd7805e6cca0c"},
-    {file = "ujson-4.0.2-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:30962467c36ff6de6161d784cd2a6aac1097f0128b522d6e9291678e34fb2b47"},
-    {file = "ujson-4.0.2-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:fc51e545d65689c398161f07fd405104956ec27f22453de85898fa088b2cd4bb"},
-    {file = "ujson-4.0.2-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:e6e90330670c78e727d6637bb5a215d3e093d8e3570d439fd4922942f88da361"},
-    {file = "ujson-4.0.2-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:5e1636b94c7f1f59a8ead4c8a7bab1b12cc52d4c21ababa295ffec56b445fd2a"},
-    {file = "ujson-4.0.2-cp37-cp37m-win_amd64.whl", hash = "sha256:e2cadeb0ddc98e3963bea266cc5b884e5d77d73adf807f0bda9eca64d1c509d5"},
-    {file = "ujson-4.0.2-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:a214ba5a21dad71a43c0f5aef917cd56a2d70bc974d845be211c66b6742a471c"},
-    {file = "ujson-4.0.2-cp38-cp38-manylinux1_i686.whl", hash = "sha256:0190d26c0e990c17ad072ec8593647218fe1c675d11089cd3d1440175b568967"},
-    {file = "ujson-4.0.2-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:f273a875c0b42c2a019c337631bc1907f6fdfbc84210cc0d1fff0e2019bbfaec"},
-    {file = "ujson-4.0.2-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:d3a87888c40b5bfcf69b4030427cd666893e826e82cc8608d1ba8b4b5e04ea99"},
-    {file = "ujson-4.0.2-cp38-cp38-win_amd64.whl", hash = "sha256:7333e8bc45ea28c74ae26157eacaed5e5629dbada32e0103c23eb368f93af108"},
-    {file = "ujson-4.0.2-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:b3a6dcc660220539aa718bcc9dbd6dedf2a01d19c875d1033f028f212e36d6bb"},
-    {file = "ujson-4.0.2-cp39-cp39-manylinux1_i686.whl", hash = "sha256:0ea07fe57f9157118ca689e7f6db72759395b99121c0ff038d2e38649c626fb1"},
-    {file = "ujson-4.0.2-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:4d6d061563470cac889c0a9fd367013a5dbd8efc36ad01ab3e67a57e56cad720"},
-    {file = "ujson-4.0.2-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:b5c70704962cf93ec6ea3271a47d952b75ae1980d6c56b8496cec2a722075939"},
-    {file = "ujson-4.0.2-cp39-cp39-win_amd64.whl", hash = "sha256:aad6d92f4d71e37ea70e966500f1951ecd065edca3a70d3861b37b176dd6702c"},
-    {file = "ujson-4.0.2.tar.gz", hash = "sha256:c615a9e9e378a7383b756b7e7a73c38b22aeb8967a8bfbffd4741f7ffd043c4d"},
+    {file = "ujson-5.1.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:644552d1e89983c08d0c24358fbcb5829ae5b5deee9d876e16d20085cfa7dc81"},
+    {file = "ujson-5.1.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0cae4a9c141856f7ad1a79c17ff1aaebf7fd8faa2f2c2614c37d6f82ed261d96"},
+    {file = "ujson-5.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4ba63b789d83ca92237dbc72041a268d91559f981c01763a107105878bae442e"},
+    {file = "ujson-5.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fe4e8f71e2fd42dce245bace7e2aa97dabef13926750a351eadca89a1e0f1abd"},
+    {file = "ujson-5.1.0-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6f73946c047a38640b1f5a2a459237b7bdc417ab028a76c796e4eea984b359b9"},
+    {file = "ujson-5.1.0-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:afe91153c2046fa8210b92def513124e0ea5b87ad8fa4c14fef8197204b980f1"},
+    {file = "ujson-5.1.0-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:b1ef400fc73ab0cb61b74a662ad4207917223aba6f933a9fea9b0fbe75de2361"},
+    {file = "ujson-5.1.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:5c8a884d60dd2eed2fc95a9474d57ead82adf254f54caffb3d9e8ed185c49aba"},
+    {file = "ujson-5.1.0-cp310-cp310-win32.whl", hash = "sha256:173b90a2c2836ee42f708df88ecfe3efbc4d868df73c9fcea8cb8f6f3ab93892"},
+    {file = "ujson-5.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:6c45ad95e82155372d9908774db46e0ef7880af28a734d0b14eaa4f505e64982"},
+    {file = "ujson-5.1.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:4155a7c29bf330329519027c815e15e381c1fff22f50d26f135584d482bbd95d"},
+    {file = "ujson-5.1.0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fa616d0d3c594785c6e9b7f42686bb1c86f9e64aa0f30a72c86d8eb315f54194"},
+    {file = "ujson-5.1.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a48efcb5d3695b295c26835ed81048da8cd40e76c4fde2940c807aa452b560c9"},
+    {file = "ujson-5.1.0-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:838d35eb9006d36f9241e95958d9f4819bcf1ea2ec155daf92d5751c31bcc62b"},
+    {file = "ujson-5.1.0-cp37-cp37m-musllinux_1_1_aarch64.whl", hash = "sha256:05aa6c7297a22081f65497b6f586de6b7060ea47c3ecda80896f47200e9dbf04"},
+    {file = "ujson-5.1.0-cp37-cp37m-musllinux_1_1_i686.whl", hash = "sha256:ce441ab7ad1db592e2db95b6c2a1eb882123532897340afac1342c28819e9833"},
+    {file = "ujson-5.1.0-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:9937e819196b894ffd00801b24f1042dabda142f355313c3f20410993219bc4f"},
+    {file = "ujson-5.1.0-cp37-cp37m-win32.whl", hash = "sha256:06bed66ae62d517f67a61cf53c056800b35ef364270723168a1db62702e2d30c"},
+    {file = "ujson-5.1.0-cp37-cp37m-win_amd64.whl", hash = "sha256:74e41a0222e6e8136e38f103d6cc228e4e20f1c35cc80224a42804fd67fb35c8"},
+    {file = "ujson-5.1.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:7bbb87f040e618bebe8c6257b3e4e8ae2f708dcbff3270c84718b3360a152799"},
+    {file = "ujson-5.1.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:68e38122115a8097fbe1cfe52979a797eaff91c10c1bf4b27774e5f30e7f723a"},
+    {file = "ujson-5.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b09843123425337d2efee5c8ff6519e4dfc7b044db66c8bd560517fc1070a157"},
+    {file = "ujson-5.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8dca10174a3bd482d969a2d12d0aec2fdd63fb974e255ec0147e36a516a2d68a"},
+    {file = "ujson-5.1.0-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:202ae52f4a53f03c42ead6d046b1a146517e93bd757f517bdeef0a26228e0260"},
+    {file = "ujson-5.1.0-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:7a4bed7bd7b288cf73ba47bda27fdd1d78ef6906831489e7f296aef9e786eccb"},
+    {file = "ujson-5.1.0-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:d423956f8dfd98a075c9338b886414b6e3c2817dbf67935797466c998af39936"},
+    {file = "ujson-5.1.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:083c1078e4de3a39019e590c43865b17e07a763fee25b012e650bb4f42c89703"},
+    {file = "ujson-5.1.0-cp38-cp38-win32.whl", hash = "sha256:31671ad99f0395eb881d698f2871dc64ff00fbd4380c5d9bfd8bff3d4c8f8d88"},
+    {file = "ujson-5.1.0-cp38-cp38-win_amd64.whl", hash = "sha256:994eaf4369e6bc24258f59fe8c6345037abcf24557571814e27879851c4353aa"},
+    {file = "ujson-5.1.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:00d6ea9702c2eaeaf1a826934eaba1b4c609c873379bf54e36ba7b7e128edf94"},
+    {file = "ujson-5.1.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a53c4fe8e1c067e6c98b4526e982ed9486f08578ad8eb5f0e94f8cadf0c1d911"},
+    {file = "ujson-5.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:368f855779fded560724a6448838304621f498113a116d66bc5ed5ad5ad3ca92"},
+    {file = "ujson-5.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4dd97e45a0f450ba2c43cda18147e54b8e41e886c22e3506c62f7d61e9e53b0d"},
+    {file = "ujson-5.1.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:caeadbf95ce277f1f8f4f71913bc20c01f49fc9228f238920f9ff6f7645d2a5f"},
+    {file = "ujson-5.1.0-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:681fed63c948f757466eeb3aea98873e2ab8b2b18e9020c96a97479a513e2018"},
+    {file = "ujson-5.1.0-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:6fc4376266ae67f6d8f9e69386ab950eb84ba345c6fdbeb1884fa5b773c8c76b"},
+    {file = "ujson-5.1.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:585271d6ad545a2ccfc237582f70c160e627735c89d0ca2bde24afa321bc0750"},
+    {file = "ujson-5.1.0-cp39-cp39-win32.whl", hash = "sha256:b631af423e6d5d35f9f37fbcc4fbdb6085abc1c441cf864c64b7fbb5b150faf7"},
+    {file = "ujson-5.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:08265db5ccff8b521ff68aee13a417d68cca784d7e711d961b92fda6ccffcc4f"},
+    {file = "ujson-5.1.0-pp37-pypy37_pp73-macosx_10_9_x86_64.whl", hash = "sha256:e2b1c372583eb4363b42e21222d3a18116a41973781d502d61e1b0daf4b8352f"},
+    {file = "ujson-5.1.0-pp37-pypy37_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:51142c9d40439f299594e399bef8892a16586ded54c88d3af926865ca221a177"},
+    {file = "ujson-5.1.0-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7ba8be1717b1867a85b2413a8585bad0e4507a22d6af2c244e1c74151f6d5cc0"},
+    {file = "ujson-5.1.0-pp37-pypy37_pp73-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:d0b26d9d6eb9a0979d37f28c715e717a409c9e03163e5cd8fa73aab806351ab5"},
+    {file = "ujson-5.1.0-pp37-pypy37_pp73-win_amd64.whl", hash = "sha256:b2c7e4afde0d36926b091fa9613b18b65e911fcaa60024e8721f2dcfedc25329"},
+    {file = "ujson-5.1.0-pp38-pypy38_pp73-macosx_10_9_x86_64.whl", hash = "sha256:110633a8dda6c8ca78090292231e15381f8b2423e998399d4bc5f135149c722b"},
+    {file = "ujson-5.1.0-pp38-pypy38_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fdac161127ef8e0889180a4c07475457c55fe0bbd644436d8f4c7ef07565d653"},
+    {file = "ujson-5.1.0-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:452990c2b18445a7379a45873527d2ec47789b9289c13a17a3c1cc76b9641126"},
+    {file = "ujson-5.1.0-pp38-pypy38_pp73-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5304ad25d100d50b5bc8513ef110335df678f66c7ccf3d4728c0c3aa69e08e0c"},
+    {file = "ujson-5.1.0-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:ce620a6563b21aa3fbb1658bc1bfddb484a6dad542de1efb5121eb7bb4f2b93a"},
+    {file = "ujson-5.1.0.tar.gz", hash = "sha256:a88944d2f99db71a3ca0c63d81f37e55b660edde0b07216fb65a3e46403ef004"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.6-py2.py3-none-any.whl", hash = "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4"},
