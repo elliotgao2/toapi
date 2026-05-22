@@ -1160,7 +1160,7 @@ wheels = [
 
 [[package]]
 name = "toapi"
-version = "2.2.3"
+version = "2.2.4"
 source = { editable = "." }
 dependencies = [
     { name = "charset-normalizer" },
