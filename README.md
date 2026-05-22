@@ -1,9 +1,12 @@
 # toapi
 
-[![CI](https://github.com/elliotgao2/toapi/actions/workflows/ci.yml/badge.svg)](https://github.com/elliotgao2/toapi/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/toapi.svg)](https://pypi.org/project/toapi/)
-[![Python](https://img.shields.io/pypi/pyversions/toapi.svg)](https://pypi.org/project/toapi/)
-[![License](https://img.shields.io/pypi/l/toapi.svg)](https://pypi.org/project/toapi/)
+[![CI](https://img.shields.io/github/actions/workflow/status/elliotgao2/toapi/ci.yml?branch=master&style=for-the-badge&logo=githubactions&logoColor=white&label=CI)](https://github.com/elliotgao2/toapi/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/toapi?style=for-the-badge&logo=pypi&logoColor=white&label=PyPI&color=3775A9)](https://pypi.org/project/toapi/)
+[![Python](https://img.shields.io/pypi/pyversions/toapi?style=for-the-badge&logo=python&logoColor=white&color=3776AB)](https://pypi.org/project/toapi/)
+[![License](https://img.shields.io/pypi/l/toapi?style=for-the-badge&color=A31F34)](https://pypi.org/project/toapi/)
+[![Downloads](https://img.shields.io/pypi/dm/toapi?style=for-the-badge&logo=pypi&logoColor=white&label=Downloads&color=5C7CFA)](https://pypi.org/project/toapi/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json&style=for-the-badge)](https://github.com/astral-sh/ruff)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=for-the-badge)](https://github.com/astral-sh/uv)
 
 > Turn any website into a JSON API — declaratively.
 
