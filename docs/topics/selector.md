@@ -1,57 +1,45 @@
-Selector fields is used to parse field values from HTML. There are three selectors right now:
+# Selectors
 
-- XPath
-- Css
-- Regex
-
-## Core arguments
-
-Each Selector field class constructor takes at least these arguments.  Some Field classes take additional, field-specific arguments, but the following should always be accepted:
-
-### `rule`
-
-The arguments `rule` is the rule of selector which maybe a xpath expression or a css select expression or a regex expression.
- 
-## XPath Selector
-
-The rule argument is xpath expression.
+`toapi` doesn't ship its own selectors — it uses the ones from
+[`htmlparsing`](https://pypi.org/project/htmlparsing/). Import them directly:
 
 ```python
-from toapi import XPath
-
-field = XPath('//a[@class="user"]/text()')
+from htmlparsing import Attr, Text
 ```
 
-**Signature:** `XPath(rule)`
+## `Text(css)`
 
----
-
-## Css Selector
-
-The rule argument is css select expression.
+Extracts the text content of the first element matching `css`.
 
 ```python
-from toapi import Css
-
-field = Css('a.user', attr='href')
+title = Text(".titleline > a")
 ```
 
-**Signature:** `Css(rule, attr=None)`
+## `Attr(css, name)`
 
-- `attr` Css select expression can't determine which part ot parse. We need the `attr` argument for that.
-
----
-
-## Regex Selector
-
-The rule argument regex expression.
+Extracts the value of the `name` attribute on the first element matching
+`css`.
 
 ```python
-from toapi import Regex
-
-field = Regex('\d{18}')
+url = Attr(".titleline > a", "href")
+image = Attr("img.thumbnail", "src")
 ```
 
-**Signature:** `Regex(rule)`
+## Choosing selectors
 
----
+Selectors are plain CSS, so anything that works in your browser's DevTools
+works here. A few tips:
+
+- **Inspect first.** Open the source page in DevTools and right-click → *Copy
+  selector* to get a starting point.
+- **Be specific.** Class names like `.title` are often reused; combine with
+  parent selectors (`.story .title`) for stability.
+- **Watch for SSR vs JS.** If the data only appears after JavaScript runs,
+  CSS selectors won't see it — pass `browser="/path/to/geckodriver"` to `Api`
+  to render with a real browser.
+
+## Cleaning vs selecting
+
+Selectors only *find* values. To transform them (URL rewriting, type casting,
+normalizing whitespace), use a `clean_<field>` method on the Item — see
+[Item](item.md).

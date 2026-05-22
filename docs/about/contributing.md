@@ -1,62 +1,51 @@
-# Contributing to Toapi
+# Contributing
 
-An introduction to contributing to the Toapi project.
+Thanks for your interest in improving `toapi`! Bug reports, feature ideas,
+documentation tweaks, and pull requests are all welcome.
 
-The Toapi project welcomes, and depends, on contributions from developers and
-users in the open source community. Contributions can be made in a number of
-ways, a few examples are:
+## Reporting an issue
 
-- Code patches via pull requests
-- Documentation improvements
-- Bug reports and patch reviews
+Open an issue on [GitHub](https://github.com/elliotgao2/toapi/issues) with:
 
-## Donate
+- What you tried
+- What you expected to happen
+- What actually happened (including the full error and traceback)
+- Your Python version and `toapi` version
 
-[BTC(0.005)](https://blockchain.info/payment_request?address=18QChGWtGWAQyXKQVmnpKf7pdm7mYxoYTQ&amount=0.005&message=For%20Github%20Projects.)
+## Setting up a development environment
 
-## Code of Conduct
-
-Everyone interacting in the Toapi project's codebases, issue trackers, chat
-rooms, and mailing lists is expected to follow the [PyPA Code of Conduct].
-
-## Reporting an Issue
-
-Please include as much detail as you can. Let us know your platform and Toapi
-version. If the problem is visual (for example a theme or design issue) please
-add a screenshot and if you get an error please include the full error and
-traceback.
-
-## Installing for Development
-
-Run the following command. It is **strongly** recommended that you do
-this within a [virtualenv].
+We use [uv](https://github.com/astral-sh/uv) for packaging and
+[ruff](https://github.com/astral-sh/ruff) for lint and format.
 
 ```bash
-git clone https://github.com/gaojiuli/toapi
+git clone https://github.com/elliotgao2/toapi.git
 cd toapi
-pip install --editable .
+uv sync
 ```
 
-This will install Toapi in development mode which binds the `toapi` command
-to the git repository.
+Install the pre-commit hooks so ruff runs on every commit:
 
-## Running the tests
+```bash
+uv run pre-commit install
+```
 
-To run the tests, it is recommended that you use [pytest]. This just needs
-to be pip installed and then the test suite can be ran for Toapi but running
-the command `pytest` in the root of your Toapi repository.
+## Running the checks
 
-It will attempt to run the tests against all of the Python versions we
-support. So don't be concerned if you are missing some and they fail. The rest
-will be verified by [Travis] when you submit a pull request.
+```bash
+uv run pytest               # tests
+uv run ruff check .         # lint
+uv run ruff format --check . # format
+```
 
-## Submitting Pull Requests
+CI runs the same checks on Python 3.10, 3.11, and 3.12.
 
-Once you are happy with your changes or you are ready for some feedback, push
-it to your fork and send a pull request. For a change to be accepted it will
-most likely need to have tests and documentation if it is a new feature.
+## Submitting a pull request
 
-[virtualenv]: https://virtualenv.pypa.io/en/latest/userguide.html
-[pytest]: https://docs.pytest.org/en/latest/
-[travis]: https://travis-ci.org/repositories
-[PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
+1. Fork the repo and create a topic branch.
+2. Make your change. Keep diffs focused — one concern per PR.
+3. Add or update tests when the behavior changes.
+4. Make sure `pytest` and `ruff check` pass locally.
+5. Open the PR with a short description of *what* changed and *why*.
+
+For non-trivial changes, please open an issue first so we can discuss the
+approach before you spend time on it.

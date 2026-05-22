@@ -38,12 +38,12 @@ class Api:
                 logger.info(
                     Fore.GREEN,
                     "Received",
-                    "%s %s 200 %.2fms" % (request.url, len(res.response), time_usage * 1000),
+                    f"{request.url} {len(res.response)} 200 {time_usage * 1000:.2f}ms",
                 )
                 return res
             except Exception as e:
                 logger.error("Serving", f"{e}")
-                logger.error("Serving", "%s" % str(traceback.format_exc()))
+                logger.error("Serving", traceback.format_exc())
                 return jsonify({"msg": "System Error", "code": -1}), 500
 
     def run(self, host="127.0.0.1", port=5000, **options):
@@ -51,12 +51,12 @@ class Api:
             logger.info(Fore.GREEN, "Serving", f"http://{host}:{port}")
             self.app.run(host, port, **options)
         except Exception as e:
-            logger.error("Serving", "%s" % str(e))
-            logger.error("Serving", "%s" % str(traceback.format_exc()))
+            logger.error("Serving", f"{e}")
+            logger.error("Serving", traceback.format_exc())
             exit()
 
-    def absolute_url(self, base_url, url: str) -> str:
-        return "{}/{}".format(base_url, url.lstrip("/"))
+    def absolute_url(self, base_url: str, url: str) -> str:
+        return f"{base_url}/{url.lstrip('/')}"
 
     def convert_string(self, source_string, source_format, target_format):
         parsed_words = parse(source_format, source_string)

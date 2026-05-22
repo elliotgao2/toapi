@@ -1,45 +1,71 @@
-Item is the key to the whole system which determine what is the result and
-where is the result. 
+# Item
+
+An `Item` is a data shape. You declare what fields you want and how to find
+them in the HTML; `toapi` does the rest.
 
 ```python
-from toapi import XPath, Item
-
-class MovieList(Item):
-    __base_url__ = 'http://www.dy2018.com'
-    
-    url = XPath('//b//a[@class="ulink"]/@href')
-    title = XPath('//b//a[@class="ulink"]/text()')
-
-    class Meta:
-        source = XPath('//table[@class="tbspan"]')
-        route = {'/movies/?page=1': '/html/gndy/dyzz/',
-                 '/movies/?page=:page': '/html/gndy/dyzz/index_:page.html',
-                 '/movies/': '/html/gndy/dyzz/'}
-```
-
-When you visit `http://127.0.0.1:/movies/?page=2`, You could get the item from `http://www.dy2018.com/html/gndy/dyzz/index_2.html`
-
-As you can see. The fields of item are [selector instances](selector). 
-And the Meta class determine the basic attributes of item.
-
-- Meta.source: A section of a HTML, which should contains one complete item. It is a [selector instance](selector)
-- Meta.route: The url path regex expression of source site.
- 
-## Clean Data
-
-The `clean_{field}` method of item instance is for further processing the returned values. For example:
-
-```python
-from toapi import XPath, Item
+from htmlparsing import Attr, Text
+from toapi import Item
 
 class Post(Item):
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
+    title = Text(".titleline > a")
+    url = Attr(".titleline > a", "href")
+```
 
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = {'/':'/'}
-        
-    def clean_url(self, url):
-        return 'http://127.0.0.1%s' % url
+Each class attribute that is a *Selector* (`Text`, `Attr`, etc. from
+`htmlparsing`) becomes a field. Everything else stays a regular class
+attribute or method.
+
+## List vs detail
+
+By default an Item is a *detail* — it produces a single dict from the page.
+
+```python
+{"title": "...", "url": "..."}
+```
+
+Decorating it with `@api.list(".something")` makes it a *list* — it produces
+one dict per element matched by the selector.
+
+```python
+[{"title": "...", "url": "..."}, {"title": "...", "url": "..."}]
+```
+
+## Cleaning fields
+
+To transform a field's value before it's returned, define `clean_<fieldname>`
+on the Item:
+
+```python
+class Page(Item):
+    next_page = Attr(".morelink", "href")
+
+    def clean_next_page(self, value):
+        return f"/posts?{value.split('?', 1)[1]}"
+```
+
+Clean methods receive the parsed value and return the transformed one. They
+run after parsing, before caching, on every entry of a list item.
+
+## Multiple Items per page
+
+Several Items can share the same route. Their results are merged into one
+JSON response, keyed by class name:
+
+```python
+@api.route("/posts", "/news")
+@api.list(".athing")
+class Post(Item): ...
+
+
+@api.route("/posts", "/news")
+class Page(Item):
+    next_page = Attr(".morelink", "href")
+```
+
+```json
+{
+  "Post": [...],
+  "Page": {"next_page": "..."}
+}
 ```

@@ -1,6 +1,6 @@
 [project]
 name = "toapi"
-version = "2.2.0"
+version = "2.2.1"
 description = "Every web site provides APIs."
 authors = [{ name = "Elliot Gao", email = "gaojiuli@gmail.com" }]
 license = { text = "MIT" }

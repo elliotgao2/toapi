@@ -1,56 +1,61 @@
-site_name: Toapi
-site_url: http://www.toapi.org
-site_description: Every web site provides APIs.
-site_author: Jiuli Gao
+site_name: toapi
+site_description: Turn any website into a JSON API.
+site_author: Elliot Gao
+site_url: https://elliotgao2.github.io/toapi/
 
-repo_url: https://github.com/gaojiuli/toapi/
-repo_name: 'gaojiuli/toapi'
+repo_url: https://github.com/elliotgao2/toapi
+repo_name: elliotgao2/toapi
 
-pages:
-    - Toapi:
-        - Introduce: index.md
-        - Installation: about/installation.md
-        - Release Notes: about/release-notes.md
-        - Contributing: about/contributing.md
-        - License: about/license.md
-    - Tutorials:
-        - Introducing Aim: tutorials/introducing.md
-        - Step 0 Creating New Project: tutorials/step0-creating-new-project.md
-        - Step 1 Global Settings: tutorials/step1-global-settings.md
-        - Step 2 Using Redis: tutorials/step2-redis.md
-        - Step 3 Using Sqlite: tutorials/step3-sqlite3.md
-        - Step 4 Defining Items: tutorials/step4-defining-items.md
-        - Step 5 Deploy: tutorials/step5-deploy.md
-    - Topics:
-        - Api: topics/api.md
-        - Item: topics/item.md
-        - Selector: topics/selector.md
-        - Settings: topics/settings.md
-        - Cache: topics/cache.md
-        - Storage: topics/storage.md
-    - Articles:
-        - Toapi released: articles/release.md
-
-markdown_extensions:
-    - toc:
-        permalink: 
-    - admonition
-    - def_list
-    - codehilite
-
-copyright: Copyright &copy; 2017 <a href="https://github.com/gaojiuli">Jiuli Gao</a>.
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Topics:
+      - Api: topics/api.md
+      - Item: topics/item.md
+      - Selectors: topics/selector.md
+  - About:
+      - Installation: about/installation.md
+      - Release Notes: about/release-notes.md
+      - Contributing: about/contributing.md
+      - License: about/license.md
 
 theme:
-  name: 'material'
+  name: material
+  logo: logo.png
+  favicon: logo.png
   palette:
-    primary: 'blue'
-    accent: 'blue'
-  font:
-    text: 'Ubuntu'
-    code: 'Ubuntu Mono'
-  logo: './logo.png'
-  social:
-    - type: 'github'
-      link: 'https://github.com/gaojiuli'
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+
 plugins:
-    - search
+  - search
+
+copyright: Copyright &copy; 2021 Elliot Gao

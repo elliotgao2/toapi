@@ -1,90 +1,83 @@
-Api is the whole program entrance which connects items, cache, storage, 
-handles the request from user and fetches html from source sites. For 
-example:
+# Api
+
+`Api` is the entry point. It owns the Flask app, the cache, and the registry
+of routes.
 
 ```python
-from toapi import XPath, Item, Api
+from toapi import Api
 
-api = Api(base_url='https://news.ycombinator.com')
-
-
-class Post(Item):
-    url = XPath('//a[@class="storylink"]/@href')
-    title = XPath('//a[@class="storylink"]/text()')
-
-    class Meta:
-        source = XPath('//tr[@class="athing"]')
-        route = '/'
-
-
-api.register(Post)
-api.serve()
+api = Api()
 ```
 
-## Arguments
+## Constructor
 
-### `base_url`
+```python
+Api(site: str = "", browser: str | None = None)
+```
 
-The argument `base_url` is hostname of source web site. `default = None`
+- **`site`** — a default base URL prefix appended in front of every Item's
+  source path. Most users leave this blank and put the site on the Item with
+  `@api.site(...)`.
+- **`browser`** — path to a headless-browser driver (e.g. `geckodriver`).
+  When set, pages are fetched through the browser instead of plain
+  `requests`. Useful for JavaScript-heavy sites.
 
-### `settings`
+## Decorators
 
-The argument `settings` is the global configuration of the whole app. `default = None` means use default settings.
+Decorators are stacked on an `Item` class to declare *what* to scrape,
+*where* it lives, and *which URLs* expose it.
 
----
+### `@api.site(url)`
 
-## Methods
+Sets the source website for an Item.
 
-### .register(self, item)
+```python
+@api.site("https://news.ycombinator.com")
+class Post(Item): ...
+```
 
-Register an item so that we could parse it.
+### `@api.list(selector)`
 
+Marks the Item as a *list item* — the parser will return one entry per
+element matched by `selector` on the source page.
 
-### .serve(self, ip='127.0.0.1', port=5000, **options)
+```python
+@api.list(".athing")
+class Post(Item): ...
+```
 
-Start to serve.
+Without `@api.list`, the Item is a *detail item* — it parses a single record
+from the page.
 
+### `@api.route(api_path, source_path)`
 
-### .parse(self, path, params=None, **kwargs)
+Maps a path on your API to a path on the source site. Placeholders like
+`{page}` are passed through both directions.
 
-Parse items if the path is defined in registered items.
+```python
+@api.route("/posts?page={page}", "/news?p={page}")
+@api.route("/posts", "/news")
+class Post(Item): ...
+```
 
+Multiple `@api.route` decorators may be stacked on the same Item.
 
-### .fetch_page_source(self, url, item, params=None, **kwargs)
+## `api.run(host, port, **flask_options)`
 
-Fetch html from an url.
+Starts the Flask development server.
 
+```python
+api.run(host="0.0.0.0", port=5000, debug=True)
+```
 
-### .get_browser(self, settings, item_with_ajax=False)
+For production, mount `api.app` (a plain Flask app) under your WSGI server of
+choice — gunicorn, uWSGI, waitress.
 
-Init a PhantomJS instance to the Api instance.
+## Caching
 
-### .update_status(self, key)
+Two in-memory caches are populated automatically:
 
-Update status of Api instance.
+- **Page cache** (`api._storage`) — keyed by source URL, stores raw HTML.
+- **Result cache** (`api._cache`) — keyed by API path, stores parsed JSON.
 
-### .get_status(self, key)
-
-Get status of Api instance.
-
-### .set_cache(self, key, value)
-
-Set cache. In Api instance, the value usually in type of `dict`.
-
-### .get_cache(self, key)
-
-Get cache.
-
-### .set_storage(self, key, value)
-
-Set storage.In Api instance, the value is usually a HTML.
-
-### .get_storage(self, key)
-
-Get storage.
-
-### .parse_item(self,  html, item)
-
-Parse items from HTML.
-
-
+Both live for the lifetime of the process. Restart to clear.
