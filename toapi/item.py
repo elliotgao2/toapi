@@ -35,7 +35,7 @@ class Item(metaclass=ItemType):
 
     @classmethod
     def _clean(cls, item):
-        for name, selector in cls.__fields__.items():
+        for name, _selector in cls.__fields__.items():
             clean_method = getattr(cls, "clean_%s" % name, None)
             if clean_method is not None:
                 item[name] = clean_method(cls, item[name])

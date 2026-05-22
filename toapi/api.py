@@ -3,8 +3,8 @@ import traceback
 from collections import defaultdict
 from time import time
 
-import cchardet
 import requests
+from charset_normalizer import detect
 from colorama import Fore
 from flask import Flask, jsonify, request
 from htmlfetcher import HTMLFetcher
@@ -38,8 +38,7 @@ class Api:
                 logger.info(
                     Fore.GREEN,
                     "Received",
-                    "%s %s 200 %.2fms"
-                    % (request.url, len(res.response), time_usage * 1000),
+                    "%s %s 200 %.2fms" % (request.url, len(res.response), time_usage * 1000),
                 )
                 return res
             except Exception as e:
@@ -74,9 +73,7 @@ class Api:
 
         results = {}
         for source_format, target_format, item in self._routes:
-            parsed_path = self.convert_string(
-                full_path, source_format, target_format
-            )
+            parsed_path = self.convert_string(full_path, source_format, target_format)
             if parsed_path is not None:
                 full_url = self.absolute_url(item._site, parsed_path)
                 html = self.fetch(full_url)
@@ -103,7 +100,7 @@ class Api:
         else:
             r = requests.get(url)
             content = r.content
-            charset = cchardet.detect(content)
+            charset = detect(content)
             html = content.decode(charset["encoding"] or "utf-8")
         logger.info(Fore.GREEN, "Sent", f"{url} {len(html)}")
         self._storage[url] = html
